@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "166810929707",
+    "project_id": "foolog-7a23c",
+    "storage_bucket": "foolog-7a23c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:166810929707:android:026f0c5624940e758ab86e",
+        "android_client_info": {
+          "package_name": "com.mayuresh.foolog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "166810929707-blnq5cqkgbtvkncc8ugo3lhhldgi8r31.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mayuresh.foolog",
+            "certificate_hash": "98b632b087f2233cf6d4ec60cc394f7f520a0d83"
+          }
+        },
+        {
+          "client_id": "166810929707-qjoijamermecghjmsj1knjc36t2egsgv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4HxtBL4tfQ8IhrdSAZnr5tDhSnIW5b-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "166810929707-qjoijamermecghjmsj1knjc36t2egsgv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
