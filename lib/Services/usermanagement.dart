@@ -4,8 +4,10 @@ import 'package:flutter/widgets.dart';
 import 'package:foolog/Screen/Home.dart';
 
 class UserManagement{
+  final CollectionReference CurrUserDetails = FirebaseFirestore.instance.collection("user");
+
   StoreNewUser(user,username,context){
-    FirebaseFirestore.instance.collection('/user').add({
+    FirebaseFirestore.instance.collection('user').add({
       'email':user.email,
       'uid':user.uid,
       'username':username,
@@ -18,5 +20,11 @@ class UserManagement{
     {
       print(e);
     });
+
   }
+
+  Stream<QuerySnapshot> get UserDetails{
+    return CurrUserDetails.snapshots();
+  }
+
 }

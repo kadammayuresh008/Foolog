@@ -2,12 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:foolog/Screen/Helper/BlogCard.dart';
 import 'package:foolog/Screen/Payment.dart';
-import 'package:foolog/Screen/chats.dart';
 import 'package:foolog/Screen/Profile.dart';
+import 'package:foolog/Screen/chats.dart';
 import 'package:foolog/Screen/AddBlog.dart';
 import 'package:foolog/Screen/Search.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:foolog/Services/blogManagement.dart';
+import 'package:foolog/Services/usermanagement.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -62,6 +63,9 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    // return MultiProvider(
+    //   providers: [],
+    // );
     return StreamProvider<QuerySnapshot>.value(
       value:blogManagement().Blog,
       child: Scaffold(

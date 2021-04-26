@@ -289,7 +289,7 @@ class _AddBlogState extends State<AddBlog> {
                   onPressed: () {
                     if(_formKey.currentState.validate())
                       {
-                        blogManagement().StoreBlog(_imageFile.path,_location,_caption,_price,context);
+                        blogManagement().StoreBlog(_imageFile,_location,_caption,_price,context);
                         _scaffoldKey.currentState.showSnackBar(
                             new SnackBar(
                               content: new Text('Your Blog has been Added.',

@@ -5,6 +5,7 @@ import "package:firebase_auth/firebase_auth.dart";
 import 'package:foolog/Screen/Login.dart';
 import 'package:foolog/Services/usermanagement.dart';
 import "package:foolog/Services/auth.dart";
+import 'package:foolog/models/User.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -228,23 +229,21 @@ class _SignupState extends State<Signup> {
                   shape: RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(10.0)),
                   color: Colors.purple,
-                  onPressed: (){
+                  onPressed: () async{
                     if(_formKey.currentState.validate())
                       {
-                        dynamic result = AuthService().CreateUserWithEmailandPassword(_email,_password);
-                        print("The result is:");
-                        print("\\\\\\\\\\\\\\\\\\\\\\");
-                        print(result);
+                        Users result = await AuthService().CreateUserWithEmailandPassword(_email,_password);
                         if(result==null)
                           {
                             print("Error in creating user.");
                           }
                         else{
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Home()),
-                          );
-                          UserManagement().StoreNewUser(result.user,_username,context);
+                          UserManagement().StoreNewUser(result,_username,context);
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => Home()),
+                          // );
+                          // print(result.user);
                         }
                         // FirebaseAuth.instance
                         //     .createUserWithEmailAndPassword(

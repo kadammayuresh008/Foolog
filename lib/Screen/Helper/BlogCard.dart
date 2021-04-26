@@ -2,6 +2,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:foolog/Screen/Payment.dart';
+import 'package:foolog/Screen/SplashScreen.dart';
 import 'package:foolog/Screen/chats.dart';
 import 'package:provider/provider.dart';
 
@@ -57,9 +58,7 @@ class _BlogCardState extends State<BlogCard> {
                     child:Carousel(
                       boxFit: BoxFit.cover,
                       images: [
-                        Image.asset('assets/Images/Image1.jfif'),
-                        Image.asset('assets/Images/Image2.jfif'),
-                        Image.asset('assets/Images/Image3.jpg'),
+                        Image.asset(image),
                       ],
                       autoplay: false,
                       // animationCurve: Curves.fastOutSlowIn,
@@ -240,11 +239,13 @@ class _BlogCardState extends State<BlogCard> {
 
   Widget build(BuildContext context) {
     final BlogList = Provider.of<QuerySnapshot>(context);
-    // for(var docs = 0;docs < BlogList.docs.length;docs++)
-    //   {
-    //     print(docs);
-    //   }
-    return ListView.builder(
+    return BlogList==null?
+    Center(
+        child:CircularProgressIndicator(
+      valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+      backgroundColor: Colors.white,
+    ))
+        : ListView.builder(
         itemCount: BlogList.docs.length,
         itemBuilder: (BuildContext context,int index)
     {

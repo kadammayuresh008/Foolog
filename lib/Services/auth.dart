@@ -9,20 +9,6 @@ class AuthService{
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
 
-  // Future GetCurrentUser() async{
-  //   final dynamic curUser = _auth.currentUser;
-  //   final dynamic blogUser = await FirebaseFirestore.instance.collection("/user")
-  //       .where("uid",isEqualTo: curUser.uid);
-  //   print(blogUser);
-  //   // final dynamic UserList =blogUser.snapshots();
-  //   // print(UserList);
-  //   for(var doc in blogUser.snapshots())
-  //     {
-  //       print(doc);
-  //     }
-  //   // print(blogUser);
-  // }
-
 
   // create user obj on firebase user
   Users _userFromFirebaseUser(dynamic user){
@@ -35,11 +21,14 @@ class AuthService{
 
   //Create User with emal and password
 
-  Future CreateUserWithEmailandPassword(String email,String password) async{
+  Future<Users> CreateUserWithEmailandPassword(String email,String password) async{
     try{
       final dynamic result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      final dynamic user = result.user;
-      return _userFromFirebaseUser(user);
+      dynamic user = result.user;
+      user=_userFromFirebaseUser(user);
+      print(user.email);
+      print(user.uid);
+      return user;
     }
     catch(e)
     {
