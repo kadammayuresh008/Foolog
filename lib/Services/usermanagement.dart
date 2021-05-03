@@ -11,6 +11,9 @@ class UserManagement{
       'email':user.email,
       'uid':user.uid,
       'username':username,
+      'Followers':0,
+      'Following':0,
+      'Post':0,
     }).then((value){
       Navigator.push(
         context,

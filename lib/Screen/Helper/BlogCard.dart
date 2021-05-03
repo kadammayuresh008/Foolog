@@ -13,6 +13,7 @@ class BlogCard extends StatefulWidget {
 }
 
 class _BlogCardState extends State<BlogCard> {
+  bool like = false;
   @override
   Widget __Text(String caption,String location,String likes,String image,String price){
     return Container(
@@ -52,23 +53,37 @@ class _BlogCardState extends State<BlogCard> {
                     width: 900,
                     height: 60,
                   ),
-                  Container(
-                    height:325,
-                    width: double.infinity,
-                    child:Carousel(
-                      boxFit: BoxFit.cover,
-                      images: [
-                        Image.asset(image),
-                      ],
-                      autoplay: false,
-                      // animationCurve: Curves.fastOutSlowIn,
-                      //  animationDuration: Duration(milliseconds: 1000),
-                      dotSize: 4.0,
-                      indicatorBgPadding: 6.0,
-                      dotBgColor: Colors.transparent,
-                      dotColor: Colors.purple,
-                      dotIncreasedColor: Colors.purple,
-                    ),),
+                  GestureDetector(
+                    onDoubleTap:(){
+                      setState(() {
+                        like = !like;
+                      });
+                      // if(like==true)
+                      //   {
+                      //     like();
+                      //   }
+                      // else{
+                      //   dislike();
+                      // }
+                    },
+                    child: Container(
+                      height:325,
+                      width: double.infinity,
+                      child:Carousel(
+                        boxFit: BoxFit.cover,
+                        images: [
+                          Image.network(image),
+                        ],
+                        autoplay: false,
+                        // animationCurve: Curves.fastOutSlowIn,
+                        //  animationDuration: Duration(milliseconds: 1000),
+                        dotSize: 4.0,
+                        indicatorBgPadding: 6.0,
+                        dotBgColor: Colors.transparent,
+                        dotColor: Colors.purple,
+                        dotIncreasedColor: Colors.purple,
+                      ),),
+                  ),
                   // Image.asset("assets/Images/Image2.jfif",
                   //   width: double.infinity,
                   //   height:325,
@@ -82,9 +97,13 @@ class _BlogCardState extends State<BlogCard> {
                             children:<Widget> [
                               Row(
                                 children:[
+                                  like==false?
                                   IconButton(icon:Icon(Icons.favorite_border,
                                       size: 30.0,
                                       color:Colors.black),
+                                      onPressed: null):IconButton(icon:Icon(Icons.favorite_sharp,
+                                      size: 30.0,
+                                      color:Colors.red),
                                       onPressed: null),
                                   IconButton(icon:Icon(Icons.message,
                                       size: 30.0,
@@ -115,7 +134,8 @@ class _BlogCardState extends State<BlogCard> {
                                   padding: const EdgeInsets.fromLTRB(16, 0, 8, 4),
                                   child: Text(" $likes likes",
                                       style:TextStyle(
-                                          color:Colors.black
+                                          color:Colors.black,
+                                          fontWeight: FontWeight.bold,
                                       )),
                                 ),
                               ]
@@ -143,35 +163,38 @@ class _BlogCardState extends State<BlogCard> {
                           ),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(16,2,0,0),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children:<Widget> [
-                                  Text(
-                                      "Rs.",
+                            child:Row(
+                              mainAxisAlignment:MainAxisAlignment.start,
+                              children: [
+                                GestureDetector(
+                                  onTap:(){
+                                    print("Comment page Open");
+                          },
+                                  child:Text("View Comments",
                                       style:TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color:Colors.purple,
-                                        fontSize: 25.0,
-                                      )),
-                                  SizedBox(width:5.0),
-                                  price==null?
-                                  Flexible(
-                                    child:Text("0",
-                                        style:TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color:Colors.purple,
-                                          fontSize: 25.0,
-                                        )),
-                                  ):Flexible(
-                                    child:Text(price, style:TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color:Colors.purple,
-                                      fontSize: 25.0,
-                                    )),
-                                  ),
-                                ]
+                                          color:Colors.grey
+                                      ))
+                                ),
+                              ],
                             ),
-                          ),
+                          //         price==null?
+                          //         Flexible(
+                          //           child:Text("0",
+                          //               style:TextStyle(
+                          //                 fontWeight: FontWeight.bold,
+                          //                 color:Colors.purple,
+                          //                 fontSize: 25.0,
+                          //               )),
+                          //         ):Flexible(
+                          //           child:Text(price, style:TextStyle(
+                          //             fontWeight: FontWeight.bold,
+                          //             color:Colors.purple,
+                          //             fontSize: 25.0,
+                          //           )),
+                          //         ),
+                          //       ]
+                          //   ),
+                          // ),
 
                           // Row(
                           //     mainAxisAlignment: MainAxisAlignment.start,
@@ -225,11 +248,39 @@ class _BlogCardState extends State<BlogCard> {
                           //       ]
                           //   ),
                           // ),
-                        ]
                     ),
+                         Padding(
+                           padding: const EdgeInsets.fromLTRB(16,0,16,0),
+                           child: TextFormField(
+                             decoration: InputDecoration(
+                               errorStyle: TextStyle(color: Colors.purple),
+                               prefixIcon: IconButton(
+                                 icon:Icon(
+                                   Icons.comment,
+                                   color: Colors.black,
+                                 ),
+                               ),
+                               suffixIcon:IconButton(
+                                 icon: Icon(
+                                   Icons.send,
+                                   color:Colors.black,
+                                 ),
+                                 onPressed: (){
+                                   print("Add Comment");
+                                 },
+                               ) ,
+                               hintText: 'Add Comment',
+                               hintStyle: TextStyle(
+                                 color: Colors.black,
+                               ),
+                             ),
+                                ),
+                         )
+                        ]),
+
                     color: Colors.white,
                     width: 900,
-                    height: 120,
+                    height: 150,
                   ),
                   SizedBox(height:15.0),
                 ]
@@ -251,7 +302,7 @@ class _BlogCardState extends State<BlogCard> {
     {
       return __Text(BlogList.docs[index]["caption"],
                     BlogList.docs[index]["location"],
-                    BlogList.docs[index]["likes"],
+                    BlogList.docs[index]["likes"].toString(),
                     BlogList.docs[index]["image"],
                     BlogList.docs[index]["price"],
       );

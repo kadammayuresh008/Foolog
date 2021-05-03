@@ -14,13 +14,19 @@ class _ProfileTopState extends State<ProfileTop> {
     final _auth = FirebaseAuth.instance;
     final userDetails = Provider.of<QuerySnapshot>(context);
     var username;
+    int Followers;
+    int Following;
+    int Posts;
     for (var index = 0; index < userDetails.docs.length; index++) {
       var x = userDetails.docs[index]["uid"];
       if (x == _auth.currentUser.uid) {
         username = userDetails.docs[index]["username"];
+        Followers=userDetails.docs[index]["Followers"];
+        Following=userDetails.docs[index]["Following"];
+        Posts=userDetails.docs[index]["Post"];
       }
     }
-      return Container(
+      return userDetails==null?CircularProgressIndicator():Container(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -51,7 +57,7 @@ class _ProfileTopState extends State<ProfileTop> {
                     children: <Widget>[
                       SizedBox(height: 10.0,),
                       Text(
-                          "17", style: TextStyle(
+                          Posts.toString(), style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 25.0)),
                       Text(
                         "Post",
@@ -62,7 +68,7 @@ class _ProfileTopState extends State<ProfileTop> {
                     children: <Widget>[
                       SizedBox(height: 10.0,),
                       Text(
-                          "552", style: TextStyle(
+                          Followers.toString(), style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 25.0)),
                       Text(
                         "Follower",
@@ -73,7 +79,7 @@ class _ProfileTopState extends State<ProfileTop> {
                     children: <Widget>[
                       SizedBox(height: 10.0,),
                       Text(
-                          "600", style: TextStyle(
+                          Following.toString(), style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 25.0)),
                       Text(
                         "Following",

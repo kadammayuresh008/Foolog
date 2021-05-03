@@ -9,6 +9,8 @@ import 'package:foolog/Services/usermanagement.dart';
 import 'package:provider/provider.dart';
 import 'package:foolog/Screen/Helper/ProfileTop.dart';
 
+import 'Helper/ImageGridView.dart';
+
 
 class Profile extends StatefulWidget {
   @override
@@ -50,9 +52,34 @@ class _ProfileState extends State<Profile> {
   @override
 
   Widget build(BuildContext context) {
+    // return Scaffold(
+    //   appBar:AppBar(
+    //               backgroundColor: Colors.purple,
+    //               leading:IconButton(icon:Icon(Icons.arrow_back),
+    //                 onPressed: () {
+    //                   print("Back");
+    //                   Navigator.pop(context);
+    //                 },),
+    //               title:Text("Profile"),
+    //               actions: [
+    //                 IconButton(icon:Icon(Icons.menu), onPressed: () async{
+    //                   await AuthService().Signout();
+    //                   Navigator.push(context,
+    //                     MaterialPageRoute(builder: (context) => Login())
+    //                   );
+    //                 })
+    //               ],
+    //             ),
+    //   body:ImageGridView()
+    // );
     return StreamProvider<QuerySnapshot>.value(
       value:UserManagement().UserDetails,
-      child: Scaffold(
+      child:UserManagement().UserDetails==null?Center(
+        child:CircularProgressIndicator(
+          valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+          backgroundColor: Colors.white,
+        ),
+      ):Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.purple,
               leading:IconButton(icon:Icon(Icons.arrow_back),
@@ -71,29 +98,34 @@ class _ProfileState extends State<Profile> {
               ],
             ),
           body:
-          Column(
-            children:<Widget>[
-              ProfileTop(),
-              Row(
-                  mainAxisAlignment:MainAxisAlignment.center,
-                children:<Widget>[
-                  ButtonTheme(
-                    minWidth: 350.0,
-                    child: OutlineButton(
-                    child:Text('Edit Profile',
-                        style:TextStyle(
-                          fontWeight: FontWeight.bold,
-                        )),
-                    highlightedBorderColor:Colors.white,
-                    color: Colors.white,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Login()),
-                      );
-                    },),),
-                ],
-              ),],
+          SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:<Widget>[
+                ProfileTop(),
+                Row(
+                    mainAxisAlignment:MainAxisAlignment.center,
+                  children:<Widget>[
+                    ButtonTheme(
+                      minWidth: 350.0,
+                      child: OutlineButton(
+                      child:Text('Edit Profile',
+                          style:TextStyle(
+                            fontWeight: FontWeight.bold,
+                          )),
+                      highlightedBorderColor:Colors.white,
+                      color: Colors.white,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Login()),
+                        );
+                      },),),
+                  ],
+                ),
+              SizedBox(height:20.0),
+              // ImageGridView(),
+              ],
         //       // ListView(
         //       //   scrollDirection: Axis.vertical,
         //       //   children:<Widget>[
@@ -122,7 +154,8 @@ class _ProfileState extends State<Profile> {
         //   //     ),
         // ],
         //   )
-        )),
+        ),
+          )),
     );
   }
 }
