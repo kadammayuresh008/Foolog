@@ -14,6 +14,7 @@ class BlogCard extends StatefulWidget {
 
 class _BlogCardState extends State<BlogCard> {
   bool like = false;
+  TextEditingController _commController=TextEditingController();
   @override
   Widget __Text(String caption,String location,String likes,String image,String price){
     return Container(
@@ -252,6 +253,7 @@ class _BlogCardState extends State<BlogCard> {
                          Padding(
                            padding: const EdgeInsets.fromLTRB(16,0,16,0),
                            child: TextFormField(
+                             controller: _commController,
                              decoration: InputDecoration(
                                errorStyle: TextStyle(color: Colors.purple),
                                prefixIcon: IconButton(
@@ -266,6 +268,7 @@ class _BlogCardState extends State<BlogCard> {
                                    color:Colors.black,
                                  ),
                                  onPressed: (){
+                                   _commController.clear();
                                    print("Add Comment");
                                  },
                                ) ,

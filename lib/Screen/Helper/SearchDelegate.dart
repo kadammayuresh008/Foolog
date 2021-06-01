@@ -14,8 +14,8 @@ class _SearchAppBarDelegateState extends State<SearchAppBarDelegate> {
   @override
   Widget build(BuildContext context) {
     final userList= Provider.of<QuerySnapshot>(context);
-    List<QueryDocumentSnapshot> TotUser=userList.docs.toList();
-    print(TotUser);
+    // List<QueryDocumentSnapshot> TotUser=userList.docs.toList();
+    // print(TotUser);
     return Scaffold(
         appBar: AppBar(
           title: Text("Explore"),
@@ -29,7 +29,7 @@ class _SearchAppBarDelegateState extends State<SearchAppBarDelegate> {
           ],
           backgroundColor: Colors.purple,
         ),
-        // body:UserList(),
+        body: UserList(),
     );
   }
 }
