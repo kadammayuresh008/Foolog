@@ -16,7 +16,7 @@ class _BlogCardState extends State<BlogCard> {
   bool like = false;
   TextEditingController _commController=TextEditingController();
   @override
-  Widget __Text(String caption,String location,String likes,String image,String price){
+  Widget __Text(int index,String caption,String location,String likes,String image,String price){
     return Container(
       child:Column(
         children:
@@ -57,15 +57,9 @@ class _BlogCardState extends State<BlogCard> {
                   GestureDetector(
                     onDoubleTap:(){
                       setState(() {
+                        print(index);
                         like = !like;
                       });
-                      // if(like==true)
-                      //   {
-                      //     like();
-                      //   }
-                      // else{
-                      //   dislike();
-                      // }
                     },
                     child: Container(
                       height:325,
@@ -303,7 +297,8 @@ class _BlogCardState extends State<BlogCard> {
         itemCount: BlogList.docs.length,
         itemBuilder: (BuildContext context,int index)
     {
-      return __Text(BlogList.docs[index]["caption"],
+      return __Text(index,
+                    BlogList.docs[index]["caption"],
                     BlogList.docs[index]["location"],
                     BlogList.docs[index]["likes"].toString(),
                     BlogList.docs[index]["image"],

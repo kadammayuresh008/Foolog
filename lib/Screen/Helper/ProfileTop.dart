@@ -10,22 +10,32 @@ class ProfileTop extends StatefulWidget {
 
 class _ProfileTopState extends State<ProfileTop> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     final _auth = FirebaseAuth.instance;
     final userDetails = Provider.of<QuerySnapshot>(context);
     var username;
     int Followers;
     int Following;
     int Posts;
-    // for (var index = 0; index < userDetails.docs.length; index++) {
-    //   var x = userDetails.docs[index]["uid"];
-    //   if (x == _auth.currentUser.uid) {
-    //     username = userDetails.docs[index]["username"];
-    //     Followers=userDetails.docs[index]["Followers"];
-    //     Following=userDetails.docs[index]["Following"];
-    //     Posts=userDetails.docs[index]["Post"];
-    //   }
-    // }
+
+
+    if(userDetails==null){
+      return Center(
+          child: CircularProgressIndicator()
+      );
+    }
+    for (var index = 0; index < userDetails.docs.length; index++) {
+      var x = userDetails.docs[index]["uid"];
+      if (x == _auth.currentUser.uid) {
+        username = userDetails.docs[index]["username"];
+        Followers=userDetails.docs[index]["Followers"];
+        Following=userDetails.docs[index]["Following "];//if shows error see the spacing after Following word.
+        Posts=userDetails.docs[index]["Post"];
+      }
+      else{
+        continue;
+      }
+    }
       return userDetails==null?CircularProgressIndicator():Container(
           child: Padding(
             padding: const EdgeInsets.all(8.0),

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:foolog/Screen/Home.dart';
+import 'package:foolog/models/User.dart';
 
 class UserManagement{
   final CollectionReference CurrUserDetails = FirebaseFirestore.instance.collection("user");

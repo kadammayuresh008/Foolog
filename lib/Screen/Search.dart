@@ -49,7 +49,7 @@ class _SearchState extends State<Search> {
           //   ),
           //   backgroundColor: Colors.grey[100],
           // ),
-          body:SearchAppBarDelegate(),
+          body:UserList(),
       ),
     );
   }

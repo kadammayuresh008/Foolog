@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:foolog/Screen/Helper/BlogCard.dart';
+import 'package:foolog/Screen/Helper/UserList.dart';
 import 'package:foolog/Screen/Payment.dart';
 import 'package:foolog/Screen/Profile.dart';
 import 'package:foolog/Screen/chats.dart';
@@ -111,33 +112,7 @@ class _HomeState extends State<Home> {
                 )
               ],
             ),
-            // body:StreamBuilder(
-            //   stream: FirebaseFirestore.instance.collection('/blog').snapshots(),
-            //   builder: (context,snapshots)
-            //   {
-            //     if(snapshots.hasData)
-            //       // ignore: missing_return
-            //       {
-            //         // ignore: missing_return
-            //         return __Text();
-            //       }
-            //     else{
-            //       CircularProgressIndicator();
-            //     }
-            //   },
-            // ),
         body:BlogCard(),
-         //    body:SingleChildScrollView(
-         //        child:
-         //        Column(
-         //          children:<Widget>[
-         //            __Text(),
-         //            __Text(),
-         //            __Text(),
-         //            __Text(),
-         //          ],
-         //        )
-         //    ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: Container(
           height: 60.0,
@@ -157,3 +132,5 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
+
