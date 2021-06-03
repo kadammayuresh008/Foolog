@@ -31,4 +31,6 @@ class UserManagement{
     return CurrUserDetails.snapshots();
   }
 
+
+
 }

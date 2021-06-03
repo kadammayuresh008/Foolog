@@ -35,7 +35,7 @@ class _AddBlogState extends State<AddBlog> {
   final _formKey = GlobalKey<FormState>();
   String _location;
   String _caption;
-  int _price;
+  // int _price;
 
 
   @override
@@ -220,56 +220,56 @@ class _AddBlogState extends State<AddBlog> {
                   ),
                 ),
               ),
-              Text(
-                "Price",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize:20,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  onChanged: (value) {
-                    setState(() {
-                      _price= value as int;
-                    });
-                  },
-                  validator:(value){
-                    if(value.isEmpty)
-                    {
-                      return "Price field cannot be empty";
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    errorStyle: TextStyle(color:Colors.purple),
-                    prefixIcon: Icon(
-                      Icons.money,
-                      color: Colors.purple,
-                    ),
-                    hintText: 'Add Price',
-                    hintStyle:TextStyle(
-                      color:Colors.purple,
-                    ),
-                    contentPadding:
-                    EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
-                    border: OutlineInputBorder(
-                      borderSide:BorderSide(color: Colors.purple, width: 1.0),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:BorderSide(color: Colors.purple, width: 1.0),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:BorderSide(color: Colors.purple, width: 1.0),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    ),
-                  ),
-                ),
-              ),
+              // Text(
+              //   "Price",
+              //   style: TextStyle(
+              //     fontWeight: FontWeight.bold,
+              //     fontSize:20,
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
+              //   child: TextFormField(
+              //     keyboardType: TextInputType.number,
+              //     onChanged: (value) {
+              //       setState(() {
+              //         _price= value as int;
+              //       });
+              //     },
+              //     validator:(value){
+              //       if(value.isEmpty)
+              //       {
+              //         return "Price field cannot be empty";
+              //       }
+              //       return null;
+              //     },
+              //     decoration: InputDecoration(
+              //       errorStyle: TextStyle(color:Colors.purple),
+              //       prefixIcon: Icon(
+              //         Icons.money,
+              //         color: Colors.purple,
+              //       ),
+              //       hintText: 'Add Price',
+              //       hintStyle:TextStyle(
+              //         color:Colors.purple,
+              //       ),
+              //       contentPadding:
+              //       EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
+              //       border: OutlineInputBorder(
+              //         borderSide:BorderSide(color: Colors.purple, width: 1.0),
+              //         borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              //       ),
+              //       enabledBorder: OutlineInputBorder(
+              //         borderSide:BorderSide(color: Colors.purple, width: 1.0),
+              //         borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              //       ),
+              //       focusedBorder: OutlineInputBorder(
+              //         borderSide:BorderSide(color: Colors.purple, width: 1.0),
+              //         borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               SizedBox(height:10.0),
               Center(
                 child: RaisedButton(
@@ -289,7 +289,7 @@ class _AddBlogState extends State<AddBlog> {
                   onPressed: () {
                     if(_formKey.currentState.validate())
                       {
-                        blogManagement().StoreBlog(_imageFile,_location,_caption,_price,context);
+                        blogManagement().StoreBlog(_imageFile,_location,_caption,context);
                         _scaffoldKey.currentState.showSnackBar(
                             new SnackBar(
                               content: new Text('Your Blog has been Added.',
@@ -321,28 +321,3 @@ class _AddBlogState extends State<AddBlog> {
 }
 
 
-
-// class SnackBarPage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: ElevatedButton(
-//         onPressed: () {
-//           final snackBar = SnackBar(
-//             content: Text('Yay! A SnackBar!'),
-//             action: SnackBarAction(
-//               label: 'ok',
-//               onPressed: () {
-//                 // Some code to undo the change.
-//               },
-//             ),
-//           );
-//
-//           // Find the ScaffoldMessenger in the widget tree
-//           // and use it to show a SnackBar.
-//         },
-//         child: Text('Show SnackBar'),
-//       ),
-//     );
-//   }
-// }

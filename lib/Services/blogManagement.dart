@@ -23,7 +23,7 @@ class blogManagement{
   return await image.ref.getDownloadURL();
   }
 
-  StoreBlog(PickedFile image,String location,String caption,int price,BuildContext context)async{
+  StoreBlog(PickedFile image,String location,String caption,BuildContext context)async{
     dynamic ImageUrl = await uploadImage(image,context);
     blog.add({
       'user_id':_auth.currentUser.uid,
@@ -31,8 +31,7 @@ class blogManagement{
       'location':location,
       'image':ImageUrl,
       'caption':caption,
-      'price':price,
-      'likes':0,
+      'likes':[],
     }).then((value){
       Navigator.push(
         context,
@@ -46,6 +45,25 @@ class blogManagement{
   Stream<QuerySnapshot> get Blog{
     return blog.snapshots();
   }
+
+  //To increment the like
+  void increLike(String index,bool heart){
+    String user_id=_auth.currentUser.uid;
+    if(heart==false){
+      blog.doc(index).update({'likes':FieldValue.arrayRemove([user_id])});
+    }
+    else{
+      blog.doc(index).update({'likes':FieldValue.arrayUnion([user_id])});
+    }
+  }
+
+
+// To add comment
+void addComment(String comment,String index)
+{
+  blog.doc(index).update(
+      {'comments':FieldValue.arrayUnion([comment])});
+}
 
 
 }

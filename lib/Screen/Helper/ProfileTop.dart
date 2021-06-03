@@ -18,7 +18,6 @@ class _ProfileTopState extends State<ProfileTop> {
     int Following;
     int Posts;
 
-
     if(userDetails==null){
       return Center(
           child: CircularProgressIndicator()

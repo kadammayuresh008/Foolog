@@ -1,9 +1,12 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foolog/Screen/Payment.dart';
-import 'package:foolog/Screen/SplashScreen.dart';
+// import 'package:foolog/Screen/SplashScreen.dart';
 import 'package:foolog/Screen/chats.dart';
+import 'package:foolog/Services/blogManagement.dart';
+// import 'package:foolog/Services/usermanagement.dart';
 import 'package:provider/provider.dart';
 
 
@@ -13,10 +16,9 @@ class BlogCard extends StatefulWidget {
 }
 
 class _BlogCardState extends State<BlogCard> {
-  bool like = false;
   TextEditingController _commController=TextEditingController();
   @override
-  Widget __Text(int index,String caption,String location,String likes,String image,String price){
+  Widget __Text(dynamic index,String caption,String location,String likes,String image,String price,bool heart){
     return Container(
       child:Column(
         children:
@@ -57,8 +59,8 @@ class _BlogCardState extends State<BlogCard> {
                   GestureDetector(
                     onDoubleTap:(){
                       setState(() {
-                        print(index);
-                        like = !like;
+                        heart = !heart;
+                        blogManagement().increLike(index,heart);
                       });
                     },
                     child: Container(
@@ -92,7 +94,7 @@ class _BlogCardState extends State<BlogCard> {
                             children:<Widget> [
                               Row(
                                 children:[
-                                  like==false?
+                                  heart==false?
                                   IconButton(icon:Icon(Icons.favorite_border,
                                       size: 30.0,
                                       color:Colors.black),
@@ -262,6 +264,7 @@ class _BlogCardState extends State<BlogCard> {
                                    color:Colors.black,
                                  ),
                                  onPressed: (){
+                                   blogManagement().addComment(_commController.text,index);
                                    _commController.clear();
                                    print("Add Comment");
                                  },
@@ -286,6 +289,7 @@ class _BlogCardState extends State<BlogCard> {
   }
 
   Widget build(BuildContext context) {
+    FirebaseAuth _auth =FirebaseAuth.instance;
     final BlogList = Provider.of<QuerySnapshot>(context);
     return BlogList==null?
     Center(
@@ -297,13 +301,17 @@ class _BlogCardState extends State<BlogCard> {
         itemCount: BlogList.docs.length,
         itemBuilder: (BuildContext context,int index)
     {
-      return __Text(index,
+      return __Text(
+                    BlogList.docs[index].id,
                     BlogList.docs[index]["caption"],
                     BlogList.docs[index]["location"],
-                    BlogList.docs[index]["likes"].toString(),
+                    BlogList.docs[index]["likes"].length.toString(),
                     BlogList.docs[index]["image"],
                     BlogList.docs[index]["price"],
+                    BlogList.docs[index]["likes"].contains(_auth.currentUser.uid),
       );
     });
   }
 }
+
+
