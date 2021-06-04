@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:foolog/Screen/Helper/BlogCard.dart';
-import 'package:foolog/Screen/Payment.dart';
-import 'package:foolog/Screen/Profile.dart';
-import 'package:foolog/Screen/chats.dart';
-import 'package:foolog/Screen/AddBlog.dart';
-import 'package:foolog/Screen/Search.dart';
+import 'package:foolog/Screen/Helper/UserList.dart';
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/Payment.dart';
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Profile/Profile.dart';
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Chats/chats.dart';
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/AddBlog.dart';
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/Search.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:foolog/Services/blogManagement.dart';
 import 'package:foolog/Services/usermanagement.dart';
@@ -111,34 +112,55 @@ class _HomeState extends State<Home> {
                 )
               ],
             ),
-            // body:StreamBuilder(
-            //   stream: FirebaseFirestore.instance.collection('/blog').snapshots(),
-            //   builder: (context,snapshots)
-            //   {
-            //     if(snapshots.hasData)
-            //       // ignore: missing_return
-            //       {
-            //         // ignore: missing_return
-            //         return __Text();
-            //       }
-            //     else{
-            //       CircularProgressIndicator();
-            //     }
-            //   },
-            // ),
         body:BlogCard(),
-         //    body:SingleChildScrollView(
-         //        child:
-         //        Column(
-         //          children:<Widget>[
-         //            __Text(),
-         //            __Text(),
-         //            __Text(),
-         //            __Text(),
-         //          ],
-         //        )
-         //    ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        // bottomNavigationBar:
+        // BottomNavigationBar(
+        //   elevation: 10.0,
+        //   currentIndex: 1,
+        //   backgroundColor: Colors.purple,
+        //   type: BottomNavigationBarType.shifting,
+        //   items: [
+        //     BottomNavigationBarItem(
+        //         activeIcon:Icon(Icons.message, color: Color.fromARGB(255, 255, 255, 255),
+        //           size: 35.0,) ,
+        //         icon:Icon(Icons.message,
+        //             color: Color.fromARGB(255, 255, 255, 255),
+        //             size: 28.0,
+        //         ),
+        //         title: new Text('Message'),
+        //         backgroundColor: Colors.purple),
+        //     BottomNavigationBarItem(
+        //         activeIcon:Icon(Icons.search, color: Color.fromARGB(255, 255, 255, 255),
+        //           size: 40.0,) ,
+        //         icon: Icon(Icons.search,
+        //             color: Color.fromARGB(255, 255, 255, 255),
+        //           size: 30.0,
+        //         ),
+        //         title: new Text('Search'),
+        //         backgroundColor: Colors.purple),
+        //     BottomNavigationBarItem(
+        //         activeIcon:Icon(Icons.home, color: Color.fromARGB(255, 255, 255, 255),
+        //           size: 40.0,) ,
+        //         icon:Icon(Icons.home, color: Color.fromARGB(255, 255, 255, 255)),
+        //         title: new Text('Home'),
+        //         backgroundColor: Colors.purple),
+        //     BottomNavigationBarItem(
+        //         activeIcon:Icon(Icons.add, color: Color.fromARGB(255, 255, 255, 255),
+        //           size: 40.0,) ,
+        //         icon:Icon(Icons.add,
+        //             color: Color.fromARGB(255, 255, 255, 255),
+        //           size: 30.0,),
+        //         title: new Text('Add Post'),
+        //         backgroundColor: Colors.purple),
+        //     BottomNavigationBarItem(
+        //         activeIcon:Icon(Icons.person, color: Color.fromARGB(255, 255, 255, 255),
+        //           size: 40.0,) ,
+        //         icon:Icon(Icons.person, color: Color.fromARGB(255, 255, 255, 255)),
+        //         title: new Text('Profile'),
+        //         backgroundColor: Colors.purple),
+        //   ],
+        // ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Container(
           height: 60.0,
           width:60.0,
@@ -157,3 +179,5 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
+

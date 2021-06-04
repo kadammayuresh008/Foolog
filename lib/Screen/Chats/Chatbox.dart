@@ -24,69 +24,48 @@ class _ChatboxState extends State<Chatbox> {
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(150, 4, 4, 4),
-      child: Container(
-          width:250.0,
-          decoration:BoxDecoration(
-            color:Colors.purple,
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          ),
-          child:Column(
-            children: [
-              Row(
-                children: [
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          child:ClipRRect(
-                            borderRadius: BorderRadius.circular(15.0),
-                            child: Image.network(
-                              "https://i.pinimg.com/originals/d5/45/a2/d545a2343d19f3ce8af9e9aa52dd3fce.jpg",
-                              height: 30.0,
-                              width:30.0,
+      child: Align(
+        alignment: Alignment.centerRight,
+        child: Container(
+              decoration:BoxDecoration(
+                color:Colors.purple,
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              ),
+              child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(msg,
+                            style:TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.white,
                             ),
-                          ),
-                          radius:15.0,
-                        ),
+                            maxLines: 10,
+                            overflow: TextOverflow.ellipsis,),
+                          Text(now,
+                          style:TextStyle(
+                            color:Colors.white,
+                          )),
+                        ],
                       ),
-                    ],
-                  ),
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children:[
-                            Text("Soul Travel",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18.0,
-                              ),),
-                      ]
-                  )
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(4.0,2.0,8.0,8.0),
-                child: Text(msg,
-                  style:TextStyle(
-                    fontSize: 18.0,
-                  ),
-                  maxLines: 10,
-                  overflow: TextOverflow.ellipsis,),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0,2.0,8.0,8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children:<Widget>[
-                    Text(now),
-                  ],
-                ),
-              )
-            ],
-          )
+                    ),
+                  //   Padding(
+                  //     padding: const EdgeInsets.all(8.0),
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.end,
+                  //       children:<Widget>[
+                  //         Text(now,
+                  //         style:TextStyle(
+                  //           color:Colors.white,
+                  //         )),
+                  //       ],
+                  //     ),
+                  //   )
+                  // ],
+                // ),
 
+        ),
       ),
     );
   }
@@ -97,70 +76,30 @@ class _ChatboxState extends State<Chatbox> {
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(4, 4, 150, 4),
-      child: Container(
-          width:250.0,
-          decoration:BoxDecoration(
-            color:Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          ),
-          child:Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+      child: Align(
+        alignment:Alignment.centerLeft,
+        child: Container(
+            decoration:BoxDecoration(
+              color:Colors.grey[300],
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            ),
+            child:Padding(
+              padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          child:ClipRRect(
-                            borderRadius: BorderRadius.circular(15.0),
-                            child: Image.network(
-                              "https://i.pinimg.com/originals/d5/45/a2/d545a2343d19f3ce8af9e9aa52dd3fce.jpg",
-                              height: 30.0,
-                              width:30.0,
-                            ),
-                          ),
-                          radius:15.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children:[
-                        Text("Group Traveller",
-                          style: TextStyle(
-                            color: Colors.purple,
-                            fontSize: 18.0,
-                          ),),
-                      ]
-                  )
+                  Text("hi my name is bakaa. How are u doing?",
+                    style:TextStyle(
+                      fontSize: 16.0,
+                    ),
+                    maxLines: 10,
+                    overflow: TextOverflow.ellipsis,),
+                  Text("12.08 pm"),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(8.0,2.0,8.0,8.0),
-                child: Text("I Studied hard every day.Till my gardution which has resulted in back pain ",
-                  style:TextStyle(
-                    fontSize: 15.0,
-                  ),
-                  maxLines: 10,
-                  overflow: TextOverflow.ellipsis,),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0,2.0,8.0,8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children:<Widget>[
-                    Text("12.08 pm"),
-                  ],
-                ),
-              )
-            ],
-          )
+            ),
 
+        ),
       ),
     );
 
@@ -217,17 +156,18 @@ class _ChatboxState extends State<Chatbox> {
 
     //to add message to string
     void _addmessage(String msg,List<Widget> message){
-      // if(message.length==0)
-      //   {
-      //     setState(() {
-      //       message.insert(0, _buildIncomingMessage());
-      //       message.insert(1, _buildOutgoingMessage(msg));
-      //     });
-      //   }
-      // else{
+      if(message.length==0)
+        {
+          setState(() {
+            message.insert(0, _buildIncomingMessage());
+            message.insert(1, _buildOutgoingMessage(msg));
+          });
+        }
+      else {
         setState(() {
           message.insert(0, _buildOutgoingMessage(msg));
         });
+      }
       // print(message);
     }
 
@@ -271,17 +211,6 @@ class _ChatboxState extends State<Chatbox> {
                   },
                 ),
       ),
-          // Column(
-          //   children: [
-          //         _buildIncomingMessage(),
-          //         _buildIncomingMessage(),
-          //         _buildOutgoingMessage(),
-          //         _buildOutgoingMessage(),
-          //         _buildIncomingMessage(),
-          //         _buildOutgoingMessage(),
-          //     _buildIncomingMessage(),
-          //       ],
-          //     ),
       bottomSheet: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
@@ -292,7 +221,7 @@ class _ChatboxState extends State<Chatbox> {
           child: Row(
             children: [
               IconButton(
-                icon:Icon(Icons.photo_sharp, color: Colors.black,),
+                icon:Icon(Icons.photo_sharp, color: Colors.white,),
                 onPressed: (){
                   print("gallery Pressed");
                 },
@@ -304,6 +233,9 @@ class _ChatboxState extends State<Chatbox> {
                       _msgEmpty=false;
                     });
                   },
+                  style:TextStyle(
+                    color:Colors.white,
+                  ),
                   // validator: (value){
                   //   if(value.isEmpty)
                   //     {
@@ -316,7 +248,7 @@ class _ChatboxState extends State<Chatbox> {
                   decoration:const InputDecoration(
                     hintText: "Enter Text",
                     hintStyle: TextStyle(
-                      color:Colors.black,
+                      color:Colors.white,
                     ),
                     enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
                     focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
@@ -326,7 +258,7 @@ class _ChatboxState extends State<Chatbox> {
                 ),
               ),
               _msgEmpty==false?IconButton(
-                icon:Icon(Icons.send,color: Colors.black,),
+                icon:Icon(Icons.send,color: Colors.white,),
                 onPressed: (){
                   setState(() {
                     now= DateFormat("hh:mm").format(DateTime.now());

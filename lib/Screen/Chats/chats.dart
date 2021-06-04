@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:foolog/Screen/Chatbox.dart';
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Chats/Chatbox.dart';
 
 class Chat extends StatefulWidget {
   @override

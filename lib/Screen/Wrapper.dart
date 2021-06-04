@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:foolog/Screen/Home.dart';
-import 'package:foolog/Screen/Login.dart';
-import 'package:foolog/Screen/Signup.dart';
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/Home.dart';
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Authentication/Login.dart';
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Authentication/Signup.dart';
 import 'package:foolog/models/User.dart';
 import 'package:provider/provider.dart';
 

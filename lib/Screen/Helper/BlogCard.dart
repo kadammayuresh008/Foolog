@@ -1,9 +1,13 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:foolog/Screen/Payment.dart';
-import 'package:foolog/Screen/SplashScreen.dart';
-import 'package:foolog/Screen/chats.dart';
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/CommentPage.dart';
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/Payment.dart';
+// import 'package:foolog/Screen/SplashScreen.dart';
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Chats/chats.dart';
+import 'package:foolog/Services/blogManagement.dart';
+// import 'package:foolog/Services/usermanagement.dart';
 import 'package:provider/provider.dart';
 
 
@@ -13,9 +17,8 @@ class BlogCard extends StatefulWidget {
 }
 
 class _BlogCardState extends State<BlogCard> {
-  bool like = false;
   @override
-  Widget __Text(String caption,String location,String likes,String image,String price){
+  Widget __Text(dynamic index,String username,String caption,String location,String likes,String image,List<dynamic> comments,bool heart){
     return Container(
       child:Column(
         children:
@@ -43,10 +46,23 @@ class _BlogCardState extends State<BlogCard> {
                             radius:20.0,
                           ),
                         ),
-                        Text("Soul Travel",
-                          style: TextStyle(fontSize:20.0,
-                            color: Colors.white,
-                          ),),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          child: Column(
+                            children: [
+                              username==null?Container():
+                              Text(username,
+                                style: TextStyle(fontSize:18.0,
+                                  color: Colors.white,
+                                ),),
+                              location==null?Container():
+                              Text(location,
+                                style: TextStyle(fontSize:15.0,
+                                  color: Colors.white,
+                                ),),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                     color: Colors.purple,
@@ -56,15 +72,9 @@ class _BlogCardState extends State<BlogCard> {
                   GestureDetector(
                     onDoubleTap:(){
                       setState(() {
-                        like = !like;
+                        heart = !heart;
+                        blogManagement().increLike(index,heart);
                       });
-                      // if(like==true)
-                      //   {
-                      //     like();
-                      //   }
-                      // else{
-                      //   dislike();
-                      // }
                     },
                     child: Container(
                       height:325,
@@ -84,11 +94,6 @@ class _BlogCardState extends State<BlogCard> {
                         dotIncreasedColor: Colors.purple,
                       ),),
                   ),
-                  // Image.asset("assets/Images/Image2.jfif",
-                  //   width: double.infinity,
-                  //   height:325,
-                  //   fit: BoxFit.cover,
-                  // ),
                   Container(
                     child:Column(
                         children:<Widget>[
@@ -97,7 +102,7 @@ class _BlogCardState extends State<BlogCard> {
                             children:<Widget> [
                               Row(
                                 children:[
-                                  like==false?
+                                  heart==false?
                                   IconButton(icon:Icon(Icons.favorite_border,
                                       size: 30.0,
                                       color:Colors.black),
@@ -145,12 +150,12 @@ class _BlogCardState extends State<BlogCard> {
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children:<Widget> [
-                                  Text(
-                                      "Soul Travel",
+                                  username!=null?Text(
+                                      username,
                                       style:TextStyle(
                                         color:Colors.black,
                                         fontWeight: FontWeight.bold,
-                                      )),
+                                      )):Container(),
                                   SizedBox(width:5.0),
                                   caption==null?
                                   Flexible(
@@ -161,126 +166,56 @@ class _BlogCardState extends State<BlogCard> {
                                 ]
                             ),
                           ),
-                          Padding(
+                          comments.length==0?
+                            Padding(
+                            padding: const EdgeInsets.fromLTRB(16,2,0,0),
+                            child:Row(
+                            mainAxisAlignment:MainAxisAlignment.start,
+                            children: [
+                            GestureDetector(
+                            onTap:(){
+                            Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => CommentPage(
+                            comments: comments,
+                            index: index,
+                            )),
+                            );
+                            },
+                            child: Text("No Comments",
+                            style:TextStyle(
+                            color:Colors.grey
+                            ))
+                            ),
+                            ],
+                            ),
+                            ):Padding(
                             padding: const EdgeInsets.fromLTRB(16,2,0,0),
                             child:Row(
                               mainAxisAlignment:MainAxisAlignment.start,
                               children: [
                                 GestureDetector(
                                   onTap:(){
-                                    print("Comment page Open");
+                                    Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) => CommentPage(
+                                        comments: comments,
+                                        index: index,
+                                      )),
+                                    );
                           },
-                                  child:Text("View Comments",
+                                  child: Text("View ${comments.length} Comments",
                                       style:TextStyle(
                                           color:Colors.grey
                                       ))
                                 ),
                               ],
                             ),
-                          //         price==null?
-                          //         Flexible(
-                          //           child:Text("0",
-                          //               style:TextStyle(
-                          //                 fontWeight: FontWeight.bold,
-                          //                 color:Colors.purple,
-                          //                 fontSize: 25.0,
-                          //               )),
-                          //         ):Flexible(
-                          //           child:Text(price, style:TextStyle(
-                          //             fontWeight: FontWeight.bold,
-                          //             color:Colors.purple,
-                          //             fontSize: 25.0,
-                          //           )),
-                          //         ),
-                          //       ]
-                          //   ),
-                          // ),
-
-                          // Row(
-                          //     mainAxisAlignment: MainAxisAlignment.start,
-                          //     children:<Widget> [
-                          //       Padding(
-                          //         padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
-                          //         child: Text("View all 500 comments.",
-                          //             style:TextStyle(
-                          //                 color:Colors.grey
-                          //             )),
-                          //       ),
-                          //     ]
-                          // ),
-                          // Padding(
-                          //   padding: const EdgeInsets.fromLTRB(16,0,0,0),
-                          //   child: Row(
-                          //       mainAxisAlignment: MainAxisAlignment.start,
-                          //       children:<Widget> [
-                          //         Text(
-                          //             "Soul Travel",
-                          //             style:TextStyle(
-                          //               color:Colors.black,
-                          //               fontWeight: FontWeight.bold,
-                          //             )),
-                          //         SizedBox(width:5.0),
-                          //         Text(
-                          //             "Jobs fill your pockets, adventures fill your soul.",
-                          //             style:TextStyle(
-                          //                 color:Colors.black
-                          //             )),
-                          //       ]
-                          //   ),
-                          // ),
-                          // Padding(
-                          //   padding: const EdgeInsets.fromLTRB(16,0,0,0),
-                          //   child: Row(
-                          //       mainAxisAlignment: MainAxisAlignment.start,
-                          //       children:<Widget> [
-                          //         Text(
-                          //             "Soul Travel",
-                          //             style:TextStyle(
-                          //               color:Colors.black,
-                          //               fontWeight: FontWeight.bold,
-                          //             )),
-                          //         SizedBox(width:5.0),
-                          //         Text(
-                          //             "Jobs fill your pockets, adventures fill your soul.",
-                          //             style:TextStyle(
-                          //                 color:Colors.black
-                          //             )),
-                          //       ]
-                          //   ),
-                          // ),
                     ),
-                         Padding(
-                           padding: const EdgeInsets.fromLTRB(16,0,16,0),
-                           child: TextFormField(
-                             decoration: InputDecoration(
-                               errorStyle: TextStyle(color: Colors.purple),
-                               prefixIcon: IconButton(
-                                 icon:Icon(
-                                   Icons.comment,
-                                   color: Colors.black,
-                                 ),
-                               ),
-                               suffixIcon:IconButton(
-                                 icon: Icon(
-                                   Icons.send,
-                                   color:Colors.black,
-                                 ),
-                                 onPressed: (){
-                                   print("Add Comment");
-                                 },
-                               ) ,
-                               hintText: 'Add Comment',
-                               hintStyle: TextStyle(
-                                 color: Colors.black,
-                               ),
-                             ),
-                                ),
-                         )
+
                         ]),
 
                     color: Colors.white,
                     width: 900,
-                    height: 150,
+                    height: 105,
                   ),
                   SizedBox(height:15.0),
                 ]
@@ -289,6 +224,7 @@ class _BlogCardState extends State<BlogCard> {
   }
 
   Widget build(BuildContext context) {
+    FirebaseAuth _auth =FirebaseAuth.instance;
     final BlogList = Provider.of<QuerySnapshot>(context);
     return BlogList==null?
     Center(
@@ -300,12 +236,18 @@ class _BlogCardState extends State<BlogCard> {
         itemCount: BlogList.docs.length,
         itemBuilder: (BuildContext context,int index)
     {
-      return __Text(BlogList.docs[index]["caption"],
+      return __Text(
+                    BlogList.docs[index].id,
+                    BlogList.docs[index]["user"],
+                    BlogList.docs[index]["caption"],
                     BlogList.docs[index]["location"],
-                    BlogList.docs[index]["likes"].toString(),
+                    BlogList.docs[index]["likes"].length.toString(),
                     BlogList.docs[index]["image"],
-                    BlogList.docs[index]["price"],
+                    BlogList.docs[index]["comments"],
+                    BlogList.docs[index]["likes"].contains(_auth.currentUser.uid),
       );
     });
   }
 }
+
+
