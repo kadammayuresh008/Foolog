@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:foolog/Screen/Home.dart';
+import 'package:foolog/Screen/Profile/Profile.dart';
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/Home.dart';
 import 'package:foolog/models/User.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UserManagement{
   final CollectionReference CurrUserDetails = FirebaseFirestore.instance.collection("user");
@@ -12,6 +16,7 @@ class UserManagement{
       'email':user.email,
       'uid':user.uid,
       'username':username,
+      'bio':"",
       'Followers':0,
       'Following':0,
       'Post':0,
@@ -31,6 +36,48 @@ class UserManagement{
     return CurrUserDetails.snapshots();
   }
 
+  Future<List<String>> getCurrentUsername() async{
+    FirebaseAuth _auth =FirebaseAuth.instance;
+    final  dynamic user= await FirebaseFirestore.instance.collection("/user")
+        .where("uid",isEqualTo:_auth.currentUser.uid).get();
+    List<String> userdetails=[
+      user.docs[0]["username"],
+      user.docs[0]["bio"],
+    ];
+    return userdetails;
+  }
 
+  Future<List<String>> getCurrentUserPhoto() async{
+    FirebaseAuth _auth =FirebaseAuth.instance;
+    final  dynamic user= await FirebaseFirestore.instance.collection("/blog")
+        .where("user_id",isEqualTo:_auth.currentUser.uid).get();
+    List<String> Images=[];
+    for(var i =0;i<user.docs.length;i++)
+    {Images.add(user.docs[i]["image"]);}
+    return Images;
+  }
 
+  Future<void> updateUserProfile(String username,String bio,PickedFile image,BuildContext context) async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final  dynamic user= await FirebaseFirestore.instance.collection("/user")
+        .where("uid",isEqualTo:_auth.currentUser.uid).get();
+    final DocumentReference<Map<String, dynamic>> User=FirebaseFirestore.instance.collection('/user')
+        .doc(user.docs[0].id);
+    User.update({
+      'username':username,
+      'bio':bio,
+      'proImage':image,
+    }).then((value){
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Profile()),
+      );
+    }).catchError((e){
+      print(e);
+    });
+  }
+  
 }
+
+
+

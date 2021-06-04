@@ -1,15 +1,14 @@
 import 'dart:io';
-
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
+// import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import "package:foolog/Screen/Home.dart";
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/Home.dart';
 import 'package:camera/camera.dart';
-import 'package:foolog/Screen/Payment.dart';
+// import 'package:foolog/Screen/Payment.dart';
 import 'package:foolog/Services/blogManagement.dart';
-import 'package:foolog/Services/usermanagement.dart';
+// import 'package:foolog/Services/usermanagement.dart';
 import 'package:image_picker/image_picker.dart';
 
 CameraDescription firstCamera;
@@ -81,13 +80,13 @@ class _AddBlogState extends State<AddBlog> {
                       highlightElevation: 0.5,
                       color: Colors.purple,
                       onPressed: () async {
-                        PickedFile GalleryFile = await _picker.getImage(
+                        PickedFile galleryFile = await _picker.getImage(
                           source:ImageSource.gallery,
                         );
                         setState(() {
-                          _imageFile = GalleryFile;
+                          _imageFile = galleryFile;
                         });
-                        print("Your selected image is located at"+GalleryFile.path);
+                        print("Your selected image is located at"+galleryFile.path);
                       },
               ),
                     RaisedButton(

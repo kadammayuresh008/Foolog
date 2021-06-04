@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import "package:flutter/material.dart";
-import "package:foolog/Screen/Home.dart";
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/Home.dart';
 import "package:firebase_auth/firebase_auth.dart";
-import 'package:foolog/Screen/Login.dart';
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Authentication/Login.dart';
 import 'package:foolog/Services/usermanagement.dart';
 import "package:foolog/Services/auth.dart";
 import 'package:foolog/models/User.dart';

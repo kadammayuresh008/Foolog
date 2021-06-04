@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foolog/Services/usermanagement.dart';
 
 
 class ImageGridView extends StatefulWidget {
@@ -7,24 +8,41 @@ class ImageGridView extends StatefulWidget {
 }
 
 class _ImageGridViewState extends State<ImageGridView> {
-  List<String> images = [
-    "https://static.javatpoint.com/tutorial/flutter/images/flutter-logo.png",
-    "https://static.javatpoint.com/tutorial/flutter/images/flutter-logo.png",
-    "https://static.javatpoint.com/tutorial/flutter/images/flutter-logo.png",
-    "https://static.javatpoint.com/tutorial/flutter/images/flutter-logo.png"
-  ];
+
+  List<String> Photos=[];
+
+
+  Future<List<String>> getImages() async{
+    List<String> Images = await UserManagement().getCurrentUserPhoto();
+    setState(() {
+      Photos=Images;
+    });
+  }
+
+  @override
+  void initState(){
+    // TODO: implement initState
+    getImages();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount:images.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2,
-      crossAxisSpacing: 0.2,
-      mainAxisSpacing: 0.2,
-    ),
-      itemBuilder: (BuildContext context, int index){
-      return Image.network(images[index]);
-    },
-    );
+        itemCount:Photos.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        crossAxisSpacing: 0.2,
+        mainAxisSpacing: 0.2,
+      ),
+        itemBuilder: (BuildContext context, int index){
+        return
+          GestureDetector(
+              onTap: (){
+                print("pressed $index");
+              },
+              child:Image.network(Photos[index])
+          );
+      },
+      );
   }
 }

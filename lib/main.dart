@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:foolog/Screen/Login.dart';
-import 'package:foolog/Screen/Signup.dart';
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Authentication/Login.dart';
+import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Authentication/Signup.dart';
 // import 'package:flutter_app/Screen/Home.dart';
 // import 'package:flutter_app/Screen/chats.dart';
 // import 'package:flutter_app/Screen/Signup.dart';

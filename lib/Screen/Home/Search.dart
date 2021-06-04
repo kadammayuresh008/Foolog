@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:foolog/Services/usermanagement.dart';
 import 'package:provider/provider.dart';
 
-import 'Helper/SearchDelegate.dart';
-import 'Helper/UserList.dart';
+import '../Helper/SearchDelegate.dart';
+import '../Helper/UserList.dart';
 
 class Search extends StatefulWidget {
   @override
