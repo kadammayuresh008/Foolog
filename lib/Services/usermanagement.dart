@@ -4,6 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:foolog/Screen/Profile/Profile.dart';
+import 'package:foolog/Services/blogManagement.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/Home.dart';
 import 'package:foolog/models/User.dart';
 import 'package:image_picker/image_picker.dart';
@@ -43,6 +44,7 @@ class UserManagement{
     List<String> userdetails=[
       user.docs[0]["username"],
       user.docs[0]["bio"],
+      user.docs[0]["proImage"]
     ];
     return userdetails;
   }
@@ -57,16 +59,21 @@ class UserManagement{
     return Images;
   }
 
-  Future<void> updateUserProfile(String username,String bio,PickedFile image,BuildContext context) async {
+  Future<void> updateUserProfile(String username,String bio,PickedFile image,String ProImage,BuildContext context) async {
+    dynamic ImageUrl;
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final  dynamic user= await FirebaseFirestore.instance.collection("/user")
         .where("uid",isEqualTo:_auth.currentUser.uid).get();
     final DocumentReference<Map<String, dynamic>> User=FirebaseFirestore.instance.collection('/user')
         .doc(user.docs[0].id);
+    if(image!=null)
+      {
+        ImageUrl = await blogManagement().uploadImage(image,context);
+      }
     User.update({
       'username':username,
       'bio':bio,
-      'proImage':image,
+      'proImage': image==null?ProImage:ImageUrl,
     }).then((value){
       Navigator.push(
         context,

@@ -19,6 +19,7 @@ class _EditProfileState extends State<EditProfile> {
   String bio;
   String Ogusername;
   String Ogbio;
+  String ProImage;
   final ImagePicker _picker = ImagePicker();
   PickedFile _imageFile;
   final _formKey = GlobalKey<FormState>();
@@ -28,8 +29,9 @@ class _EditProfileState extends State<EditProfile> {
   Future<String> getUserDetails() async{
     await UserManagement().getCurrentUsername().then((value) {
       setState(() {
-        username=value[0];
-        bio=value[1];
+        Ogusername=value[0];
+        Ogbio=value[1];
+        ProImage = value[2];
         // username=value;
       });
     });
@@ -84,7 +86,7 @@ class _EditProfileState extends State<EditProfile> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(200.0),
                                   child: Image.network(
-                                    "https://i.pinimg.com/originals/d5/45/a2/d545a2343d19f3ce8af9e9aa52dd3fce.jpg",
+                                    ProImage,
                                     height: 200.0,
                                     width: 200.0,
                                   ),
@@ -150,12 +152,17 @@ class _EditProfileState extends State<EditProfile> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 8 ),
               child: TextFormField(
-                controller:_editUsername,
+                // controller:_editUsername,
+                initialValue: Ogusername,
                 onChanged: (value) {
+                  print(value);
                   setState(() {
-                    if(value.isEmpty || value==Ogusername)
-                    {username = Ogusername;}
-                    else{username=value;
+                    if(value==null)
+                    {
+                      username=Ogusername;
+                    }
+                    else {
+                      username = value;
                     }
                   });
                 },
@@ -168,7 +175,7 @@ class _EditProfileState extends State<EditProfile> {
                   return null;
                 },
                 decoration: InputDecoration(
-                  hintText: username,
+                  hintText: Ogusername,
                   hintStyle: TextStyle(
                     color:Colors.black,
                   ),
@@ -205,13 +212,17 @@ class _EditProfileState extends State<EditProfile> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 8 ),
               child: TextFormField(
-                controller: _editBio,
+                // controller: _editBio,
+                initialValue: Ogbio,
                 onChanged: (value) {
                   setState(() {
-                    if(value.isEmpty || value==Ogbio)
-                      {bio = Ogbio;}
-                    else{bio=value;
-                    }
+                      if(value==null)
+                        {
+                          bio=Ogbio;
+                        }
+                      else {
+                        bio = value;
+                      }
                   });
                 },
                 validator:(value){
@@ -223,7 +234,7 @@ class _EditProfileState extends State<EditProfile> {
                 },
                 decoration: InputDecoration(
                   errorStyle: TextStyle(color:Colors.purple),
-                  hintText: bio,
+                  hintText: Ogbio,
                   hintStyle: TextStyle(
                     color:Colors.black,
                   ),
@@ -263,10 +274,13 @@ class _EditProfileState extends State<EditProfile> {
                 onPressed: () {
                   if(_formKey.currentState.validate())
                   {
-                    print(username);
-                    print(bio);
-                    print(_imageFile.path);
-                    // UserManagement().updateUserProfile(username, bio, _imageFile, context);
+                    if(_imageFile==null)
+                      {
+                        UserManagement().updateUserProfile(username, bio, _imageFile, ProImage , context);
+                      }
+                    else{
+
+                    }
                     // _scaffoldKey.currentState.showSnackBar(
                     //     new SnackBar(
                     //       content: new Text('Your Blog has been Added.',
