@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:foolog/Screen/Helper/BlogCard.dart';
 import 'package:foolog/Screen/Helper/UserList.dart';
-import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/Payment.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Profile/Profile.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Chats/chats.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/AddBlog.dart';

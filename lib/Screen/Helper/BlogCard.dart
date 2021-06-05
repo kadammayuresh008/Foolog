@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/CommentPage.dart';
-import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/Payment.dart';
 // import 'package:foolog/Screen/SplashScreen.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Chats/chats.dart';
 import 'package:foolog/Services/blogManagement.dart';
@@ -121,15 +120,6 @@ class _BlogCardState extends State<BlogCard> {
                                       }
                                   ),
                                 ],),
-                              IconButton(icon:Icon(Icons.payment,
-                                  size: 30.0,
-                                  color:Colors.black),
-                                  onPressed:(){
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => paymentIntegrations()),
-                                    );
-                                  }),
                             ],
                           ),
                           Row(

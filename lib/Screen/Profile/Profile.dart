@@ -35,7 +35,7 @@ class _ProfileState extends State<Profile> {
       ):
       Scaffold(
             appBar:  PreferredSize(
-              preferredSize: Size.fromHeight(360.0),
+              preferredSize: Size.fromHeight(390.0),
               child: Stack(
                 children: [
                   AppBar(

@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:foolog/Screen/Profile/Profile.dart';
 import 'package:foolog/Services/blogManagement.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/Home.dart';
-import 'package:foolog/models/User.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UserManagement{
@@ -18,6 +16,7 @@ class UserManagement{
       'uid':user.uid,
       'username':username,
       'bio':"",
+      'proImage':"",
       'Followers':0,
       'Following':0,
       'Post':0,

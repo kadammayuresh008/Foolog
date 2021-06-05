@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
-import 'package:path/path.dart';
+// import 'package:path/path.dart';
 import 'package:intl/intl.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+
 
 
 class Chatbox extends StatefulWidget {
@@ -11,13 +13,32 @@ class Chatbox extends StatefulWidget {
 
 
 class _ChatboxState extends State<Chatbox> {
-  @override
-
   final TextEditingController _msgcontroller = TextEditingController();
   final List<Widget> message= <Widget>[];
   String now = DateFormat("hh:mm").format(DateTime.now()); //To calculate current time
   bool _msgEmpty=true;
+  IO.Socket socket;
 
+
+
+  @override
+  void initState(){
+    super.initState();
+    connect();
+  }
+
+  //to connect to socket io server
+  void connect(){
+    socket = IO.io("http://192.168.0.106:5000",<String,dynamic>
+    {
+      "transports":["websocket"],
+      "autoConnect":false,
+    });
+    socket.connect();
+    socket.onConnect((data) => print("Connected"));
+    print(socket.connected);
+    socket.emit("/test","Hello world");
+  }
 
   //Widget for outgoing message
   Widget _buildOutgoingMessage(String msg){

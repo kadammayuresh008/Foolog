@@ -52,7 +52,11 @@ class _ProfileTopState extends State<ProfileTop> {
                           backgroundColor: Colors.white,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(150.0),
-                            child: Image.network(
+                            child: ImageUrl==""?Image.asset(
+                              "./assets/Images/DeafultProfileImage.png",
+                              height: 150.0,
+                              width: 150.0,
+                            ):Image.network(
                               ImageUrl,
                               height: 150.0,
                               width: 150.0,
