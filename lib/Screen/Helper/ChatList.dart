@@ -15,7 +15,7 @@ class _ChatlistState extends State<Chatlist> {
   final _auth = FirebaseAuth.instance;
   @override
 
-  Widget __ChatTile( String chatHolder,String lastMess,String ImagePath){
+  Widget __ChatTile( String chatHolder,String lastMess,String ImagePath,String uid){
     return Container(
         child:InkWell(
           splashColor: Colors.black,
@@ -24,7 +24,12 @@ class _ChatlistState extends State<Chatlist> {
             onTap:(){
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Chatbox()),
+                MaterialPageRoute(builder: (context) =>
+                    Chatbox(
+                      username:chatHolder,
+                      proImage:ImagePath,
+                      uid:uid,
+                    )),
               );
             },
             child: Padding(
@@ -82,7 +87,8 @@ class _ChatlistState extends State<Chatlist> {
               Container() :
                __ChatTile(list.docs[index]["username"],
               "Hello, want to invest some money",
-              list.docs[index]["proImage"]);
+              list.docs[index]["proImage"],
+               list.docs[index]["uid"]);
         });
   }
 }

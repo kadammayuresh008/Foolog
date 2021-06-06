@@ -27,8 +27,8 @@ class blogManagement{
   
   
   StoreBlog(PickedFile image,String location,String caption,BuildContext context)async{
-    final  dynamic user= await FirebaseFirestore.instance.collection("/user")
-        .where("uid",isEqualTo:_auth.currentUser.uid).get();
+    final  dynamic newuser= await FirebaseFirestore.instance.collection("/user");
+    final dynamic user = await newuser.where("uid",isEqualTo:_auth.currentUser.uid).get();
     dynamic ImageUrl = await uploadImage(image,context);
     blog.add({
       'user_id':_auth.currentUser.uid,
@@ -38,7 +38,9 @@ class blogManagement{
       'caption':caption,
       'likes':[],
       'comments':[],
-    }).then((value){
+    }).then((value)async{
+      // await newuser.where("uid",isEqualTo:_auth.currentUser.uid)
+      //     .update({"Post":FieldValue.increment(1.0)});
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Home()),

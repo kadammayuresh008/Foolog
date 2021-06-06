@@ -5,7 +5,7 @@ import "package:firebase_auth/firebase_auth.dart";
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Authentication/Login.dart';
 import 'package:foolog/Services/usermanagement.dart';
 import "package:foolog/Services/auth.dart";
-import 'package:foolog/models/User.dart';
+import 'package:foolog/models/UserModel.dart';
 
 class Signup extends StatefulWidget {
   @override

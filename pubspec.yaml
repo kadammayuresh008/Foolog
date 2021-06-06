@@ -36,7 +36,7 @@ dependencies:
   firebase_storage:
   intl:
   flutter_search_bar: ^2.1.0
-  socket_io_client: ^1.0.1
+  socket_io_client: ^0.9.12
 #  intl: ^0.16.1
 
   # The following adds the Cupertino Icons font to your application.

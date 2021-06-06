@@ -43,7 +43,8 @@ class UserManagement{
     List<String> userdetails=[
       user.docs[0]["username"],
       user.docs[0]["bio"],
-      user.docs[0]["proImage"]
+      user.docs[0]["proImage"],
+      user.docs[0]["uid"],
     ];
     return userdetails;
   }

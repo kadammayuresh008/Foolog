@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foolog/Screen/Helper/ChatList.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Chats/Chatbox.dart';
-import 'package:foolog/Services/chatManagement.dart';
 import 'package:foolog/Services/usermanagement.dart';
 import 'package:provider/provider.dart';
 

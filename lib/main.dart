@@ -10,7 +10,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:foolog/Screen/Wrapper.dart';
 import 'package:foolog/Services/auth.dart';
-import 'package:foolog/models/User.dart';
+import 'package:foolog/models/UserModel.dart';
 import 'package:provider/provider.dart';
 
 CameraDescription firstCamera;

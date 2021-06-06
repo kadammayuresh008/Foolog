@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
+import 'package:foolog/Services/usermanagement.dart';
+import 'package:foolog/models/MessageModel.dart';
 // import 'package:path/path.dart';
 import 'package:intl/intl.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -7,6 +9,13 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 
 class Chatbox extends StatefulWidget {
+  var username;
+  var proImage;
+  var uid;
+
+
+  Chatbox({Key key,this.username,this.proImage,this.uid}): super(key: key);
+
   @override
   _ChatboxState createState() => _ChatboxState();
 }
@@ -14,7 +23,9 @@ class Chatbox extends StatefulWidget {
 
 class _ChatboxState extends State<Chatbox> {
   final TextEditingController _msgcontroller = TextEditingController();
-  final List<Widget> message= <Widget>[];
+  // final List<Widget> message= <Widget>[];
+  final ScrollController _scrollController = new ScrollController();
+  final List<Message> messageList = <Message>[];
   String now = DateFormat("hh:mm").format(DateTime.now()); //To calculate current time
   bool _msgEmpty=true;
   IO.Socket socket;
@@ -27,17 +38,49 @@ class _ChatboxState extends State<Chatbox> {
     connect();
   }
 
+  Future<String> getCurrentUserId() async {
+    List<String> currentUserId= await UserManagement().getCurrentUsername();
+    return currentUserId[3];
+  }
+
   //to connect to socket io server
-  void connect(){
+  void connect() async{
     socket = IO.io("http://192.168.0.106:5000",<String,dynamic>
     {
       "transports":["websocket"],
       "autoConnect":false,
     });
     socket.connect();
-    socket.onConnect((data) => print("Connected"));
+    String currentUserId = await getCurrentUserId();
+    socket.emit("signin",currentUserId);
+    socket.onConnect((data){
+      print("Connected");
+      socket.on("message", (msg) {
+        print(msg);
+        setMessage("destination",msg["msg"]);
+      }
+      );
+    });
     print(socket.connected);
-    socket.emit("/test","Hello world");
+  }
+
+  void sendMsg(String msg,String SourceId,String targetId){
+    setMessage("source",msg);
+    socket.emit("message",{"msg":msg, "SourceId":SourceId, "targetId":targetId,});
+  }
+
+
+  void setMessage(String type,String msg)
+  {
+    Message message = Message(type:type,msg:msg);
+    setState(() {
+      messageList.add(message);
+    });
+    _scrollController.animateTo(
+      0.0,
+      curve: Curves.easeOut,
+      duration: const Duration(milliseconds: 300),
+    );
   }
 
   //Widget for outgoing message
@@ -57,6 +100,13 @@ class _ChatboxState extends State<Chatbox> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
+                          msg!=null?Text(msg,
+                            style:TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.white,
+                            ),
+                            maxLines: 10,
+                            overflow: TextOverflow.ellipsis,):
                           Text(msg,
                             style:TextStyle(
                               fontSize: 16.0,
@@ -93,7 +143,7 @@ class _ChatboxState extends State<Chatbox> {
 
 
   //widget for icoming meassage.
-  Widget _buildIncomingMessage(){
+  Widget _buildIncomingMessage(String msg){
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(4, 4, 150, 4),
@@ -109,13 +159,19 @@ class _ChatboxState extends State<Chatbox> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text("hi my name is bakaa. How are u doing?",
+                  msg!=null?Text(msg,
+                style:TextStyle(
+                  fontSize: 16.0,
+                ),
+                maxLines: 10,
+                overflow: TextOverflow.ellipsis,):
+                  Text("No message",
                     style:TextStyle(
                       fontSize: 16.0,
                     ),
                     maxLines: 10,
                     overflow: TextOverflow.ellipsis,),
-                  Text("12.08 pm"),
+                  Text(now),
                 ],
               ),
             ),
@@ -176,21 +232,21 @@ class _ChatboxState extends State<Chatbox> {
   Widget build(BuildContext context) {
 
     //to add message to string
-    void _addmessage(String msg,List<Widget> message){
-      if(message.length==0)
-        {
-          setState(() {
-            message.insert(0, _buildIncomingMessage());
-            message.insert(1, _buildOutgoingMessage(msg));
-          });
-        }
-      else {
-        setState(() {
-          message.insert(0, _buildOutgoingMessage(msg));
-        });
-      }
-      // print(message);
-    }
+    // void _addmessage(String msg,List<Widget> message){
+    //   if(message.length==0)
+    //     {
+    //       setState(() {
+    //         message.insert(0, _buildIncomingMessage());
+    //         message.insert(1, _buildOutgoingMessage(msg));
+    //       });
+    //     }
+    //   else {
+    //     setState(() {
+    //       message.insert(0, _buildOutgoingMessage(msg));
+    //     });
+    //   }
+    //   // print(message);
+    // }
 
     return Scaffold(
       appBar: AppBar(
@@ -209,26 +265,39 @@ class _ChatboxState extends State<Chatbox> {
                   backgroundColor: Colors.white,
                   child:ClipRRect(
                     borderRadius: BorderRadius.circular(50.0),
-                    child: Image.network(
+                    child: widget.proImage==null?Image.network(
                       "https://i.pinimg.com/originals/d5/45/a2/d545a2343d19f3ce8af9e9aa52dd3fce.jpg",
                       height: 50.0,
                       width:50.0,
-                    ),
+                    ):Image.network(
+                      widget.proImage,
+                      height: 50.0,
+                      width:50.0,
+                    )
+                    ,
                   ),
                   radius:25.0,
                 ),
             ),
-            Text("Soul Travel"),
+            widget.username==null?Text("") : Text(widget.username),
           ],
         ),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 80),
         child: ListView.builder(
-                    itemCount:message.length,
+                    itemCount:messageList.length,
+                    controller: _scrollController,
                     itemBuilder: (BuildContext context,int index)
                   {
-                    return message[message.length-index-1];
+                    if(messageList[index].type=="source")
+                      {
+                       return _buildOutgoingMessage(messageList[index].msg);
+                      }
+                    else{
+                      return _buildIncomingMessage(messageList[index].msg);
+                    }
+                    // return Text(messageList[messageList.length-index-1][msg]);
                   },
                 ),
       ),
@@ -280,12 +349,14 @@ class _ChatboxState extends State<Chatbox> {
               ),
               _msgEmpty==false?IconButton(
                 icon:Icon(Icons.send,color: Colors.white,),
-                onPressed: (){
+                onPressed: () async {
                   setState(() {
                     now= DateFormat("hh:mm").format(DateTime.now());
                     _msgEmpty=true;
                   });
-                  _addmessage(_msgcontroller.text,message);
+                  String currentUserId = await getCurrentUserId();
+                  // _addmessage(_msgcontroller.text,message);
+                  sendMsg(_msgcontroller.text,currentUserId,widget.uid);
                   _msgcontroller.clear();
                   // print(now);
                   // print("Send");
