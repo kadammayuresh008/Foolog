@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foolog/Screen/Helper/UserSearchTile.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Profile/Profile.dart';
@@ -15,6 +16,7 @@ class _UserListState extends State<UserList> {
   final  TextEditingController  _searchController = TextEditingController();
   bool _typing = false;
   String _query = "";
+   final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -99,9 +101,11 @@ class _UserListState extends State<UserList> {
               itemCount: userList.docs.length,
             itemBuilder:(BuildContext context,int Index){
             if(userList.docs[Index]["username"].toString().toLowerCase()
-                .contains(_query.toLowerCase()))
+                .contains(_query.toLowerCase())
+                && userList.docs[Index]["uid"]!=_auth.currentUser.uid)
             {
-                return UserSearchTile(Index: Index,userList: userList,);
+                return UserSearchTile(Index: Index,
+                    userList: userList);
             }
             else{
               return Container();

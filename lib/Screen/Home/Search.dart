@@ -35,20 +35,6 @@ class _SearchState extends State<Search> {
     return StreamProvider<QuerySnapshot>.value(
       value:UserManagement().UserDetails,
       child: Scaffold(
-          // appBar: AppBar(
-          //   leading:IconButton(
-          //      icon:Icon(
-          //        Icons.search,
-          //        color: Colors.purple,
-          //      ),
-          //     onPressed: (){
-          //       // SearchAppBarDelegate();
-          //        // TextCardField();
-          //        // print(UserManagement().UserDetails.toList());
-          //     },
-          //   ),
-          //   backgroundColor: Colors.grey[100],
-          // ),
           body:UserList(),
       ),
     );

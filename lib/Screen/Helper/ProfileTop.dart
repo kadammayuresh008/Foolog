@@ -18,8 +18,8 @@ class _ProfileTopState extends State<ProfileTop> {
     final userDetails = Provider.of<QuerySnapshot>(context);
     var username;
     String bio;
-    int Followers;
-    int Following;
+    List Followers;
+    List Following;
     int Posts;
     String ImageUrl;
 
@@ -35,7 +35,7 @@ class _ProfileTopState extends State<ProfileTop> {
         bio =userDetails.docs[index]["bio"];
         ImageUrl = userDetails.docs[index]["proImage"];
         Followers=userDetails.docs[index]["Followers"];
-        Following=userDetails.docs[index]["Following "];//if shows error see the spacing after Following word.
+        Following=userDetails.docs[index]["Following"];
         Posts=userDetails.docs[index]["Post"];
       }
       else{
@@ -112,7 +112,7 @@ class _ProfileTopState extends State<ProfileTop> {
                                 children: <Widget>[
                                   SizedBox(height: 10.0,),
                                   Text(
-                                      Followers.toString(), style: TextStyle(
+                                      Followers.length.toString(), style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                       fontSize: 25.0)),
@@ -128,7 +128,7 @@ class _ProfileTopState extends State<ProfileTop> {
                                 children: <Widget>[
                                   SizedBox(height: 10.0,),
                                   Text(
-                                      Following.toString(), style: TextStyle(
+                                      Following.length.toString(), style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                       fontSize: 25.0)),

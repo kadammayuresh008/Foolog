@@ -17,8 +17,8 @@ class UserManagement{
       'username':username,
       'bio':"",
       'proImage':"",
-      'Followers':0,
-      'Following':0,
+      'Followers':[],
+      'Following':[],
       'Post':0,
     }).then((value){
       Navigator.push(
@@ -83,8 +83,49 @@ class UserManagement{
       print(e);
     });
   }
-  
+
+Future<void> followUnfollow(String followUid,bool follow) async {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final  CollectionReference user= await FirebaseFirestore.instance.collection("/user");
+  final  dynamic followPer = await user.where("uid",isEqualTo:followUid).get();
+  String followerId=_auth.currentUser.uid;//Uid of Person going to Follow
+  print(followerId);
+  String followingId=followPer.docs[0].id;//Id of Person who is followed
+  String followingUid=followPer.docs[0]["uid"];//Uid of Person who is followed
+  if(follow==true)
+  {
+    //to added/count the follower
+    await user.doc(followingId).update(
+        {"Followers":FieldValue.arrayUnion([followerId])}).
+    catchError((e)
+    {print(e);});
+
+    //to add/count the following
+    await user.doc(followerId).update(
+        {"Following":FieldValue.arrayUnion([followingUid])}).
+    catchError((e)
+    {print(e);});
+    print("added");
+  }
+  else{
+    //to remove/count the follower
+    await user.doc(followingId).update(
+        {"Followers":FieldValue.arrayRemove([followerId])}).
+    catchError((e)
+    {print(e);});
+
+    //to remove/count the following
+    await user.doc(followerId).update(
+        {"Following":FieldValue.arrayUnion([followingId])}).
+    catchError((e)
+    {print(e);});
+    print("removed");
+  }
 }
+
+}
+
+
 
 
 

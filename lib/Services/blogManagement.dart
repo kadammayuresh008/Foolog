@@ -66,12 +66,6 @@ class blogManagement{
 
 
 // To add comment
-// void addComment(String comment,String index)
-// {
-//   blog.doc(index).update(
-//       {'comments':FieldValue.arrayUnion([comment])});
-// }
-
 Future<void> addComment(String comment,String index) async {
    final int like=100;
    final String Time="9.04pm";

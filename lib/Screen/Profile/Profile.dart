@@ -56,7 +56,7 @@ class _ProfileState extends State<Profile> {
                     // ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
                     child: ProfileTop(),
                   ),
                 ],

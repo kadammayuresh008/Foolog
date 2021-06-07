@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Profile/Profile.dart';
+import 'package:foolog/Services/usermanagement.dart';
 
 
 class UserSearchTile extends StatefulWidget {
@@ -15,7 +16,7 @@ class UserSearchTile extends StatefulWidget {
 
 class _UserSearchTileState extends State<UserSearchTile> {
 
-  bool follow=false;
+  bool follow=true;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -58,6 +59,7 @@ class _UserSearchTileState extends State<UserSearchTile> {
             splashColor: Colors.purpleAccent,
             onPressed: () {
               setState(() {
+                UserManagement().followUnfollow(widget.userList.docs[widget.Index]["uid"],follow);
                 follow=!follow;
                 print(follow);
               });
