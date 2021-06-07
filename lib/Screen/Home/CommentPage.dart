@@ -36,7 +36,7 @@ class _CommentPageState extends State<CommentPage> {
                     child:ClipRRect(
                       borderRadius: BorderRadius.circular(70.0),
                       child: Image.network(
-                        "https://i.pinimg.com/originals/d5/45/a2/d545a2343d19f3ce8af9e9aa52dd3fce.jpg",
+                        widget.comments[index]["cImage"],
                         height: 70.0,
                         width:70.0,
                       ),
@@ -46,11 +46,11 @@ class _CommentPageState extends State<CommentPage> {
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Travel Soul",
+                      Text(widget.comments[index]["cName"].toString(),
                       style:TextStyle(
                       fontWeight: FontWeight.bold,
                   )),
-                      Text(widget.comments[index]),
+                      Text(widget.comments[index]["comment"].toString()),
                     ],
                   ),
                   trailing: IconButton(

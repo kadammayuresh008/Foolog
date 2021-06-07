@@ -27,7 +27,7 @@ class blogManagement{
   
   
   StoreBlog(PickedFile image,String location,String caption,BuildContext context)async{
-    final  dynamic newuser= await FirebaseFirestore.instance.collection("/user");
+    final  CollectionReference newuser= await FirebaseFirestore.instance.collection("/user");
     final dynamic user = await newuser.where("uid",isEqualTo:_auth.currentUser.uid).get();
     dynamic ImageUrl = await uploadImage(image,context);
     blog.add({
@@ -39,8 +39,7 @@ class blogManagement{
       'likes':[],
       'comments':[],
     }).then((value)async{
-      // await newuser.where("uid",isEqualTo:_auth.currentUser.uid)
-      //     .update({"Post":FieldValue.increment(1.0)});
+      await newuser.doc(user.docs[0].id).update({"Post":FieldValue.increment(1)});
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Home()),
@@ -67,13 +66,26 @@ class blogManagement{
 
 
 // To add comment
-void addComment(String comment,String index)
-{
+// void addComment(String comment,String index)
+// {
+//   blog.doc(index).update(
+//       {'comments':FieldValue.arrayUnion([comment])});
+// }
+
+Future<void> addComment(String comment,String index) async {
+   final int like=100;
+   final String Time="9.04pm";
+  final  CollectionReference newuser= await FirebaseFirestore.instance.collection("/user");
+  final dynamic user = await newuser.where("uid",isEqualTo:_auth.currentUser.uid).get();
   blog.doc(index).update(
-      {'comments':FieldValue.arrayUnion([comment])});
+      {'comments':FieldValue.arrayUnion([{
+        "comment":comment,
+        "cName":user.docs[0]["username"],
+        "cImage":user.docs[0]["proImage"],
+        "clikes":like,
+        "cTime":Time,
+      }])});
 }
-
-
 
 
 
