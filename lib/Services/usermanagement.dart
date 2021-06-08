@@ -49,13 +49,23 @@ class UserManagement{
     return userdetails;
   }
 
-  Future<List<String>> getCurrentUserPhoto() async{
+  Future<List<Map<String,dynamic>>> getCurrentUserPhoto() async{
     FirebaseAuth _auth =FirebaseAuth.instance;
     final  dynamic user= await FirebaseFirestore.instance.collection("/blog")
         .where("user_id",isEqualTo:_auth.currentUser.uid).get();
-    List<String> Images=[];
+    List<Map<String,dynamic>> Images=[];
     for(var i =0;i<user.docs.length;i++)
-    {Images.add(user.docs[i]["image"]);}
+    {Images.add(
+      {
+        "index":user.docs[i].id,
+        "image":user.docs[i]["image"],
+        "username":user.docs[i]["user"],
+        "caption":user.docs[i]["caption"],
+        "likes":user.docs[i]["likes"],
+        "location":user.docs[i]["location"],
+        "comments":user.docs[i]["comments"],
+      }
+    );}
     return Images;
   }
 
@@ -88,15 +98,16 @@ Future<void> followUnfollow(String followUid,bool follow) async {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final  CollectionReference user= await FirebaseFirestore.instance.collection("/user");
   final  dynamic followPer = await user.where("uid",isEqualTo:followUid).get();
-  String followerId=_auth.currentUser.uid;//Uid of Person going to Follow
-  print(followerId);
-  String followingId=followPer.docs[0].id;//Id of Person who is followed
+  final  dynamic followingPer = await user.where("uid",isEqualTo:_auth.currentUser.uid).get();
+  String followerUid=_auth.currentUser.uid;//Uid of Person going to Follow
+  String followerId = followingPer.docs[0].id;//id of current user docs
+  String followingId=followPer.docs[0].id;//Id of Person docs who is followed
   String followingUid=followPer.docs[0]["uid"];//Uid of Person who is followed
   if(follow==true)
   {
     //to added/count the follower
     await user.doc(followingId).update(
-        {"Followers":FieldValue.arrayUnion([followerId])}).
+        {"Followers":FieldValue.arrayUnion([followerUid])}).
     catchError((e)
     {print(e);});
 
@@ -110,13 +121,13 @@ Future<void> followUnfollow(String followUid,bool follow) async {
   else{
     //to remove/count the follower
     await user.doc(followingId).update(
-        {"Followers":FieldValue.arrayRemove([followerId])}).
+        {"Followers":FieldValue.arrayRemove([followerUid])}).
     catchError((e)
     {print(e);});
 
     //to remove/count the following
     await user.doc(followerId).update(
-        {"Following":FieldValue.arrayUnion([followingId])}).
+        {"Following":FieldValue.arrayUnion([followingUid])}).
     catchError((e)
     {print(e);});
     print("removed");
