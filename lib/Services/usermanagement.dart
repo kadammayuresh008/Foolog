@@ -55,8 +55,11 @@ class UserManagement{
         .where("user_id",isEqualTo:_auth.currentUser.uid).get();
     List<Map<String,dynamic>> Images=[];
     for(var i =0;i<user.docs.length;i++)
-    {Images.add(
+    {
+      print(user.docs[i].id);
+      Images.add(
       {
+        "userId":user.docs[i]["user_id"],
         "index":user.docs[i].id,
         "image":user.docs[i]["image"],
         "username":user.docs[i]["user"],

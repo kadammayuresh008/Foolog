@@ -46,9 +46,9 @@ class _ImageGridViewState extends State<ImageGridView> {
         return
           GestureDetector(
               onTap: (){
-                print("pressed $index");
                 Navigator.push(context,
                           MaterialPageRoute(builder: (context) => ImageView(
+                            userId:Photos[index]["userId"],
                             index:Photos[index]["index"],
                             username: Photos[index]["username"],
                             caption: Photos[index]["caption"],

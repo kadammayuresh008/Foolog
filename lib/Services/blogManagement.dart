@@ -82,5 +82,15 @@ Future<void> addComment(String comment,String index) async {
 }
 
 
+void deletePost(String index)async{
+   await blog.doc(index).delete();
+}
+
+void EditPost(String index,String caption,String location)async{
+   await blog.doc(index).update({
+     "caption":caption,
+     "location":location,
+   });
+}
 
 }
