@@ -20,201 +20,209 @@ class _LoginState extends State<Login> {
     return Form(
       key: _formKey,
       child: Scaffold(
-          body: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment
-                      .bottomCenter, // 10% of the width, so there are ten blinds.
-                  colors: [
-                    Colors.white,
-                    Colors.white,
-                    Colors.white,
-                    Colors.white,
-                    Colors.purple[600],
-                  ], // red to yellow
-                  tileMode: TileMode.repeated,
+          body: SingleChildScrollView(
+            child: Container(
+                height:MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment
+                        .bottomCenter, // 10% of the width, so there are ten blinds.
+                    colors: [
+                      Colors.purple[600],
+                      Colors.purple[500],
+                      Colors.purple[400],
+                      Colors.purple[300],
+                      Colors.white,
+                    ], // red to yellow
+                    tileMode: TileMode.repeated,
+                  ),
                 ),
-              ),
-              // color:Colors.purple,
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(height: 150.0),
-                    Text("Foolog",
-                        style: TextStyle(
-                          fontSize: 50.0,
-                          fontWeight: FontWeight.w700,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.purple,
-                        )),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                      onChanged: (value) {
-                        setState(() {
-                          _email = value;
-                        });
-                      },
-                      validator:(value){
-                        if(value.isEmpty){
-                          return "Email field cannot be empty.";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        errorStyle: TextStyle(color: Colors.purple),
-                        prefixIcon: Icon(
-                          Icons.email_sharp,
-                          color: Colors.purple,
-                        ),
-                        hintText: 'Enter Email',
-                        hintStyle: TextStyle(
-                          color: Colors.purple,
-                        ),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 18.0, horizontal: 20.0),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.purple, width: 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.purple, width: 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.purple, width: 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                      onChanged: (value) {
-                        setState(() {
-                          _password = value;
-                        });
-                      },
-                      validator:(value){
-                        if(value.isEmpty){
-                          return "Password field cannot be empty.";
-                        }
-                        return null;
-                      },
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        errorStyle: TextStyle(color: Colors.purple),
-                        prefixIcon: Icon(
-                          Icons.vpn_key,
-                          color: Colors.purple,
-                        ),
-                        hintText: 'Enter password',
-                        hintStyle: TextStyle(
-                          color: Colors.purple,
-                        ),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 18.0, horizontal: 20.0),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.purple, width: 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.purple, width: 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.purple, width: 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10.0),
-                    Text(_error,
-                    style: TextStyle(color: Colors.red),),
-                    SizedBox(height: 10.0),
-                    RaisedButton(
-                      child: Text('Login',
+                // color:Colors.purple,
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 150.0),
+                      Text("Foolog",
                           style: TextStyle(
+                            fontSize: 50.0,
+                            fontWeight: FontWeight.w700,
+                            fontStyle: FontStyle.italic,
+                            fontFamily: 'Pacifico',
                             color: Colors.white,
-                            fontSize: 16.0,
                           )),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(10.0)),
-                      // borderSide: BorderSide(width:1.0,
-                      //     color:Colors.white,
-                      //     ),
-                      color: Colors.purple,
-                      onPressed: () async{
-                        if(_formKey.currentState.validate())
-                          {
-                            dynamic result= await AuthService().SignInWithEmailAndPassword(_email, _password);
-                            if(result==null)
-                              {
-                                setState(() {
-                                  _error = "Invalid credentials";
-                                });
-                              }
-                            else{
-                              // Navigator.pushReplacement(
-                              //   context,
-                              //   // MaterialPageRoute(builder: (context) => Home()),);
-                              Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => Home()),
-                                      );
-                            }
-                          }
-                          //   var result = await FirebaseAuth.instance
-                          //       .signInWithEmailAndPassword(
-                          //       email: _email, password: _password);
-                          //   if(result.user!=null)
-                          //   {
-                          //     Navigator.push(
-                          //       context,
-                          //       MaterialPageRoute(builder: (context) => Home()),
-                          //     );
-                          //   }
-                          //   else
-                          //   {
-                          //     print("Error");
-                          //   }
-                          // }
-                        }),
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => Home()),
-                        // )
-                    SizedBox(height: 10.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text("Don't have an account?",
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 18.0,
-                            )),
-                        FlatButton(onPressed:(){
-                          Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Signup())
-                          );
+                      SizedBox(height: 20.0),
+                      TextFormField(
+                        onChanged: (value) {
+                          setState(() {
+                            _email = value;
+                          });
                         },
-                          child:Text("Sign up",
+                        validator:(value){
+                          if(value.isEmpty){
+                            return "Email field cannot be empty.";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled:true,
+                          errorStyle: TextStyle(color: Colors.white),
+                          prefixIcon: Icon(
+                            Icons.email_sharp,
+                            color: Colors.purple,
+                          ),
+                          hintText: 'Enter Email',
+                          hintStyle: TextStyle(
+                            color: Colors.purple,
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 18.0, horizontal: 20.0),
+                          border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.purple, width: 1.0),
+                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.purple, width: 1.0),
+                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.purple, width: 1.0),
+                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20.0),
+                      TextFormField(
+                        onChanged: (value) {
+                          setState(() {
+                            _password = value;
+                          });
+                        },
+                        validator:(value){
+                          if(value.isEmpty){
+                            return "Password field cannot be empty.";
+                          }
+                          return null;
+                        },
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled:true,
+                          errorStyle: TextStyle(color: Colors.white),
+                          prefixIcon: Icon(
+                            Icons.vpn_key,
+                            color: Colors.purple,
+                          ),
+                          hintText: 'Enter password',
+                          hintStyle: TextStyle(
+                            color: Colors.purple,
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 18.0, horizontal: 20.0),
+                          border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.purple, width: 1.0),
+                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.purple, width: 1.0),
+                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.purple, width: 1.0),
+                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
+                      Text(_error,
+                      style: TextStyle(color: Colors.red),),
+                      SizedBox(height: 10.0),
+                      RaisedButton(
+                        child: Text('Login',
                             style: TextStyle(
-                              color: Colors.purple,
-                              fontSize: 18.0,
-                            )),)
-                      ],
-                    ),
-                  ],
-                ),
-              ))),
+                              color: Colors.white,
+                              fontSize: 16.0,
+                            )),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(10.0)),
+                        // borderSide: BorderSide(width:1.0,
+                        //     color:Colors.white,
+                        //     ),
+                        color: Colors.purple,
+                        onPressed: () async{
+                          if(_formKey.currentState.validate())
+                            {
+                              dynamic result= await AuthService().SignInWithEmailAndPassword(_email, _password);
+                              if(result==null)
+                                {
+                                  setState(() {
+                                    _error = "Invalid credentials";
+                                  });
+                                }
+                              else{
+                                // Navigator.pushReplacement(
+                                //   context,
+                                //   // MaterialPageRoute(builder: (context) => Home()),);
+                                Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => Home()),
+                                        );
+                              }
+                            }
+                            //   var result = await FirebaseAuth.instance
+                            //       .signInWithEmailAndPassword(
+                            //       email: _email, password: _password);
+                            //   if(result.user!=null)
+                            //   {
+                            //     Navigator.push(
+                            //       context,
+                            //       MaterialPageRoute(builder: (context) => Home()),
+                            //     );
+                            //   }
+                            //   else
+                            //   {
+                            //     print("Error");
+                            //   }
+                            // }
+                          }),
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => Home()),
+                          // )
+                      SizedBox(height: 10.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text("Don't have an account?",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18.0,
+                              )),
+                          FlatButton(onPressed:(){
+                            Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Signup())
+                            );
+                          },
+                            child:Text("Sign up",
+                              style: TextStyle(
+                                color: Colors.purple,
+                                fontSize: 18.0,
+                              )),)
+                        ],
+                      ),
+                    ],
+                  ),
+                )),
+          )),
     );
   }
 }
