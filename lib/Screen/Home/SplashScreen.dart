@@ -17,6 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
             style:TextStyle(
               fontSize: 60.0,
               color: Colors.purple,
+              fontFamily: 'Pacifico'
               // fontWeight: FontWeight.bold,
             ),),
           SizedBox(height:20.0),

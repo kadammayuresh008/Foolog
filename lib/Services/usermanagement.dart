@@ -7,139 +7,144 @@ import 'package:foolog/Services/blogManagement.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/Home.dart';
 import 'package:image_picker/image_picker.dart';
 
-class UserManagement{
-  final CollectionReference CurrUserDetails = FirebaseFirestore.instance.collection("user");
+class UserManagement {
+  final CollectionReference CurrUserDetails =
+      FirebaseFirestore.instance.collection("user");
 
-  StoreNewUser(user,username,context){
+  StoreNewUser(user, username, context) {
     FirebaseFirestore.instance.collection('user').add({
-      'email':user.email,
-      'uid':user.uid,
-      'username':username,
-      'bio':"",
-      'proImage':"",
-      'Followers':[],
-      'Following':[],
-      'Post':0,
-    }).then((value){
+      'email': user.email,
+      'uid': user.uid,
+      'username': username,
+      'bio': "",
+      'proImage': "",
+      'Followers': [],
+      'Following': [],
+      'Post': 0,
+    }).then((value) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Home()),
       );
-    }).catchError((e)
-    {
+    }).catchError((e) {
       print(e);
     });
-
   }
 
-  Stream<QuerySnapshot> get UserDetails{
+  Stream<QuerySnapshot> get UserDetails {
     return CurrUserDetails.snapshots();
   }
 
-  Future<List<String>> getCurrentUsername() async{
-    FirebaseAuth _auth =FirebaseAuth.instance;
-    final  dynamic user= await FirebaseFirestore.instance.collection("/user")
-        .where("uid",isEqualTo:_auth.currentUser.uid).get();
-    List<String> userdetails=[
+  Future<List<dynamic>> getCurrentUsername() async {
+    FirebaseAuth _auth = FirebaseAuth.instance;
+    final dynamic user = await FirebaseFirestore.instance
+        .collection("/user")
+        .where("uid", isEqualTo: _auth.currentUser.uid)
+        .get();
+    List<String> userdetails = [
       user.docs[0]["username"],
       user.docs[0]["bio"],
       user.docs[0]["proImage"],
       user.docs[0]["uid"],
+      user.docs[0]["following"],
     ];
     return userdetails;
   }
 
-  Future<List<Map<String,dynamic>>> getCurrentUserPhoto() async{
-    FirebaseAuth _auth =FirebaseAuth.instance;
-    final  dynamic user= await FirebaseFirestore.instance.collection("/blog")
-        .where("user_id",isEqualTo:_auth.currentUser.uid).get();
-    List<Map<String,dynamic>> Images=[];
-    for(var i =0;i<user.docs.length;i++)
-    {
+  Future<List<Map<String, dynamic>>> getCurrentUserPhoto() async {
+    FirebaseAuth _auth = FirebaseAuth.instance;
+    final dynamic user = await FirebaseFirestore.instance
+        .collection("/blog")
+        .where("user_id", isEqualTo: _auth.currentUser.uid)
+        .get();
+    List<Map<String, dynamic>> Images = [];
+    for (var i = 0; i < user.docs.length; i++) {
       print(user.docs[i].id);
-      Images.add(
-      {
-        "userId":user.docs[i]["user_id"],
-        "index":user.docs[i].id,
-        "image":user.docs[i]["image"],
-        "username":user.docs[i]["user"],
-        "caption":user.docs[i]["caption"],
-        "likes":user.docs[i]["likes"],
-        "location":user.docs[i]["location"],
-        "comments":user.docs[i]["comments"],
-      }
-    );}
+      Images.add({
+        "userId": user.docs[i]["user_id"],
+        "index": user.docs[i].id,
+        "image": user.docs[i]["image"],
+        "username": user.docs[i]["user"],
+        "caption": user.docs[i]["caption"],
+        "likes": user.docs[i]["likes"],
+        "location": user.docs[i]["location"],
+        "comments": user.docs[i]["comments"],
+      });
+    }
     return Images;
   }
 
-  Future<void> updateUserProfile(String username,String bio,PickedFile image,String ProImage,BuildContext context) async {
+  Future<void> updateUserProfile(String username, String bio, PickedFile image,
+      String ProImage, BuildContext context) async {
     dynamic ImageUrl;
     final FirebaseAuth _auth = FirebaseAuth.instance;
-    final  dynamic user= await FirebaseFirestore.instance.collection("/user")
-        .where("uid",isEqualTo:_auth.currentUser.uid).get();
-    final DocumentReference<Map<String, dynamic>> User=FirebaseFirestore.instance.collection('/user')
-        .doc(user.docs[0].id);
-    if(image!=null)
-      {
-        ImageUrl = await blogManagement().uploadImage(image,context);
-      }
+    final dynamic user = await FirebaseFirestore.instance
+        .collection("/user")
+        .where("uid", isEqualTo: _auth.currentUser.uid)
+        .get();
+    final DocumentReference<Map<String, dynamic>> User =
+        FirebaseFirestore.instance.collection('/user').doc(user.docs[0].id);
+    if (image != null) {
+      ImageUrl = await blogManagement().uploadImage(image, context);
+    }
     User.update({
-      'username':username,
-      'bio':bio,
-      'proImage': image==null?ProImage:ImageUrl,
-    }).then((value){
+      'username': username,
+      'bio': bio,
+      'proImage': image == null ? ProImage : ImageUrl,
+    }).then((value) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Profile()),
       );
-    }).catchError((e){
+    }).catchError((e) {
       print(e);
     });
   }
 
-Future<void> followUnfollow(String followUid,bool follow) async {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final  CollectionReference user= await FirebaseFirestore.instance.collection("/user");
-  final  dynamic followPer = await user.where("uid",isEqualTo:followUid).get();
-  final  dynamic followingPer = await user.where("uid",isEqualTo:_auth.currentUser.uid).get();
-  String followerUid=_auth.currentUser.uid;//Uid of Person going to Follow
-  String followerId = followingPer.docs[0].id;//id of current user docs
-  String followingId=followPer.docs[0].id;//Id of Person docs who is followed
-  String followingUid=followPer.docs[0]["uid"];//Uid of Person who is followed
-  if(follow==true)
-  {
-    //to added/count the follower
-    await user.doc(followingId).update(
-        {"Followers":FieldValue.arrayUnion([followerUid])}).
-    catchError((e)
-    {print(e);});
+  Future<void> followUnfollow(String followUid, bool follow) async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final CollectionReference user =
+        await FirebaseFirestore.instance.collection("/user");
+    final dynamic followPer =
+        await user.where("uid", isEqualTo: followUid).get();
+    final dynamic followingPer =
+        await user.where("uid", isEqualTo: _auth.currentUser.uid).get();
+    String followerUid = _auth.currentUser.uid; //Uid of Person going to Follow
+    String followerId = followingPer.docs[0].id; //id of current user docs
+    String followingId =
+        followPer.docs[0].id; //Id of Person docs who is followed
+    String followingUid =
+        followPer.docs[0]["uid"]; //Uid of Person who is followed
+    if (follow == true) {
+      //to added/count the follower
+      await user.doc(followingId).update({
+        "Followers": FieldValue.arrayUnion([followerUid])
+      }).catchError((e) {
+        print(e);
+      });
 
-    //to add/count the following
-    await user.doc(followerId).update(
-        {"Following":FieldValue.arrayUnion([followingUid])}).
-    catchError((e)
-    {print(e);});
-    print("added");
-  }
-  else{
-    //to remove/count the follower
-    await user.doc(followingId).update(
-        {"Followers":FieldValue.arrayRemove([followerUid])}).
-    catchError((e)
-    {print(e);});
+      //to add/count the following
+      await user.doc(followerId).update({
+        "Following": FieldValue.arrayUnion([followingUid])
+      }).catchError((e) {
+        print(e);
+      });
+      print("added");
+    } else {
+      //to remove/count the follower
+      await user.doc(followingId).update({
+        "Followers": FieldValue.arrayRemove([followerUid])
+      }).catchError((e) {
+        print(e);
+      });
 
-    //to remove/count the following
-    await user.doc(followerId).update(
-        {"Following":FieldValue.arrayUnion([followingUid])}).
-    catchError((e)
-    {print(e);});
-    print("removed");
+      //to remove/count the following
+      await user.doc(followerId).update({
+        "Following": FieldValue.arrayUnion([followingUid])
+      }).catchError((e) {
+        print(e);
+      });
+      print("removed");
+    }
   }
 }
-
-}
-
-
-
-
-

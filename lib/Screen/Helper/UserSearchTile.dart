@@ -1,22 +1,37 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:foolog/Screen/Helper/UserList.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Profile/Profile.dart';
 import 'package:foolog/Services/usermanagement.dart';
-
 
 class UserSearchTile extends StatefulWidget {
   int Index;
   QuerySnapshot userList;
 
-  UserSearchTile({Key key,@required this.Index,@required this.userList}):super(key: key);
+  UserSearchTile({Key key, @required this.Index, @required this.userList})
+      : super(key: key);
 
   @override
   _UserSearchTileState createState() => _UserSearchTileState();
 }
 
 class _UserSearchTileState extends State<UserSearchTile> {
+  bool follow = false;
+  List<String> UserIdList;
+  Future<void> getCurrentUserId() async {
+    List<dynamic> CurrentUserDoc = await UserManagement().getCurrentUsername();
+    setState(() {
+      UserIdList = CurrentUserDoc[4];
+    });
+  }
 
-  bool follow=true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getCurrentUserId();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -43,34 +58,39 @@ class _UserSearchTileState extends State<UserSearchTile> {
           ),
           trailing: RaisedButton(
             elevation: 0.0,
-            child: follow?
-            Text(
-                "Follow",
-                style: TextStyle(
-                  color: Colors.black,
-                )
-            ):Text(
-                "Unfollow",
-                style: TextStyle(
-                  color: Colors.black,
-                )
-            ),
-            color: follow?Colors.purple:Colors.white,
+            child:
+                UserIdList.contains(widget.userList.docs[widget.Index]["uid"])
+                    ? Text("Unfollow",
+                        style: TextStyle(
+                          color: Colors.black,
+                        ))
+                    : Text("Follow",
+                        style: TextStyle(
+                          color: Colors.black,
+                        )),
+            color:
+                UserIdList.contains(widget.userList.docs[widget.Index]["uid"])
+                    ? Colors.white
+                    : Colors.purple,
             splashColor: Colors.purpleAccent,
             onPressed: () {
               setState(() {
-                UserManagement().followUnfollow(widget.userList.docs[widget.Index]["uid"],follow);
-                follow=!follow;
+                UserManagement().followUnfollow(
+                    widget.userList.docs[widget.Index]["uid"], follow);
+                follow = !follow;
                 print(follow);
               });
             },
           ),
-          title: Text(widget.userList.docs[widget.Index]["username"],
+          title: Text(
+            widget.userList.docs[widget.Index]["username"],
             style: TextStyle(
               fontWeight: FontWeight.bold,
-            ),),
+            ),
+          ),
         ),
       ),
-    );;
+    );
+    ;
   }
 }
