@@ -7,8 +7,9 @@ import 'package:foolog/Services/usermanagement.dart';
 class UserSearchTile extends StatefulWidget {
   int Index;
   QuerySnapshot userList;
+  bool follow;
 
-  UserSearchTile({Key key, @required this.Index, @required this.userList})
+  UserSearchTile({Key key, @required this.Index, @required this.follow,@required this.userList})
       : super(key: key);
 
   @override
@@ -16,20 +17,11 @@ class UserSearchTile extends StatefulWidget {
 }
 
 class _UserSearchTileState extends State<UserSearchTile> {
-  bool follow = false;
-  List<String> UserIdList;
-  Future<void> getCurrentUserId() async {
-    List<dynamic> CurrentUserDoc = await UserManagement().getCurrentUsername();
-    setState(() {
-      UserIdList = CurrentUserDoc[4];
-    });
-  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getCurrentUserId();
   }
 
   @override
@@ -59,26 +51,23 @@ class _UserSearchTileState extends State<UserSearchTile> {
           trailing: RaisedButton(
             elevation: 0.0,
             child:
-                UserIdList.contains(widget.userList.docs[widget.Index]["uid"])
-                    ? Text("Unfollow",
+                // UserIdList.contains(widget.userList.docs[widget.Index]["uid"])
+                    widget.follow? Text("Follow",
                         style: TextStyle(
                           color: Colors.black,
-                        ))
-                    : Text("Follow",
+                        )):Text("Unfollow",
                         style: TextStyle(
                           color: Colors.black,
                         )),
-            color:
-                UserIdList.contains(widget.userList.docs[widget.Index]["uid"])
-                    ? Colors.white
-                    : Colors.purple,
+            color:widget.follow
+                // UserIdList.contains(widget.userList.docs[widget.Index]["uid"])
+                    ? Colors.purple:Colors.white,
             splashColor: Colors.purpleAccent,
             onPressed: () {
               setState(() {
+                // follow = !widget.follow;
                 UserManagement().followUnfollow(
-                    widget.userList.docs[widget.Index]["uid"], follow);
-                follow = !follow;
-                print(follow);
+                    widget.userList.docs[widget.Index]["uid"], widget.follow);
               });
             },
           ),

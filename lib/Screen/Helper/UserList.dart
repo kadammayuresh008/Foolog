@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foolog/Screen/Helper/UserSearchTile.dart';
+import 'package:foolog/Services/usermanagement.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Profile/Profile.dart';
 import 'package:provider/provider.dart';
 // import 'package:flutter_search_bar/flutter_search_bar.dart';
@@ -16,7 +17,26 @@ class _UserListState extends State<UserList> {
   final  TextEditingController  _searchController = TextEditingController();
   bool _typing = false;
   String _query = "";
-   final _auth = FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instance;
+  List<String> UserIdList;
+  bool follow;
+
+  // Future<void> getCurrentUserId() async {
+  //   List<dynamic> CurrentUserDoc = await UserManagement().getCurrentUsername();
+  //   print(CurrentUserDoc);
+  //   setState(() {
+  //     UserIdList = CurrentUserDoc[3];
+  //   });
+  //   print("UserIdList");
+  //   print(UserIdList);
+  // }
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,13 +119,15 @@ class _UserListState extends State<UserList> {
           )))
           :ListView.builder(
               itemCount: userList.docs.length,
-            itemBuilder:(BuildContext context,int Index){
+            itemBuilder:(BuildContext context,int Index)
+            {
+              follow=userList.docs[Index]["Followers"].contains(_auth.currentUser.uid)?false:true;
             if(userList.docs[Index]["username"].toString().toLowerCase()
                 .contains(_query.toLowerCase())
                 && userList.docs[Index]["uid"]!=_auth.currentUser.uid)
             {
                 return UserSearchTile(Index: Index,
-                    userList: userList);
+                    userList: userList,follow:follow);
             }
             else{
               return Container();

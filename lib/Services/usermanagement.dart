@@ -140,7 +140,7 @@ class UserManagement {
 
       //to remove/count the following
       await user.doc(followerId).update({
-        "Following": FieldValue.arrayUnion([followingUid])
+        "Following": FieldValue.arrayRemove([followingUid])
       }).catchError((e) {
         print(e);
       });
