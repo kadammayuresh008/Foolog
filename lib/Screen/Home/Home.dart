@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foolog/Screen/Helper/BlogCard.dart';
 import 'package:foolog/Screen/Helper/UserList.dart';
@@ -66,6 +67,7 @@ class _HomeState extends State<Home> {
     // return MultiProvider(
     //   providers: [],
     // );
+    final _auth = FirebaseAuth.instance;
     return StreamProvider<QuerySnapshot>.value(
       value:blogManagement().Blog,
       child: Scaffold(
@@ -93,7 +95,7 @@ class _HomeState extends State<Home> {
                   onTap:(){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Profile()),
+                      MaterialPageRoute(builder: (context) => Profile(uid:_auth.currentUser.uid)),
                     );
                   },
                   child:CircleAvatar(

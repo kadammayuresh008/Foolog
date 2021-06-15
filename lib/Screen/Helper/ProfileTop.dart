@@ -7,22 +7,33 @@ import 'package:provider/provider.dart';
 
 
 class ProfileTop extends StatefulWidget {
+  var uid;
+
   @override
   _ProfileTopState createState() => _ProfileTopState();
+
+  ProfileTop({Key key, @required this.uid}) : super(key: key);
 }
 
 class _ProfileTopState extends State<ProfileTop> {
+  var username;
+  String bio;
+  List Followers;
+  List Following;
+  int Posts;
+  String ImageUrl;
+  bool follow=true;
+
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+
   Widget build(BuildContext context){
     final _auth = FirebaseAuth.instance;
     final userDetails = Provider.of<QuerySnapshot>(context);
-    var username;
-    String bio;
-    List Followers;
-    List Following;
-    int Posts;
-    String ImageUrl;
-
     if(userDetails==null){
       return Center(
           child: CircularProgressIndicator()
@@ -30,7 +41,7 @@ class _ProfileTopState extends State<ProfileTop> {
     }
     for (var index = 0; index < userDetails.docs.length; index++) {
       var x = userDetails.docs[index]["uid"];
-      if (x == _auth.currentUser.uid) {
+      if (x == widget.uid) {
         username = userDetails.docs[index]["username"];
         bio =userDetails.docs[index]["bio"];
         ImageUrl = userDetails.docs[index]["proImage"];
@@ -143,7 +154,7 @@ class _ProfileTopState extends State<ProfileTop> {
                           ],
                         ),
                       ),
-                     Padding(
+                     widget.uid==_auth.currentUser.uid?Padding(
                        padding: const EdgeInsets.all(8.0),
                        child: Row(
                           mainAxisAlignment:MainAxisAlignment.center,
@@ -166,6 +177,55 @@ class _ProfileTopState extends State<ProfileTop> {
                             },),),
                         ],
                     ),
+                     ):
+                     follow==true?Padding(
+                       padding: const EdgeInsets.all(8.0),
+                       child: Row(
+                         mainAxisAlignment:MainAxisAlignment.center,
+                         children:<Widget>[
+                           ButtonTheme(
+                             minWidth: 100.0,
+                             child:FlatButton(
+                               onPressed: () {
+                                 setState(() {
+                                   follow = !follow;
+                                 });
+                                 print(follow);
+                               },
+                               child:Text('Unfollow',
+                                   style:TextStyle(
+                                     fontWeight: FontWeight.bold,
+                                     color:Colors.purple,
+                                   )
+                               ),
+                               color: Colors.white,
+                             ),
+                           ),
+                         ],
+                       ),
+                     ):Padding(
+                       padding: const EdgeInsets.all(8.0),
+                       child: Row(
+                         mainAxisAlignment:MainAxisAlignment.center,
+                         children:<Widget>[
+                           ButtonTheme(
+                             minWidth: 100.0,
+                             child: OutlineButton(
+                               child:Text('Follow',
+                                   style:TextStyle(
+                                     fontWeight: FontWeight.bold,
+                                     color:Colors.white,
+                                   )),
+                               highlightedBorderColor:Colors.white,
+                               color: Colors.white,
+                               onPressed: () {
+                                 setState(() {
+                                   follow = !follow;
+                                 });
+                                 print(follow);
+                               },),),
+                         ],
+                       ),
                      ),
               ],
             ),

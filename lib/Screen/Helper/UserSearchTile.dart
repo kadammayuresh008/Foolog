@@ -32,7 +32,7 @@ class _UserSearchTileState extends State<UserSearchTile> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Profile()),
+            MaterialPageRoute(builder: (context) => Profile(uid:widget.userList.docs[widget.Index]["uid"])),
           );
         },
         child: ListTile(

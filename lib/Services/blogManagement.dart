@@ -89,10 +89,14 @@ class blogManagement {
     });
   }
 
+  //to delete user Post
   void deletePost(String index) async {
     await blog.doc(index).delete();
   }
 
+
+
+  //to Edit the user Post
   void EditPost(String index, String caption, String location) async {
     await blog.doc(index).update({
       "caption": caption,

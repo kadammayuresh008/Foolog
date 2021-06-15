@@ -41,21 +41,21 @@ class UserManagement {
         .collection("/user")
         .where("uid", isEqualTo: _auth.currentUser.uid)
         .get();
-    List<String> userdetails = [
+    List<dynamic> userdetails = [
       user.docs[0]["username"],
       user.docs[0]["bio"],
       user.docs[0]["proImage"],
-      user.docs[0]["uid"],
-      user.docs[0]["following"],
+      _auth.currentUser.uid,
+      user.docs[0]["Following"],
     ];
     return userdetails;
   }
 
-  Future<List<Map<String, dynamic>>> getCurrentUserPhoto() async {
-    FirebaseAuth _auth = FirebaseAuth.instance;
+  Future<List<Map<String, dynamic>>> getUserPhoto(String uid) async {
+    // FirebaseAuth _auth = FirebaseAuth.instance;
     final dynamic user = await FirebaseFirestore.instance
         .collection("/blog")
-        .where("user_id", isEqualTo: _auth.currentUser.uid)
+        .where("user_id", isEqualTo: uid)
         .get();
     List<Map<String, dynamic>> Images = [];
     for (var i = 0; i < user.docs.length; i++) {
@@ -74,6 +74,7 @@ class UserManagement {
     return Images;
   }
 
+  //to Update user Profile
   Future<void> updateUserProfile(String username, String bio, PickedFile image,
       String ProImage, BuildContext context) async {
     dynamic ImageUrl;
@@ -101,6 +102,7 @@ class UserManagement {
     });
   }
 
+  //to Follow and Unfollow user
   Future<void> followUnfollow(String followUid, bool follow) async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final CollectionReference user =
@@ -148,3 +150,6 @@ class UserManagement {
     }
   }
 }
+
+
+

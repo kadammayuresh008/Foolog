@@ -14,17 +14,25 @@ import '../Helper/ImageGridView.dart';
 
 
 class Profile extends StatefulWidget {
+  var uid;
+
   @override
   _ProfileState createState() => _ProfileState();
+
+  Profile({Key key, @required this.uid}) : super(key: key);
 }
 
 class _ProfileState extends State<Profile> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   Widget build(BuildContext context) {
+    // print("widget_uid "+widget.uid);
     return StreamProvider<QuerySnapshot>.value(
       value:UserManagement().UserDetails,
       child:UserManagement().UserDetails==null?Center(
@@ -57,14 +65,14 @@ class _ProfileState extends State<Profile> {
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                    child: ProfileTop(),
+                    child: ProfileTop(uid:widget.uid),
                   ),
                 ],
               ),
             ),
           body:Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ImageGridView(),
+                child: ImageGridView(uid:widget.uid),
               ),
         endDrawer: Drawer(
           child:ListView(
