@@ -41,7 +41,11 @@ class _ChatlistState extends State<Chatlist> {
                     backgroundColor: Colors.white,
                     child:ClipRRect(
                       borderRadius: BorderRadius.circular(100.0),
-                      child: Image.network(
+                      child: ImagePath==""?Image.asset(
+                        "assets/Images/DeafultProfileImage.png",
+                        height: 100.0,
+                        width:100.0,
+                      ):Image.network(
                         ImagePath,
                         height: 100.0,
                         width:100.0,
@@ -49,6 +53,7 @@ class _ChatlistState extends State<Chatlist> {
                     ),
                     radius:35.0,
                   ),
+                  SizedBox(width:5.0),
                   Column(
                     // mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,

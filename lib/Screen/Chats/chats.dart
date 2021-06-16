@@ -23,7 +23,6 @@ class _ChatState extends State<Chat> {
          backgroundColor: Colors.purple,
          leading:IconButton(icon:Icon(Icons.arrow_back),
            onPressed: () {
-             print("Back");
              Navigator.pop(context);
            },),
          title:Text("Chats"),
