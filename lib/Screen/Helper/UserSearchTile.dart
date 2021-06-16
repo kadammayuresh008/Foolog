@@ -32,7 +32,7 @@ class _UserSearchTileState extends State<UserSearchTile> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Profile(uid:widget.userList.docs[widget.Index]["uid"])),
+            MaterialPageRoute(builder: (context) => Profile(uid:widget.userList.docs[widget.Index]["uid"],follow:widget.follow)),
           );
         },
         child: ListTile(
@@ -40,19 +40,21 @@ class _UserSearchTileState extends State<UserSearchTile> {
             backgroundColor: Colors.white,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(80.0),
-              child: Image.network(
-                "https://i.pinimg.com/originals/d5/45/a2/d545a2343d19f3ce8af9e9aa52dd3fce.jpg",
+              child:widget.userList.docs[widget.Index]["proImage"]==""?Image.asset(
+                "assets/Images/DeafultProfileImage.png",
                 height: 80.0,
                 width: 80.0,
-              ),
+              ):Image.network(
+                widget.userList.docs[widget.Index]["proImage"],
+              height: 80.0,
+              width: 80.0,
+            ),
             ),
             radius: 25.0,
           ),
           trailing: RaisedButton(
             elevation: 0.0,
-            child:
-                // UserIdList.contains(widget.userList.docs[widget.Index]["uid"])
-                    widget.follow? Text("Follow",
+            child: widget.follow? Text("Follow",
                         style: TextStyle(
                           color: Colors.black,
                         )):Text("Unfollow",
@@ -60,7 +62,6 @@ class _UserSearchTileState extends State<UserSearchTile> {
                           color: Colors.black,
                         )),
             color:widget.follow
-                // UserIdList.contains(widget.userList.docs[widget.Index]["uid"])
                     ? Colors.purple:Colors.white,
             splashColor: Colors.purpleAccent,
             onPressed: () {

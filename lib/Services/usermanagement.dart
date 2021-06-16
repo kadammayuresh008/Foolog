@@ -35,18 +35,19 @@ class UserManagement {
     return CurrUserDetails.snapshots();
   }
 
-  Future<List<dynamic>> getCurrentUsername() async {
+  Future<List<dynamic>> getCurrentUsername(String uid) async {
     FirebaseAuth _auth = FirebaseAuth.instance;
     final dynamic user = await FirebaseFirestore.instance
         .collection("/user")
-        .where("uid", isEqualTo: _auth.currentUser.uid)
+        .where("uid", isEqualTo: uid)
         .get();
     List<dynamic> userdetails = [
       user.docs[0]["username"],
       user.docs[0]["bio"],
       user.docs[0]["proImage"],
-      _auth.currentUser.uid,
+      user.docs[0]["uid"],
       user.docs[0]["Following"],
+      user.docs[0]["Followers"],
     ];
     return userdetails;
   }
@@ -131,7 +132,6 @@ class UserManagement {
       }).catchError((e) {
         print(e);
       });
-      print("added");
     } else {
       //to remove/count the follower
       await user.doc(followingId).update({
@@ -146,7 +146,6 @@ class UserManagement {
       }).catchError((e) {
         print(e);
       });
-      print("removed");
     }
   }
 }

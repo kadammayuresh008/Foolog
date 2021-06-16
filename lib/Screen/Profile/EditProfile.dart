@@ -15,6 +15,7 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
 
+  final _auth=FirebaseAuth.instance;
   String username;
   String bio;
   String Ogusername;
@@ -27,7 +28,7 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController _editBio = TextEditingController();
 
   Future<String> getUserDetails() async{
-    await UserManagement().getCurrentUsername().then((value) {
+    await UserManagement().getCurrentUsername(_auth.currentUser.uid).then((value) {
       setState(() {
         Ogusername=value[0];
         Ogbio=value[1];

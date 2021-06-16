@@ -17,12 +17,21 @@ class _ImageGridViewState extends State<ImageGridView> {
   List<Map<String,dynamic>> Photos=[];
   bool _empty=false;
 
+
+  //To check whether teh current user id is in given userId follower
   Future<bool> IsFollowing()async{
     FirebaseAuth _auth = FirebaseAuth.instance;
-    List<dynamic> follow = await UserManagement().getCurrentUsername();
-    return follow[3].contains(widget.uid)?true:false;
+    if(widget.uid==_auth.currentUser.uid)
+      {
+        return true;
+      }
+    else{
+      List<dynamic> follow = await UserManagement().getCurrentUsername(widget.uid);
+      return follow[5].contains(_auth.currentUser.uid)?true:false;
+    }
   }
 
+  //to get images of given userId
   Future<List<String>> getImages() async{
     List<Map<String,dynamic>> Images = await UserManagement().getUserPhoto(widget.uid);
     setState(() {
@@ -50,12 +59,12 @@ class _ImageGridViewState extends State<ImageGridView> {
   }
   @override
   Widget build(BuildContext context) {
-    return _empty?Container(
+    return _empty==true?Container(
       child: Center(
         child:Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.lock_outlined,
+            Icon(Icons.lock_rounded,
             color:Colors.black,
             size:50.0),
             Text("Follow to view photos",
@@ -69,7 +78,7 @@ class _ImageGridViewState extends State<ImageGridView> {
       child:Text(
         "No Post",
         style:TextStyle(
-          fontSize: 30,
+          fontSize: 25,
         )
       ),
     ):GridView.builder(

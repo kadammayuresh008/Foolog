@@ -2,17 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foolog/Screen/Profile/EditProfile.dart';
+import 'package:foolog/Services/usermanagement.dart';
 import 'package:provider/provider.dart';
 
 
 
 class ProfileTop extends StatefulWidget {
   var uid;
+  bool follow;
 
   @override
   _ProfileTopState createState() => _ProfileTopState();
 
-  ProfileTop({Key key, @required this.uid}) : super(key: key);
+  ProfileTop({Key key, @required this.uid,@required this.follow}) : super(key: key);
 }
 
 class _ProfileTopState extends State<ProfileTop> {
@@ -22,7 +24,6 @@ class _ProfileTopState extends State<ProfileTop> {
   List Following;
   int Posts;
   String ImageUrl;
-  bool follow=true;
 
   @override
   void initState() {
@@ -178,7 +179,7 @@ class _ProfileTopState extends State<ProfileTop> {
                         ],
                     ),
                      ):
-                     follow==true?Padding(
+                     widget.follow==false?Padding(
                        padding: const EdgeInsets.all(8.0),
                        child: Row(
                          mainAxisAlignment:MainAxisAlignment.center,
@@ -188,9 +189,10 @@ class _ProfileTopState extends State<ProfileTop> {
                              child:FlatButton(
                                onPressed: () {
                                  setState(() {
-                                   follow = !follow;
+                                   // follow = !widget.follow;
+                                   UserManagement().followUnfollow(
+                                       widget.uid, widget.follow);
                                  });
-                                 print(follow);
                                },
                                child:Text('Unfollow',
                                    style:TextStyle(
@@ -219,10 +221,8 @@ class _ProfileTopState extends State<ProfileTop> {
                                highlightedBorderColor:Colors.white,
                                color: Colors.white,
                                onPressed: () {
-                                 setState(() {
-                                   follow = !follow;
-                                 });
-                                 print(follow);
+                                  UserManagement().followUnfollow(
+                                  widget.uid, widget.follow);
                                },),),
                          ],
                        ),

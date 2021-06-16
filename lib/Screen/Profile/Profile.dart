@@ -15,11 +15,12 @@ import '../Helper/ImageGridView.dart';
 
 class Profile extends StatefulWidget {
   var uid;
+  bool follow;
 
   @override
   _ProfileState createState() => _ProfileState();
 
-  Profile({Key key, @required this.uid}) : super(key: key);
+  Profile({Key key, @required this.uid, @required this.follow}) : super(key: key);
 }
 
 class _ProfileState extends State<Profile> {
@@ -65,7 +66,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                    child: ProfileTop(uid:widget.uid),
+                    child: ProfileTop(uid:widget.uid,follow:widget.follow),
                   ),
                 ],
               ),
