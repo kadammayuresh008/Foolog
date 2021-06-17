@@ -1,72 +1,82 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
+import 'package:foolog/Services/chatsManagement.dart';
 import 'package:foolog/Services/usermanagement.dart';
 import 'package:foolog/models/MessageModel.dart';
 import 'package:intl/intl.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
-
-
 
 class Chatbox extends StatefulWidget {
   var username;
   var proImage;
   var uid;
 
-
-  Chatbox({Key key,this.username,this.proImage,this.uid}): super(key: key);
+  Chatbox({Key key, this.username, this.proImage, this.uid}) : super(key: key);
 
   @override
   _ChatboxState createState() => _ChatboxState();
 }
 
-
 class _ChatboxState extends State<Chatbox> {
   final TextEditingController _msgcontroller = TextEditingController();
   final ScrollController _scrollController = new ScrollController();
-  final List<Message> messageList = <Message>[];
-  final _auth=FirebaseAuth.instance;
-  String now = DateFormat("hh:mm").format(DateTime.now()); //To calculate current time
-  bool _msgEmpty=true;
+  List<Message> messageList = <Message>[];
+  final _auth = FirebaseAuth.instance;
+  String now =
+      DateFormat("hh:mm").format(DateTime.now()); //To calculate current time
+  bool _msgEmpty = true;
   IO.Socket socket;
 
-
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
     connect();
+    getStoredMessages();
+  }
+
+  Future<List<dynamic>> getStoredMessages() async{
+    List<dynamic> storedMessage = await chatsManagement().getMessage(_auth.currentUser.uid, widget.uid);
+    List<Message> stored=[];
+    for(var i=0;i<storedMessage.length;i++)
+      {
+        stored.add(Message(msg:storedMessage[i]["msg"],type:storedMessage[i]["type"],now:storedMessage[i]["now"]));
+      }
+    setState(() {
+      messageList=stored;
+    });
   }
 
   Future<dynamic> getCurrentUserId() async {
-    List<dynamic> currentUserId= await UserManagement().getCurrentUsername(_auth.currentUser.uid);
+    List<dynamic> currentUserId =
+        await UserManagement().getCurrentUsername(_auth.currentUser.uid);
     return currentUserId[3];
   }
 
   //to connect to socket io server
-  void connect() async{
-    socket = IO.io("https://arcane-thicket-78202.herokuapp.com/",<String,dynamic>
-    {
-      "transports":["websocket"],
-      "autoConnect":false,
+  void connect() async {
+    socket =
+        IO.io("https://arcane-thicket-78202.herokuapp.com/", <String, dynamic>{
+      "transports": ["websocket"],
+      "autoConnect": false,
     });
     socket.connect();
     String currentUserId = await getCurrentUserId();
-    socket.emit("signin",currentUserId);
-    socket.onConnect((data){
+    socket.emit("signin", currentUserId);
+    socket.onConnect((data) {
       print("Connected");
       socket.on("message", (msg) {
         print(msg);
-        setMessage("destination",msg["msg"]);
-      }
-      );
+        setMessage("destination", msg["msg"]);
+        Message message = Message(type: "destination", msg: msg["msg"],now:now);
+        chatsManagement().addMessage( msg["targetId"],msg["SourceId"],message);
+      });
     });
     print(socket.connected);
   }
 
-  void setMessage(String type,String msg)
-  {
-    Message message = Message(type:type,msg:msg);
+  void setMessage(String type, String msg) {
+    Message message = Message(type: type, msg: msg,now:now);
     setState(() {
       messageList.add(message);
     });
@@ -77,151 +87,164 @@ class _ChatboxState extends State<Chatbox> {
     // );
   }
 
-  void sendMsg(String msg,String SourceId,String targetId){
-    setMessage("source",msg);
-    socket.emit("message",{"msg":msg, "SourceId":SourceId, "targetId":targetId,});
+  void sendMsg(String msg, String SourceId, String targetId) {
+    setMessage("source", msg);
+    socket.emit("message", {
+      "msg": msg,
+      "SourceId": SourceId,
+      "targetId": targetId,
+    });
+    Message message = Message(type: "source", msg: msg,now:now);
+    if (messageList.length == 1) {
+      chatsManagement().initiateChat(SourceId, targetId,message);
+    } else {
+      chatsManagement().addMessage(SourceId, targetId, message);
+    }
   }
 
-
-
   //Widget for outgoing message
-  Widget _buildOutgoingMessage(String msg){
-
+  Widget _buildOutgoingMessage(String msg, String now) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(150, 4, 4, 4),
       child: Align(
         alignment: Alignment.centerRight,
         child: Container(
-              decoration:BoxDecoration(
-                color:Colors.purple,
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-              child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          msg!=null?Text(msg,
-                            style:TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.white,
-                            ),
-                            maxLines: 10,
-                            overflow: TextOverflow.ellipsis,):
-                          Text(msg,
-                            style:TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.white,
-                            ),
-                            maxLines: 10,
-                            overflow: TextOverflow.ellipsis,),
-                          Text(now,
-                          style:TextStyle(
-                            color:Colors.white,
-                          )),
-                        ],
+          decoration: BoxDecoration(
+            color: Colors.purple,
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                msg != null
+                    ? Text(
+                        msg,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.white,
+                        ),
+                        maxLines: 10,
+                        overflow: TextOverflow.ellipsis,
+                      )
+                    : Text(
+                        msg,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.white,
+                        ),
+                        maxLines: 10,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                    ),
+                Text(now,
+                    style: TextStyle(
+                      color: Colors.white,
+                    )),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 
-
   //widget for icoming meassage.
-  Widget _buildIncomingMessage(String msg){
-
+  Widget _buildIncomingMessage(String msg,String now) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(4, 4, 150, 4),
       child: Align(
-        alignment:Alignment.centerLeft,
+        alignment: Alignment.centerLeft,
         child: Container(
-            decoration:BoxDecoration(
-              color:Colors.grey[300],
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          decoration: BoxDecoration(
+            color: Colors.grey[300],
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                msg != null
+                    ? Text(
+                        msg,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        ),
+                        maxLines: 10,
+                        overflow: TextOverflow.ellipsis,
+                      )
+                    : Text(
+                        "No message",
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        ),
+                        maxLines: 10,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                Text(now),
+              ],
             ),
-            child:Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  msg!=null?Text(msg,
-                style:TextStyle(
-                  fontSize: 16.0,
-                ),
-                maxLines: 10,
-                overflow: TextOverflow.ellipsis,):
-                  Text("No message",
-                    style:TextStyle(
-                      fontSize: 16.0,
-                    ),
-                    maxLines: 10,
-                    overflow: TextOverflow.ellipsis,),
-                  Text(now),
-                ],
-              ),
-            ),
-
+          ),
         ),
       ),
     );
   }
 
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple,
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.pop(context);
-          }, icon: Icon(Icons.arrow_back_outlined,size: 30.0,),
+          },
+          icon: Icon(
+            Icons.arrow_back_outlined,
+            size: 30.0,
+          ),
         ),
-        title:
-        Row(
+        title: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(0,0,8,0),
+              padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
               child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child:ClipRRect(
-                    borderRadius: BorderRadius.circular(50.0),
-                    child: widget.proImage==""?Image.asset(
-                      "assets/Images/DeafultProfileImage.png",
-                      height: 50.0,
-                      width:50.0,
-                    ):Image.network(
-                      widget.proImage,
-                      height: 50.0,
-                      width:50.0,
-                    )
-                    ,
-                  ),
-                  radius:25.0,
+                backgroundColor: Colors.white,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50.0),
+                  child: widget.proImage == ""
+                      ? Image.asset(
+                          "assets/Images/DeafultProfileImage.png",
+                          height: 50.0,
+                          width: 50.0,
+                        )
+                      : Image.network(
+                          widget.proImage,
+                          height: 50.0,
+                          width: 50.0,
+                        ),
                 ),
+                radius: 25.0,
+              ),
             ),
-            widget.username==null?Text("") : Text(widget.username),
+            widget.username == null ? Text("") : Text(widget.username),
           ],
         ),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 80),
         child: ListView.builder(
-                    itemCount:messageList.length,
-                    controller: _scrollController,
-                    itemBuilder: (BuildContext context,int index)
-                  {
-                    if(messageList[index].type=="source")
-                      {
-                       return _buildOutgoingMessage(messageList[index].msg);
-                      }
-                    else{
-                      return _buildIncomingMessage(messageList[index].msg);
-                    }
-                    // return Text(messageList[messageList.length-index-1][msg]);
-                  },
-                ),
+          itemCount: messageList.length,
+          controller: _scrollController,
+          itemBuilder: (BuildContext context, int index) {
+            if (messageList[index].type == "source") {
+              return _buildOutgoingMessage(messageList[index].msg,messageList[index].now);
+            } else {
+              return _buildIncomingMessage(messageList[index].msg,messageList[index].now);
+            }
+            // return Text(messageList[messageList.length-index-1][msg]);
+          },
+        ),
       ),
       bottomSheet: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -233,20 +256,23 @@ class _ChatboxState extends State<Chatbox> {
           child: Row(
             children: [
               IconButton(
-                icon:Icon(Icons.photo_sharp, color: Colors.white,),
-                onPressed: (){
+                icon: Icon(
+                  Icons.photo_sharp,
+                  color: Colors.white,
+                ),
+                onPressed: () {
                   print("gallery Pressed");
                 },
               ),
               Flexible(
                 child: TextFormField(
-                  onChanged: (value){
+                  onChanged: (value) {
                     setState(() {
-                      _msgEmpty=false;
+                      _msgEmpty = false;
                     });
                   },
-                  style:TextStyle(
-                    color:Colors.white,
+                  style: TextStyle(
+                    color: Colors.white,
                   ),
                   // validator: (value){
                   //   if(value.isEmpty)
@@ -257,28 +283,35 @@ class _ChatboxState extends State<Chatbox> {
                   //     }
                   // },
                   controller: _msgcontroller,
-                  decoration:const InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Enter Text",
                     hintStyle: TextStyle(
-                      color:Colors.white,
+                      color: Colors.white,
                     ),
-                    enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
-                    focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
-                  ) ,
+                    enabledBorder:
+                        OutlineInputBorder(borderSide: BorderSide.none),
+                    focusedBorder:
+                        OutlineInputBorder(borderSide: BorderSide.none),
+                  ),
                 ),
               ),
-              _msgEmpty==false?IconButton(
-                icon:Icon(Icons.send,color: Colors.white,),
-                onPressed: () async {
-                  setState(() {
-                    now= DateFormat("hh:mm").format(DateTime.now());
-                    _msgEmpty=true;
-                  });
-                  String currentUserId = await getCurrentUserId();
-                  sendMsg(_msgcontroller.text,currentUserId,widget.uid);
-                  _msgcontroller.clear();
-                },
-              ):Container(),
+              _msgEmpty == false
+                  ? IconButton(
+                      icon: Icon(
+                        Icons.send,
+                        color: Colors.white,
+                      ),
+                      onPressed: () async {
+                        setState(() {
+                          now = DateFormat("hh:mm").format(DateTime.now());
+                          _msgEmpty = true;
+                        });
+                        String currentUserId = await getCurrentUserId();
+                        sendMsg(_msgcontroller.text, currentUserId, widget.uid);
+                        _msgcontroller.clear();
+                      },
+                    )
+                  : Container(),
             ],
           ),
           height: 60.0,
