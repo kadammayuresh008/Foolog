@@ -6,6 +6,7 @@ import 'package:foolog/Services/usermanagement.dart';
 import 'package:foolog/models/MessageModel.dart';
 import 'package:intl/intl.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:giphy_picker/giphy_picker.dart';
 
 class Chatbox extends StatefulWidget {
   var username;
@@ -19,6 +20,7 @@ class Chatbox extends StatefulWidget {
 }
 
 class _ChatboxState extends State<Chatbox> {
+  GiphyGif _gif;
   final TextEditingController _msgcontroller = TextEditingController();
   final ScrollController _scrollController = new ScrollController();
   List<Message> messageList = <Message>[];
@@ -260,11 +262,32 @@ class _ChatboxState extends State<Chatbox> {
                   Icons.photo_sharp,
                   color: Colors.white,
                 ),
-                onPressed: () {
-                  print("gallery Pressed");
+                onPressed: () async {
+                  final gif = await GiphyPicker.pickGif(
+                    context: context,
+                    apiKey: 'kOr182gtnbgtDGgig3LwtqUjCfj5qO7h',
+                    fullScreenDialog: false,
+                    previewType: GiphyPreviewType.previewWebp,
+                    decorator: GiphyDecorator(
+                      showAppBar: false,
+                      searchElevation: 4,
+                      giphyTheme: ThemeData.dark().copyWith(
+                        inputDecorationTheme: InputDecorationTheme(
+                          border: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          contentPadding: EdgeInsets.zero,
+                        ),
+                      ),
+                    ),
+                  );
+
+                  if (gif != null) {
+                    setState(() => _gif = gif);
+                  }
                 },
               ),
-              Flexible(
+              _gif==null?Flexible(
                 child: TextFormField(
                   onChanged: (value) {
                     setState(() {
@@ -274,14 +297,6 @@ class _ChatboxState extends State<Chatbox> {
                   style: TextStyle(
                     color: Colors.white,
                   ),
-                  // validator: (value){
-                  //   if(value.isEmpty)
-                  //     {
-                  //       setState(() {
-                  //         _msgEmpty=true;
-                  //       });
-                  //     }
-                  // },
                   controller: _msgcontroller,
                   decoration: const InputDecoration(
                     hintText: "Enter Text",
@@ -294,7 +309,7 @@ class _ChatboxState extends State<Chatbox> {
                         OutlineInputBorder(borderSide: BorderSide.none),
                   ),
                 ),
-              ),
+              ):GiphyImage.original(gif: _gif),
               _msgEmpty == false
                   ? IconButton(
                       icon: Icon(
