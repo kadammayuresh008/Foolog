@@ -77,7 +77,7 @@ class _ChatboxState extends State<Chatbox> {
     print(socket.connected);
   }
 
-  void setMessage(String type, String msg) {
+  void setMessage(String type, dynamic msg) {
     Message message = Message(type: type, msg: msg,now:now);
     setState(() {
       messageList.add(message);
@@ -89,7 +89,7 @@ class _ChatboxState extends State<Chatbox> {
     // );
   }
 
-  void sendMsg(String msg, String SourceId, String targetId) {
+  void sendMsg(dynamic msg, String SourceId, String targetId) {
     setMessage("source", msg);
     socket.emit("message", {
       "msg": msg,
@@ -105,7 +105,7 @@ class _ChatboxState extends State<Chatbox> {
   }
 
   //Widget for outgoing message
-  Widget _buildOutgoingMessage(String msg, String now) {
+  Widget _buildOutgoingMessage(dynamic msg, String now) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(150, 4, 4, 4),
       child: Align(
@@ -121,9 +121,13 @@ class _ChatboxState extends State<Chatbox> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 msg != null
-                    ? Text(
+                    ? msg.runtimeType == "GiphyGif"?Container(
+                  child:GiphyImage.original(gif: msg,
+                      height:150,
+                      width:150),
+                ):Text(
                         msg,
-                        style: TextStyle(
+                        style:TextStyle(
                           fontSize: 16.0,
                           color: Colors.white,
                         ),
@@ -152,7 +156,7 @@ class _ChatboxState extends State<Chatbox> {
   }
 
   //widget for icoming meassage.
-  Widget _buildIncomingMessage(String msg,String now) {
+  Widget _buildIncomingMessage(dynamic msg,String now) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(4, 4, 150, 4),
       child: Align(
@@ -168,7 +172,12 @@ class _ChatboxState extends State<Chatbox> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 msg != null
-                    ? Text(
+                    ? msg.runtimeType == "GiphyGif"?Container(
+                  child:GiphyImage.original(gif: msg,
+                      height:150,
+                      width:150),
+                ):
+                Text(
                         msg,
                         style: TextStyle(
                           fontSize: 16.0,
@@ -248,14 +257,14 @@ class _ChatboxState extends State<Chatbox> {
           },
         ),
       ),
-      bottomSheet: Padding(
+      bottomSheet:_gif==null?Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             color: Colors.purple,
           ),
-          child: Row(
+          child:Row(
             children: [
               IconButton(
                 icon: Icon(
@@ -263,31 +272,31 @@ class _ChatboxState extends State<Chatbox> {
                   color: Colors.white,
                 ),
                 onPressed: () async {
-                  final gif = await GiphyPicker.pickGif(
-                    context: context,
-                    apiKey: 'kOr182gtnbgtDGgig3LwtqUjCfj5qO7h',
-                    fullScreenDialog: false,
-                    previewType: GiphyPreviewType.previewWebp,
-                    decorator: GiphyDecorator(
-                      showAppBar: false,
-                      searchElevation: 4,
-                      giphyTheme: ThemeData.dark().copyWith(
-                        inputDecorationTheme: InputDecorationTheme(
-                          border: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          contentPadding: EdgeInsets.zero,
-                        ),
-                      ),
-                    ),
-                  );
-
-                  if (gif != null) {
-                    setState(() => _gif = gif);
-                  }
+                  // final gif = await GiphyPicker.pickGif(
+                  //   context: context,
+                  //   apiKey: 'kOr182gtnbgtDGgig3LwtqUjCfj5qO7h',
+                  //   fullScreenDialog: false,
+                  //   previewType: GiphyPreviewType.previewWebp,
+                  //   decorator: GiphyDecorator(
+                  //     showAppBar: false,
+                  //     searchElevation: 4,
+                  //     giphyTheme: ThemeData.dark().copyWith(
+                  //       inputDecorationTheme: InputDecorationTheme(
+                  //         border: InputBorder.none,
+                  //         enabledBorder: InputBorder.none,
+                  //         focusedBorder: InputBorder.none,
+                  //         contentPadding: EdgeInsets.zero,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // );
+                  //
+                  // if (gif != null) {
+                  //   setState(() => _gif = gif);
+                  // }
                 },
               ),
-              _gif==null?Flexible(
+              Flexible(
                 child: TextFormField(
                   onChanged: (value) {
                     setState(() {
@@ -309,7 +318,7 @@ class _ChatboxState extends State<Chatbox> {
                         OutlineInputBorder(borderSide: BorderSide.none),
                   ),
                 ),
-              ):GiphyImage.original(gif: _gif),
+              ),
               _msgEmpty == false
                   ? IconButton(
                       icon: Icon(
@@ -330,6 +339,71 @@ class _ChatboxState extends State<Chatbox> {
             ],
           ),
           height: 60.0,
+        ),
+      ) :Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          color: Colors.purple,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              icon: Icon(
+                Icons.photo_sharp,
+                color: Colors.white,
+              ),
+              onPressed: () async {
+                final gif = await GiphyPicker.pickGif(
+                  context: context,
+                  apiKey: 'kOr182gtnbgtDGgig3LwtqUjCfj5qO7h',
+                  fullScreenDialog: false,
+                  previewType: GiphyPreviewType.previewWebp,
+                  decorator: GiphyDecorator(
+                    showAppBar: false,
+                    searchElevation: 4,
+                    giphyTheme: ThemeData.dark().copyWith(
+                      inputDecorationTheme: InputDecorationTheme(
+                        border: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                    ),
+                  ),
+                );
+
+                if (gif != null) {
+                  setState(() => _gif = gif);
+                }
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  child: GiphyImage.original(gif: _gif,
+                  height:150,
+                  width:150),
+                ),
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.send,
+                color: Colors.white,
+              ),
+              onPressed: () async {
+                setState(() {
+                  now = DateFormat("hh:mm").format(DateTime.now());
+                  _msgEmpty = true;
+                });
+                String currentUserId = await getCurrentUserId();
+                sendMsg(_gif, currentUserId, widget.uid);
+                setState(() {
+                  _gif=null;
+                });
+              },
+            )
+          ],
         ),
       ),
     );

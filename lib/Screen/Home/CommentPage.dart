@@ -33,7 +33,14 @@ class _CommentPageState extends State<CommentPage> {
                 return ListTile(
                   leading:CircleAvatar(
                     backgroundColor: Colors.white,
-                    child:ClipRRect(
+                    child:widget.comments[index]["cImage"]==""?ClipRRect(
+                      borderRadius: BorderRadius.circular(70.0),
+                      child: Image.asset(
+                        "assets/Images/DeafultProfileImage.png",
+                        height: 70.0,
+                        width:70.0,
+                      ),
+                    ) :ClipRRect(
                       borderRadius: BorderRadius.circular(70.0),
                       child: Image.network(
                         widget.comments[index]["cImage"],
