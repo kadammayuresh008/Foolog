@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foolog/Screen/Profile/EditProfile.dart';
+import 'package:foolog/Screen/Profile/Profile.dart';
 import 'package:foolog/Services/usermanagement.dart';
 import 'package:provider/provider.dart';
 
@@ -188,10 +189,14 @@ class _ProfileTopState extends State<ProfileTop> {
                              minWidth: 100.0,
                              child:FlatButton(
                                onPressed: () {
-                                 setState(() {
-                                   // follow = !widget.follow;
-                                   UserManagement().followUnfollow(
-                                       widget.uid, widget.follow);
+                                 setState(() async {
+                                   await UserManagement().followUnfollow(
+                                       widget.uid, !widget.follow);
+                                   Navigator.pop(context);
+                                   Navigator.push(
+                                     context,
+                                     MaterialPageRoute(builder: (context) => Profile(uid:widget.uid,follow: !widget.follow)),
+                                   );
                                  });
                                },
                                child:Text('Unfollow',
@@ -220,9 +225,14 @@ class _ProfileTopState extends State<ProfileTop> {
                                    )),
                                highlightedBorderColor:Colors.white,
                                color: Colors.white,
-                               onPressed: () {
-                                  UserManagement().followUnfollow(
-                                  widget.uid, widget.follow);
+                               onPressed: () async{
+                                  await UserManagement().followUnfollow(
+                                  widget.uid, !widget.follow);
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => Profile(uid:widget.uid,follow:  !widget.follow)),
+                                  );
                                },),),
                          ],
                        ),

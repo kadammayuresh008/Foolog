@@ -36,6 +36,7 @@ class _UserSearchTileState extends State<UserSearchTile> {
           );
         },
         child: ListTile(
+          hoverColor: Colors.purple,
           leading: CircleAvatar(
             backgroundColor: Colors.white,
             child: ClipRRect(
@@ -52,26 +53,31 @@ class _UserSearchTileState extends State<UserSearchTile> {
             ),
             radius: 25.0,
           ),
-          trailing: RaisedButton(
-            elevation: 0.0,
-            child: widget.follow? Text("Follow",
-                        style: TextStyle(
-                          color: Colors.black,
-                        )):Text("Unfollow",
-                        style: TextStyle(
-                          color: Colors.black,
-                        )),
-            color:widget.follow
-                    ? Colors.purple:Colors.white,
-            splashColor: Colors.purpleAccent,
-            onPressed: () {
-              setState(() {
-                // follow = !widget.follow;
-                UserManagement().followUnfollow(
-                    widget.userList.docs[widget.Index]["uid"], widget.follow);
-              });
-            },
-          ),
+          // trailing: RaisedButton(
+          //   elevation: 0.0,
+          //   child: widget.follow? Text("Follow",
+          //               style: TextStyle(
+          //                 color: Colors.black,
+          //               )):Text("Unfollow",
+          //               style: TextStyle(
+          //                 color: Colors.black,
+          //               )),
+          //   color:widget.follow
+          //           ? Colors.purple:Colors.white,
+          //   splashColor: Colors.purpleAccent,
+          //   onPressed: () {
+          //     setState(() {
+          //       // follow = !widget.follow;
+          //       UserManagement().followUnfollow(
+          //           widget.userList.docs[widget.Index]["uid"], widget.follow);
+          //     });
+          //   },
+          // ),
+          subtitle: Text(
+              widget.userList.docs[widget.Index]["bio"],
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              )),
           title: Text(
             widget.userList.docs[widget.Index]["username"],
             style: TextStyle(

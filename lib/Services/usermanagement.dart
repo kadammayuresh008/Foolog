@@ -118,7 +118,7 @@ class UserManagement {
         followPer.docs[0].id; //Id of Person docs who is followed
     String followingUid =
         followPer.docs[0]["uid"]; //Uid of Person who is followed
-    if (follow == true) {
+    if (follow == false) {
       //to added/count the follower
       await user.doc(followingId).update({
         "Followers": FieldValue.arrayUnion([followerUid])

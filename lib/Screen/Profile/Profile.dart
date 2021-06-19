@@ -55,14 +55,6 @@ class _ProfileState extends State<Profile> {
                         Navigator.pop(context);
                       },),
                     title:Text("Profile"),
-                    // actions: [
-                    //   IconButton(icon:Icon(Icons.menu), onPressed: () async{
-                    //     await AuthService().Signout();
-                    //     Navigator.push(context,
-                    //       MaterialPageRoute(builder: (context) => Login())
-                    //     );
-                    //   })
-                    // ],
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),

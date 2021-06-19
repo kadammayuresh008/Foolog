@@ -43,7 +43,6 @@ class _ImageGridViewState extends State<ImageGridView> {
   void initState(){
     // TODO: implement initState
     IsFollowing().then((value){
-      print(value);
       if(value==true)
         {
           getImages();
@@ -75,11 +74,21 @@ class _ImageGridViewState extends State<ImageGridView> {
         )
       ),
     ):Photos.length==0?Center(
-      child:Text(
-        "No Post",
-        style:TextStyle(
-          fontSize: 25,
-        )
+      child:Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.post_add_outlined,
+            color: Colors.black,
+             size:50.0
+          ),
+          Text(
+            "No Post",
+            style:TextStyle(
+              fontSize: 25,
+              color:Colors.black,
+            )
+          ),
+        ],
       ),
     ):GridView.builder(
         itemCount:Photos.length,
