@@ -231,28 +231,24 @@ class _EditProfileState extends State<EditProfile> {
                 ),
               ),
             ),
-            SizedBox(height: 10.0),
+            SizedBox(height: 30.0),
             Center(
-              child: RaisedButton(
-                child: Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Text('Edit',
-                      style: TextStyle(
-                        color: Colors.white,
-                      )),
-                ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(10.0)),
-                hoverColor: Colors.purple,
-                highlightColor: Colors.purple,
-                highlightElevation: 0.5,
-                color: Colors.purple,
-                onPressed: () {
+              child:CircleAvatar(
+                radius:30.0,
+                backgroundColor: Colors.purple,
+                child:IconButton(icon: Icon(
+                  Icons.done,
+                  color: Colors.white,
+                  size: 30.0,
+                ), onPressed: () async{
                   if (_formKey.currentState.validate()) {
                     if (_imageFile == null) {
                       UserManagement().updateUserProfile(
                           _editUsername.text, _editBio.text, _imageFile, ProImage, context);
-                    } else {}
+                    } else {
+                      UserManagement().updateUserProfile(
+                          _editUsername.text, _editBio.text, _imageFile, ProImage, context);
+                    }
                     // _scaffoldKey.currentState.showSnackBar(
                     //     new SnackBar(
                     //       content: new Text('Your Blog has been Added.',
@@ -272,9 +268,55 @@ class _EditProfileState extends State<EditProfile> {
                     //     )
                     // );
                   }
-                },
+                }),
               ),
             ),
+            // Center(
+            //   child: RaisedButton(
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(4.0),
+            //       child: Text('Edit',
+            //           style: TextStyle(
+            //             color: Colors.white,
+            //           )),
+            //     ),
+            //     shape: RoundedRectangleBorder(
+            //         borderRadius: new BorderRadius.circular(10.0)),
+            //     hoverColor: Colors.purple,
+            //     highlightColor: Colors.purple,
+            //     highlightElevation: 0.5,
+            //     color: Colors.purple,
+            //     onPressed: () {
+            //       if (_formKey.currentState.validate()) {
+            //         if (_imageFile == null) {
+            //           UserManagement().updateUserProfile(
+            //               _editUsername.text, _editBio.text, _imageFile, ProImage, context);
+            //         } else {
+            //           UserManagement().updateUserProfile(
+            //               _editUsername.text, _editBio.text, _imageFile, ProImage, context);
+            //         }
+            //         // _scaffoldKey.currentState.showSnackBar(
+            //         //     new SnackBar(
+            //         //       content: new Text('Your Blog has been Added.',
+            //         //           style:TextStyle(
+            //         //             color:Colors.white,
+            //         //           )),
+            //         //       action: SnackBarAction(
+            //         //         label: 'ok',
+            //         //         onPressed: () {
+            //         //           Navigator.push(
+            //         //             context,
+            //         //             MaterialPageRoute(builder: (context) => Home()),
+            //         //           );
+            //         //         },
+            //         //       ),
+            //         //       backgroundColor: Colors.green.withOpacity(0.8),
+            //         //     )
+            //         // );
+            //       }
+            //     },
+            //   ),
+            // ),
           ],
         )));
   }

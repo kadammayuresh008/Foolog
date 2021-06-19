@@ -96,7 +96,7 @@ class UserManagement {
     }).then((value) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Profile()),
+        MaterialPageRoute(builder: (context) => Profile(uid:_auth.currentUser.uid)),
       );
     }).catchError((e) {
       print(e);

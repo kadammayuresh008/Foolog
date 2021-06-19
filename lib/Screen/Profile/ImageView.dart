@@ -334,13 +334,9 @@ class _ImageViewState extends State<ImageView> {
                                  color: Colors.purple,
                                  size: 22.0,
                                ), onPressed: () async{
-                                 // print(widget.docnum);
-                                 // print(_editCaption.text);
-                                 // print(_editLocation.text);
                                  await blogManagement().EditPost(widget.docnum.toString(), _editCaption.text, _editLocation.text,context);
                                  _editCaption.clear();
                                  _editLocation.clear();
-
                                }),
                              ),
                             SizedBox(height:10.0),
