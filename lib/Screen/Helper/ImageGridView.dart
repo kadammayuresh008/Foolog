@@ -94,8 +94,9 @@ class _ImageGridViewState extends State<ImageGridView> {
               onTap: (){
                 Navigator.push(context,
                           MaterialPageRoute(builder: (context) => ImageView(
+                            index:index,
                             userId:Photos[index]["userId"],
-                            index:Photos[index]["index"],
+                            docnum:Photos[index]["index"],
                             username: Photos[index]["username"],
                             caption: Photos[index]["caption"],
                             location: Photos[index]["location"],

@@ -18,9 +18,10 @@ class ImageView extends StatefulWidget {
   var comments;
   var heart;
   var index;
+  var docnum;
 
 
-  ImageView({Key key,this.userId,this.username,this.index,this.caption,this.location,this.likes,this.image,this.comments,this.heart, user_id}):
+  ImageView({Key key,this.index,this.userId,this.username,this.docnum,this.caption,this.location,this.likes,this.image,this.comments,this.heart, user_id}):
         super(key :key);
   @override
   _ImageViewState createState() => _ImageViewState();
@@ -206,8 +207,8 @@ class _ImageViewState extends State<ImageView> {
                                         onTap:(){
                                           Navigator.push(context,
                                           MaterialPageRoute(builder: (context) => CommentPage(
-                                            comments: widget.comments,
                                             index: widget.index,
+                                            docnum: widget.docnum,
                                           )),
                                           );
                                         },
@@ -373,7 +374,7 @@ class _ImageViewState extends State<ImageView> {
                             color: Colors.white,
                             size: 25.0,
                           ), onPressed: ()async{
-                            await blogManagement().deletePost(widget.index);
+                            await blogManagement().deletePost(widget.docnum);
                             // Navigator.pop(context);
                             Navigator.push(context,
                             MaterialPageRoute(

@@ -64,9 +64,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    // return MultiProvider(
-    //   providers: [],
-    // );
     final _auth = FirebaseAuth.instance;
     return StreamProvider<QuerySnapshot>.value(
       value:blogManagement().Blog,
@@ -114,53 +111,6 @@ class _HomeState extends State<Home> {
               ],
             ),
         body:BlogCard(),
-        // bottomNavigationBar:
-        // BottomNavigationBar(
-        //   elevation: 10.0,
-        //   currentIndex: 1,
-        //   backgroundColor: Colors.purple,
-        //   type: BottomNavigationBarType.shifting,
-        //   items: [
-        //     BottomNavigationBarItem(
-        //         activeIcon:Icon(Icons.message, color: Color.fromARGB(255, 255, 255, 255),
-        //           size: 35.0,) ,
-        //         icon:Icon(Icons.message,
-        //             color: Color.fromARGB(255, 255, 255, 255),
-        //             size: 28.0,
-        //         ),
-        //         title: new Text('Message'),
-        //         backgroundColor: Colors.purple),
-        //     BottomNavigationBarItem(
-        //         activeIcon:Icon(Icons.search, color: Color.fromARGB(255, 255, 255, 255),
-        //           size: 40.0,) ,
-        //         icon: Icon(Icons.search,
-        //             color: Color.fromARGB(255, 255, 255, 255),
-        //           size: 30.0,
-        //         ),
-        //         title: new Text('Search'),
-        //         backgroundColor: Colors.purple),
-        //     BottomNavigationBarItem(
-        //         activeIcon:Icon(Icons.home, color: Color.fromARGB(255, 255, 255, 255),
-        //           size: 40.0,) ,
-        //         icon:Icon(Icons.home, color: Color.fromARGB(255, 255, 255, 255)),
-        //         title: new Text('Home'),
-        //         backgroundColor: Colors.purple),
-        //     BottomNavigationBarItem(
-        //         activeIcon:Icon(Icons.add, color: Color.fromARGB(255, 255, 255, 255),
-        //           size: 40.0,) ,
-        //         icon:Icon(Icons.add,
-        //             color: Color.fromARGB(255, 255, 255, 255),
-        //           size: 30.0,),
-        //         title: new Text('Add Post'),
-        //         backgroundColor: Colors.purple),
-        //     BottomNavigationBarItem(
-        //         activeIcon:Icon(Icons.person, color: Color.fromARGB(255, 255, 255, 255),
-        //           size: 40.0,) ,
-        //         icon:Icon(Icons.person, color: Color.fromARGB(255, 255, 255, 255)),
-        //         title: new Text('Profile'),
-        //         backgroundColor: Colors.purple),
-        //   ],
-        // ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Container(
           height: 60.0,

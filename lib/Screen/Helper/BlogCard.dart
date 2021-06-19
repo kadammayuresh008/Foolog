@@ -2,6 +2,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../Home/CommentPageProvider.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/CommentPage.dart';
 // import 'package:foolog/Screen/SplashScreen.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Chats/chats.dart';
@@ -17,7 +18,7 @@ class BlogCard extends StatefulWidget {
 
 class _BlogCardState extends State<BlogCard> {
   @override
-  Widget __Text(dynamic index,String username,String caption,String location,String likes,String image,List<dynamic> comments,bool heart){
+  Widget __Text(int num,dynamic index,String username,String caption,String location,String likes,String image,List<dynamic> comments,bool heart){
     return Container(
       child:Column(
         children:
@@ -165,10 +166,7 @@ class _BlogCardState extends State<BlogCard> {
                             GestureDetector(
                             onTap:(){
                             Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => CommentPage(
-                            comments: comments,
-                            index: index,
-                            )),
+                            MaterialPageRoute(builder: (context) => CommentPageProvider(index:num,docnum:index)),
                             );
                             },
                             child: Text("No Comments",
@@ -184,14 +182,11 @@ class _BlogCardState extends State<BlogCard> {
                               mainAxisAlignment:MainAxisAlignment.start,
                               children: [
                                 GestureDetector(
-                                  onTap:(){
-                                    Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) => CommentPage(
-                                        comments: comments,
-                                        index: index,
-                                      )),
-                                    );
-                          },
+                                    onTap:(){
+                                      Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => CommentPageProvider(index:num,docnum:index)),
+                                      );
+                                    },
                                   child: Text("View ${comments.length} Comments",
                                       style:TextStyle(
                                           color:Colors.grey
@@ -227,6 +222,7 @@ class _BlogCardState extends State<BlogCard> {
         itemBuilder: (BuildContext context,int index)
     {
       return __Text(
+                    index,
                     BlogList.docs[index].id,
                     BlogList.docs[index]["user"],
                     BlogList.docs[index]["caption"],

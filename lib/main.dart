@@ -10,6 +10,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:foolog/Screen/Wrapper.dart';
 import 'package:foolog/Services/auth.dart';
+import 'package:foolog/Services/blogManagement.dart';
 import 'package:foolog/models/UserModel.dart';
 import 'package:provider/provider.dart';
 
@@ -19,11 +20,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
-  // final cameras = await availableCameras();
-  // firstCamera = cameras.first;
-  // print("Camera decription");
-  // print(firstCamera);
-  runApp(MyApp());
+  runApp(
+    MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
