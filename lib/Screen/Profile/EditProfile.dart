@@ -7,15 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:foolog/Services/usermanagement.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 class EditProfile extends StatefulWidget {
   @override
   _EditProfileState createState() => _EditProfileState();
 }
 
 class _EditProfileState extends State<EditProfile> {
-
-  final _auth=FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instance;
   String username;
   String bio;
   String Ogusername;
@@ -24,29 +22,32 @@ class _EditProfileState extends State<EditProfile> {
   final ImagePicker _picker = ImagePicker();
   PickedFile _imageFile;
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _editUsername = TextEditingController();
-  final TextEditingController _editBio = TextEditingController();
+  TextEditingController _editUsername = TextEditingController();
+  TextEditingController _editBio = TextEditingController();
 
-  Future<String> getUserDetails() async{
-    await UserManagement().getCurrentUsername(_auth.currentUser.uid).then((value) {
+  Future<String> getUserDetails() async {
+    await UserManagement()
+        .getCurrentUsername(_auth.currentUser.uid)
+        .then((value) {
       setState(() {
-        Ogusername=value[0];
-        Ogbio=value[1];
+        Ogusername = value[0];
+        Ogbio = value[1];
         ProImage = value[2];
+        _editUsername = TextEditingController(text:Ogusername);
+        _editBio = TextEditingController(text:Ogbio);
         // username=value;
       });
     });
   }
 
-
-  Future<CameraDescription> camera()async{
+  Future<CameraDescription> camera() async {
     final cameras = await availableCameras();
     final firstCamera = cameras.first;
     return firstCamera;
   }
 
   @override
-  void initState(){
+  void initState() {
     // TODO: implement initState
     super.initState();
     getUserDetails();
@@ -55,33 +56,35 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(
-        leading:IconButton(
-          icon: Icon(Icons.clear,
-              color:Colors.black),
-          onPressed: (){
-            Navigator.pop(context);
-          },
+        appBar: AppBar(
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.clear, color: Colors.white),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          title: Text("Edit Profile", style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.purple,
         ),
-        title:Text("Edit Profile",
-        style:TextStyle(color: Colors.black)
-        ),
-        backgroundColor:Colors.white,
-      ),
-      body:SingleChildScrollView(
-        child:Column(
+        body: SingleChildScrollView(
+            child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height:20.0),
             Align(
               alignment: AlignmentDirectional.center,
               child: Form(
-                key:_formKey,
-                child: Column(
-                          children: [
-                            _imageFile==null?Container(
+                key: _formKey,
+                child: Container(
+                  decoration:BoxDecoration(
+                    color:Colors.purple,
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 20.0),
+                      _imageFile == null
+                          ? Container(
                               child: CircleAvatar(
                                 backgroundColor: Colors.white,
                                 child: ClipRRect(
@@ -94,194 +97,162 @@ class _EditProfileState extends State<EditProfile> {
                                 ),
                                 radius: 100.0,
                               ),
-                            ):Container(
-                              child: Image.file(
-                                  File(_imageFile.path)
-                              ),
+                            )
+                          : Container(
+                              child: Image.file(File(_imageFile.path)),
                               width: double.infinity,
                               height: 250,
                             ),
-                            SizedBox(height:20.0),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child:Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children:<Widget>[
-                                    IconButton(icon: Icon
-                                      (Icons.camera,
-                                    color:Colors.purple),
-                                        onPressed: () async {
-                                          PickedFile GalleryFile = await _picker.getImage(
-                                            source:ImageSource.camera,
-                                          );
-                                          setState(() {
-                                            _imageFile = GalleryFile;
-                                          });
-                                    }
-                                    ),
-                                    IconButton(icon: Icon(Icons.photo,
-                                        color:Colors.purple),
-                                      onPressed: () async {
-                                        PickedFile galleryFile = await _picker.getImage(
-                                          source:ImageSource.gallery,
-                                        );
-                                        setState(() {
-                                          _imageFile = galleryFile;
-                                        });
-                                        print("Your selected image is located at"+galleryFile.path);
-                                      },
-                                        ),
-                                  ]
+                      SizedBox(height: 20.0),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              IconButton(
+                                  icon: Icon(Icons.camera, color: Colors.white),
+                                  onPressed: () async {
+                                    PickedFile GalleryFile =
+                                        await _picker.getImage(
+                                      source: ImageSource.camera,
+                                    );
+                                    setState(() {
+                                      _imageFile = GalleryFile;
+                                    });
+                                  }),
+                              IconButton(
+                                icon: Icon(Icons.photo, color: Colors.white),
+                                onPressed: () async {
+                                  PickedFile galleryFile = await _picker.getImage(
+                                    source: ImageSource.gallery,
+                                  );
+                                  setState(() {
+                                    _imageFile = galleryFile;
+                                  });
+                                  print("Your selected image is located at" +
+                                      galleryFile.path);
+                                },
                               ),
-                            ),],
-                        ),
+                            ]),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
-            SizedBox(height:10.0),
+            SizedBox(height: 10.0),
             //Take location
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8 ),
-            child:Text(
-              "Username",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize:20,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              child: Text(
+                "Username",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
               ),
             ),
-          ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8 ),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
               child: TextFormField(
-                // controller:_editUsername,
-                initialValue: Ogusername,
-                onChanged: (value) {
-                  print(value);
-                  setState(() {
-                    if(value==null)
-                    {
-                      username=Ogusername;
-                    }
-                    else {
-                      username = value;
-                    }
-                  });
-                },
-                validator:(value)
-                {
-                  if(value.isEmpty)
-                    {
-                      return "Usernamefield cannot be empty";
-                    }
+                controller:_editUsername,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "Username field cannot be empty";
+                  }
                   return null;
                 },
                 decoration: InputDecoration(
-                  hintText: Ogusername,
-                  hintStyle: TextStyle(
-                    color:Colors.black,
-                  ),
-                  errorStyle: TextStyle(color:Colors.purple),
+                  prefixIcon: Icon(Icons.person,color: Colors.black,),
+                  fillColor: Colors.purple,
+                  filled:true,
+                  errorStyle: TextStyle(color: Colors.purple),
                   contentPadding:
-                  EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
+                      EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
                   border: OutlineInputBorder(
-                    borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                    borderSide: BorderSide(color: Colors.purple, width: 1.0),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                    borderSide: BorderSide(color: Colors.purple, width: 1.0),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                    borderSide: BorderSide(color: Colors.purple, width: 1.0),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                 ),
               ),
             ),
-            SizedBox(height:10.0),
+            SizedBox(height: 10.0),
             //Take location
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8 ),
-            child:Text(
-              "Bio",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize:20,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              child: Text(
+                "Bio",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
               ),
             ),
-          ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8 ),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
               child: TextFormField(
-                // controller: _editBio,
-                initialValue: Ogbio,
-                onChanged: (value) {
-                  setState(() {
-                      if(value==null)
-                        {
-                          bio=Ogbio;
-                        }
-                      else {
-                        bio = value;
-                      }
-                  });
-                },
-                validator:(value){
-                  if(value.isEmpty)
-                    {
-                     return "Bio field cannot be empty";
-                    }
+                controller: _editBio,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "Bio field cannot be empty";
+                  }
                   return null;
                 },
                 decoration: InputDecoration(
-                  errorStyle: TextStyle(color:Colors.purple),
-                  hintText: Ogbio,
-                  hintStyle: TextStyle(
-                    color:Colors.black,
-                  ),
+                  prefixIcon: Icon(Icons.assignment,color: Colors.black,),
+                  fillColor: Colors.purple,
+                  filled:true,
+                  errorStyle: TextStyle(color: Colors.purple),
                   contentPadding:
-                  EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
+                      EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
                   border: OutlineInputBorder(
-                    borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                    borderSide: BorderSide(color: Colors.purple, width: 1.0),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                    borderSide: BorderSide(color: Colors.purple, width: 1.0),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                    borderSide: BorderSide(color: Colors.purple, width: 1.0),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                 ),
               ),
             ),
-            SizedBox(height:10.0),
+            SizedBox(height: 10.0),
             Center(
               child: RaisedButton(
-                child:Padding(
+                child: Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Text('Edit',
-                      style:TextStyle(
+                      style: TextStyle(
                         color: Colors.white,
                       )),
                 ),
-                shape:RoundedRectangleBorder(
-                    borderRadius:new BorderRadius.circular(10.0)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(10.0)),
                 hoverColor: Colors.purple,
                 highlightColor: Colors.purple,
                 highlightElevation: 0.5,
                 color: Colors.purple,
                 onPressed: () {
-                  if(_formKey.currentState.validate())
-                  {
-                    if(_imageFile==null)
-                      {
-                        UserManagement().updateUserProfile(username, bio, _imageFile, ProImage , context);
-                      }
-                    else{
-
-                    }
+                  if (_formKey.currentState.validate()) {
+                    if (_imageFile == null) {
+                      UserManagement().updateUserProfile(
+                          _editUsername.text, _editBio.text, _imageFile, ProImage, context);
+                    } else {}
                     // _scaffoldKey.currentState.showSnackBar(
                     //     new SnackBar(
                     //       content: new Text('Your Blog has been Added.',
@@ -301,11 +272,10 @@ class _EditProfileState extends State<EditProfile> {
                     //     )
                     // );
                   }
-                },),
+                },
+              ),
             ),
           ],
-        )
-      )
-    );
+        )));
   }
 }
