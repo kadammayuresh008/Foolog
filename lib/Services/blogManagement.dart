@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-class blogManagement extends ChangeNotifier{
+class blogManagement{
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
   final CollectionReference blog =
@@ -48,7 +48,6 @@ class blogManagement extends ChangeNotifier{
     }).catchError((e) {
       print(e);
     });
-    notifyListeners();
   }
 
   Stream<QuerySnapshot> get Blog {
@@ -67,7 +66,6 @@ class blogManagement extends ChangeNotifier{
         'likes': FieldValue.arrayUnion([user_id])
       });
     }
-    notifyListeners();
   }
 
 // To add comment
@@ -89,25 +87,27 @@ class blogManagement extends ChangeNotifier{
         }
       ])
     });
-    notifyListeners();
   }
 
   //to delete user Post
   void deletePost(String index) async {
     await blog.doc(index).delete();
-    notifyListeners();
   }
 
 
 
   //to Edit the user Post
-  void EditPost(String index, String caption, String location) async {
+  void EditPost(String index, String caption, String location,context) async {
     await blog.doc(index).update({
       "caption": caption,
       "location": location,
-    });
-    notifyListeners();
+    }).then((value) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+      );
+    }
+    ).catchError((e)=>print(e));
   }
 
-  notifyListeners();
 }

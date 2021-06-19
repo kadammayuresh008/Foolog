@@ -32,8 +32,19 @@ class _ImageViewState extends State<ImageView> {
   String _caption;
   String _location;
   final _auth = FirebaseAuth.instance;
-  final TextEditingController _editCaption=TextEditingController();
-  final TextEditingController _editLocation=TextEditingController();
+  TextEditingController _editCaption=TextEditingController();
+  TextEditingController _editLocation=TextEditingController();
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      _editCaption=TextEditingController(text:widget.caption);
+      _editLocation=TextEditingController(text:widget.location);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -244,17 +255,7 @@ class _ImageViewState extends State<ImageView> {
                               padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
                               child: TextFormField(
                                 controller: _editCaption,
-                                onChanged: (value) {
-                                  setState(() {
-                                    if(value==null)
-                                    {
-                                      _caption=widget.caption;
-                                    }
-                                    else{
-                                      _caption=value;
-                                    }
-                                  });
-                                },
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
                                 validator:(value){
                                   if(value.isEmpty)
                                   {
@@ -269,10 +270,6 @@ class _ImageViewState extends State<ImageView> {
                                   prefixIcon: Icon(
                                     Icons.edit,
                                     color: Colors.purple,
-                                  ),
-                                  hintText: widget.caption,
-                                  hintStyle:TextStyle(
-                                    color:Colors.purple,
                                   ),
                                   contentPadding:
                                   EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
@@ -295,17 +292,7 @@ class _ImageViewState extends State<ImageView> {
                               padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
                               child: TextFormField(
                                 controller: _editLocation,
-                                onChanged: (value) {
-                                  setState(() {
-                                    if(value==null)
-                                      {
-                                        _location=widget.location;
-                                      }
-                                    else{
-                                      _location=value;
-                                    }
-                                  });
-                                },
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
                                 validator:(value){
                                   if(value.isEmpty)
                                   {
@@ -320,10 +307,6 @@ class _ImageViewState extends State<ImageView> {
                                   prefixIcon: Icon(
                                     Icons.edit,
                                     color: Colors.purple,
-                                  ),
-                                  hintText: widget.location,
-                                  hintStyle:TextStyle(
-                                    color:Colors.purple,
                                   ),
                                   contentPadding:
                                   EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
@@ -351,12 +334,13 @@ class _ImageViewState extends State<ImageView> {
                                  color: Colors.purple,
                                  size: 22.0,
                                ), onPressed: () async{
-                                 // print(_caption);
-                                 // print(_location);
+                                 // print(widget.docnum);
+                                 // print(_editCaption.text);
+                                 // print(_editLocation.text);
+                                 await blogManagement().EditPost(widget.docnum.toString(), _editCaption.text, _editLocation.text,context);
                                  _editCaption.clear();
                                  _editLocation.clear();
-                                 await blogManagement().EditPost(widget.index, _caption, _location);
-                                 // print("Edit");
+
                                }),
                              ),
                             SizedBox(height:10.0),
@@ -374,7 +358,7 @@ class _ImageViewState extends State<ImageView> {
                             color: Colors.white,
                             size: 25.0,
                           ), onPressed: ()async{
-                            await blogManagement().deletePost(widget.docnum);
+                            await blogManagement().deletePost(widget.docnum.toString());
                             // Navigator.pop(context);
                             Navigator.push(context,
                             MaterialPageRoute(
