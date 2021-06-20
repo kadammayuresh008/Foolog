@@ -359,7 +359,7 @@ class _ImageViewState extends State<ImageView> {
                             size: 25.0,
                           ), onPressed: ()async{
                             await blogManagement().deletePost(widget.docnum.toString());
-                            // Navigator.pop(context);
+                            Navigator.pop(context);
                             Navigator.push(context,
                             MaterialPageRoute(
                                 builder: (context)=>Profile()));

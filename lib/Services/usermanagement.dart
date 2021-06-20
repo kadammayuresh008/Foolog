@@ -24,6 +24,7 @@ class UserManagement {
       'Post': 0,
     }).then((value) {
       SocketIo().connect();
+      Navigator.pop(context);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Home()),

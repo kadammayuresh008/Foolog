@@ -111,7 +111,6 @@ class _HomeState extends State<Home> {
               ],
             ),
         body:BlogCard(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Container(
           height: 60.0,
           width:60.0,

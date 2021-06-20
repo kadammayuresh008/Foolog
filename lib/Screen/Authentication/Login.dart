@@ -163,6 +163,7 @@ class _LoginState extends State<Login> {
                           if(_formKey.currentState.validate())
                             {
                               dynamic result= await AuthService().SignInWithEmailAndPassword(_email, _password);
+                              print(result);
                               if(result==null)
                                 {
                                   setState(() {
@@ -171,6 +172,7 @@ class _LoginState extends State<Login> {
                                 }
                               else{
                                 SocketIo().connect();
+                                Navigator.pop(context);
                                 Navigator.push(
                                           context,
                                           MaterialPageRoute(builder: (context) => Home()),

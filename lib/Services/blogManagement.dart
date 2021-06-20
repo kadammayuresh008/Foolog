@@ -41,6 +41,7 @@ class blogManagement{
       await newuser
           .doc(user.docs[0].id)
           .update({"Post": FieldValue.increment(1)});
+      Navigator.pop(context);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Home()),
@@ -91,7 +92,14 @@ class blogManagement{
 
   //to delete user Post
   void deletePost(String index) async {
+    final CollectionReference newuser =
+    await FirebaseFirestore.instance.collection("/user");
+    final dynamic user =
+    await newuser.where("uid", isEqualTo: _auth.currentUser.uid).get();
     await blog.doc(index).delete();
+    await newuser
+        .doc(user.docs[0].id)
+        .update({"Post": FieldValue.increment(-1)});
   }
 
 

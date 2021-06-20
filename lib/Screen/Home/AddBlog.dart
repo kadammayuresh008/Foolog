@@ -66,51 +66,92 @@ class _AddBlogState extends State<AddBlog> {
                 child:_imageFile==null?Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    RaisedButton(
-                      child:Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Text('Add from gallery',
-                            style:TextStyle(
-                              color: Colors.white,
-                            )),
-                      ),
-                      shape:RoundedRectangleBorder(
-                          borderRadius:new BorderRadius.circular(10.0)),
-                      hoverColor: Colors.purple,
-                      highlightElevation: 0.5,
-                      color: Colors.purple,
-                      onPressed: () async {
-                        PickedFile galleryFile = await _picker.getImage(
-                          source:ImageSource.gallery,
-                        );
-                        setState(() {
-                          _imageFile = galleryFile;
-                        });
-                        print("Your selected image is located at"+galleryFile.path);
-                      },
-              ),
-                    RaisedButton(
-                      child:Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Text('Add using camera',
-                            style:TextStyle(
-                              color: Colors.white,
-                            )),
-                      ),
-                        shape:RoundedRectangleBorder(
-                            borderRadius:new BorderRadius.circular(10.0)),
-                      hoverColor: Colors.purple,
-                      highlightElevation: 0.5,
-                      color: Colors.purple,
-                      onPressed: () async {
-                              PickedFile GalleryFile = await _picker.getImage(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius:30.0,
+                          backgroundColor: Colors.purple,
+                          child:IconButton(icon: Icon(
+                            Icons.photo,
+                            color: Colors.white,
+                            size: 30.0,
+                          ), onPressed: () async {
+                            PickedFile galleryFile = await _picker.getImage(
+                              source:ImageSource.gallery,
+                            );
+                            setState(() {
+                              _imageFile = galleryFile;
+                            });
+                            print("Your selected image is located at"+galleryFile.path);
+                          },
+                          ),
+                        ),
+                        SizedBox(width:5.0),
+                        CircleAvatar(
+                          radius:30.0,
+                          backgroundColor: Colors.purple,
+                          child:IconButton(icon: Icon(
+                            Icons.camera,
+                            color: Colors.white,
+                            size: 30.0,
+                          ), onPressed: () async {
+                            PickedFile GalleryFile = await _picker.getImage(
                               source:ImageSource.camera,
-                              );
-                              setState(() {
+                            );
+                            setState(() {
                               _imageFile = GalleryFile;
-                              });
-                              print("Your selected image is located at"+GalleryFile.path);}
-                      ),
+                            });
+                            print("Your selected image is located at"+GalleryFile.path);}
+                          ),
+                        ),
+                      ],
+                    ),
+              //       RaisedButton(
+              //         child:Padding(
+              //           padding: const EdgeInsets.all(4.0),
+              //           child: Text('Add from gallery',
+              //               style:TextStyle(
+              //                 color: Colors.white,
+              //               )),
+              //         ),
+              //         shape:RoundedRectangleBorder(
+              //             borderRadius:new BorderRadius.circular(10.0)),
+              //         hoverColor: Colors.purple,
+              //         highlightElevation: 0.5,
+              //         color: Colors.purple,
+              //         onPressed: () async {
+              //           PickedFile galleryFile = await _picker.getImage(
+              //             source:ImageSource.gallery,
+              //           );
+              //           setState(() {
+              //             _imageFile = galleryFile;
+              //           });
+              //           print("Your selected image is located at"+galleryFile.path);
+              //         },
+              // ),
+              //       RaisedButton(
+              //         child:Padding(
+              //           padding: const EdgeInsets.all(4.0),
+              //           child: Text('Add using camera',
+              //               style:TextStyle(
+              //                 color: Colors.white,
+              //               )),
+              //         ),
+              //           shape:RoundedRectangleBorder(
+              //               borderRadius:new BorderRadius.circular(10.0)),
+              //         hoverColor: Colors.purple,
+              //         highlightElevation: 0.5,
+              //         color: Colors.purple,
+              //         onPressed: () async {
+              //                 PickedFile GalleryFile = await _picker.getImage(
+              //                 source:ImageSource.camera,
+              //                 );
+              //                 setState(() {
+              //                 _imageFile = GalleryFile;
+              //                 });
+              //                 print("Your selected image is located at"+GalleryFile.path);}
+              //         ),
                   ]
                 ):Image.file(File(_imageFile.path),
                   width:double.infinity,
@@ -143,14 +184,16 @@ class _AddBlogState extends State<AddBlog> {
                     return null;
                   },
                   decoration: InputDecoration(
+                    fillColor: Colors.purple,
+                    filled:true,
                     errorStyle: TextStyle(color:Colors.purple),
                     prefixIcon: Icon(
                       Icons.place_sharp,
-                      color: Colors.purple,
+                      color: Colors.black,
                     ),
                     hintText: 'Add Location',
                     hintStyle:TextStyle(
-                      color:Colors.purple,
+                      color:Colors.black,
                     ),
                     contentPadding:
                     EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
@@ -194,13 +237,15 @@ class _AddBlogState extends State<AddBlog> {
                   },
                   decoration: InputDecoration(
                     errorStyle: TextStyle(color:Colors.purple),
+                    fillColor: Colors.purple,
+                    filled:true,
                     prefixIcon: Icon(
                       Icons.closed_caption,
-                      color: Colors.purple,
+                      color: Colors.black,
                     ),
                     hintText: 'Add Caption',
                     hintStyle:TextStyle(
-                      color:Colors.purple,
+                      color:Colors.black,
                     ),
                     contentPadding:
                     EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
@@ -271,45 +316,62 @@ class _AddBlogState extends State<AddBlog> {
               // ),
               SizedBox(height:10.0),
               Center(
-                child: RaisedButton(
-                  child:Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Text('Add Post',
-                        style:TextStyle(
-                          color: Colors.white,
-                        )),
-                  ),
-                  shape:RoundedRectangleBorder(
-                      borderRadius:new BorderRadius.circular(10.0)),
-                  hoverColor: Colors.purple,
-                  highlightColor: Colors.purple,
-                  highlightElevation: 0.5,
-                  color: Colors.purple,
-                  onPressed: () {
+                child:CircleAvatar(
+                  radius:30.0,
+                  backgroundColor: Colors.purple,
+                  child:IconButton(icon: Icon(
+                    Icons.done,
+                    color: Colors.white,
+                    size: 30.0,
+                  ), onPressed: () {
                     if(_formKey.currentState.validate())
-                      {
-                        blogManagement().StoreBlog(_imageFile,_location,_caption,context);
-                        _scaffoldKey.currentState.showSnackBar(
-                            new SnackBar(
-                              content: new Text('Your Blog has been Added.',
-                                  style:TextStyle(
-                                    color:Colors.white,
-                                  )),
-                              action: SnackBarAction(
-                                label: 'ok',
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => Home()),
-                                  );
-                                },
-                              ),
-                              backgroundColor: Colors.green.withOpacity(0.8),
-                            )
-                        );
-                      }
-                  },),
+                    {
+                      blogManagement().StoreBlog(_imageFile,_location,_caption,context);
+                    }
+                  }),
+                ),
               ),
+              SizedBox(height:10.0),
+              // Center(
+              //   child: RaisedButton(
+              //     child:Padding(
+              //       padding: const EdgeInsets.all(4.0),
+              //       child: Text('Add Post',
+              //           style:TextStyle(
+              //             color: Colors.white,
+              //           )),
+              //     ),
+              //     shape:RoundedRectangleBorder(
+              //         borderRadius:new BorderRadius.circular(10.0)),
+              //     hoverColor: Colors.purple,
+              //     highlightColor: Colors.purple,
+              //     highlightElevation: 0.5,
+              //     color: Colors.purple,
+              //     onPressed: () {
+              //       if(_formKey.currentState.validate())
+              //         {
+              //           blogManagement().StoreBlog(_imageFile,_location,_caption,context);
+              //           // _scaffoldKey.currentState.showSnackBar(
+              //           //     new SnackBar(
+              //           //       content: new Text('Your Blog has been Added.',
+              //           //           style:TextStyle(
+              //           //             color:Colors.white,
+              //           //           )),
+              //           //       action: SnackBarAction(
+              //           //         label: 'ok',
+              //           //         onPressed: () {
+              //           //           Navigator.push(
+              //           //             context,
+              //           //             MaterialPageRoute(builder: (context) => Home()),
+              //           //           );
+              //           //         },
+              //           //       ),
+              //           //       backgroundColor: Colors.green.withOpacity(0.8),
+              //           //     )
+              //           // );
+              //         }
+              //     },),
+              // ),
             ],
           )
         ),
