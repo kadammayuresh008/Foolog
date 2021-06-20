@@ -43,6 +43,7 @@ class _ImageViewState extends State<ImageView> {
     setState(() {
       _editCaption=TextEditingController(text:widget.caption);
       _editLocation=TextEditingController(text:widget.location);
+      heart=widget.heart;
     });
   }
 
@@ -107,8 +108,11 @@ class _ImageViewState extends State<ImageView> {
                       ),
                       GestureDetector(
                         onDoubleTap:(){
-                          setState(() {
-                            blogManagement().increLike(widget.index,widget.heart);
+                          setState(() async {
+                           await blogManagement().increLike(widget.docnum.toString(),!widget.heart);
+                            setState(() {
+                              heart=!heart;
+                            });
                           });
                         },
                         child: Container(
@@ -137,7 +141,7 @@ class _ImageViewState extends State<ImageView> {
                                 children:<Widget> [
                                   Row(
                                     children:[
-                                      widget.heart==false?
+                                      heart==false?
                                       IconButton(icon:Icon(Icons.favorite_border,
                                           size: 30.0,
                                           color:Colors.black),

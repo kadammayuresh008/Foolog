@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
+import 'package:foolog/Services/SocketIo.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/Home.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Authentication/Signup.dart';
 import "package:foolog/Services/auth.dart";
@@ -169,9 +170,7 @@ class _LoginState extends State<Login> {
                                   });
                                 }
                               else{
-                                // Navigator.pushReplacement(
-                                //   context,
-                                //   // MaterialPageRoute(builder: (context) => Home()),);
+                                SocketIo().connect();
                                 Navigator.push(
                                           context,
                                           MaterialPageRoute(builder: (context) => Home()),

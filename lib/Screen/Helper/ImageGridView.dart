@@ -16,6 +16,7 @@ class _ImageGridViewState extends State<ImageGridView> {
 
   List<Map<String,dynamic>> Photos=[];
   bool _empty=false;
+  final _auth=FirebaseAuth.instance;
 
 
   //To check whether teh current user id is in given userId follower
@@ -112,7 +113,7 @@ class _ImageGridViewState extends State<ImageGridView> {
                             likes: Photos[index]["likes"],
                             image:Photos[index]["image"],
                             comments: Photos[index]["comments"],
-                            heart:Photos[index]["heart"],
+                            heart:Photos[index]["likes"].contains(_auth.currentUser.uid),
                           ))
                         );
               },

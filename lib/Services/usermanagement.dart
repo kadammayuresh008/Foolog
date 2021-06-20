@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:foolog/Screen/Profile/Profile.dart';
+import 'package:foolog/Services/SocketIo.dart';
 import 'package:foolog/Services/blogManagement.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/Home.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,6 +23,7 @@ class UserManagement {
       'Following': [],
       'Post': 0,
     }).then((value) {
+      SocketIo().connect();
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Home()),
