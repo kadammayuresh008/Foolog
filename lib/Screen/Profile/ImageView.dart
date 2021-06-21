@@ -52,7 +52,7 @@ class _ImageViewState extends State<ImageView> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Post"),
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.cyan,
         elevation:0.0,
       ),
       body:SingleChildScrollView(
@@ -102,7 +102,7 @@ class _ImageViewState extends State<ImageView> {
                             ),
                           ],
                         ),
-                        color: Colors.purple,
+                        color: Colors.cyan,
                         width: 900,
                         height: 60,
                       ),
@@ -129,8 +129,8 @@ class _ImageViewState extends State<ImageView> {
                             dotSize: 4.0,
                             indicatorBgPadding: 6.0,
                             dotBgColor: Colors.transparent,
-                            dotColor: Colors.purple,
-                            dotIncreasedColor: Colors.purple,
+                            dotColor: Colors.cyan,
+                            dotIncreasedColor: Colors.cyan,
                           ),),
                       ),
                       Container(
@@ -246,7 +246,7 @@ class _ImageViewState extends State<ImageView> {
                       widget.userId==_auth.currentUser.uid?Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Card(
-                          color:Colors.purple,
+                          color:Colors.cyan,
                           elevation: 0.5,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -273,20 +273,20 @@ class _ImageViewState extends State<ImageView> {
                                   errorStyle: TextStyle(color:Colors.white),
                                   prefixIcon: Icon(
                                     Icons.edit,
-                                    color: Colors.purple,
+                                    color: Colors.cyan,
                                   ),
                                   contentPadding:
                                   EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
                                   border: OutlineInputBorder(
-                                    borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                                    borderSide:BorderSide(color: Colors.cyan, width: 1.0),
                                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                                   ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                                    borderSide:BorderSide(color: Colors.cyan, width: 1.0),
                                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                                    borderSide:BorderSide(color: Colors.cyan, width: 1.0),
                                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                                   ),
                                 ),
@@ -310,20 +310,20 @@ class _ImageViewState extends State<ImageView> {
                                   errorStyle: TextStyle(color:Colors.white),
                                   prefixIcon: Icon(
                                     Icons.edit,
-                                    color: Colors.purple,
+                                    color: Colors.cyan,
                                   ),
                                   contentPadding:
                                   EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
                                   border: OutlineInputBorder(
-                                    borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                                    borderSide:BorderSide(color: Colors.cyan, width: 1.0),
                                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                                   ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                                    borderSide:BorderSide(color: Colors.cyan, width: 1.0),
                                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                                    borderSide:BorderSide(color: Colors.cyan, width: 1.0),
                                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                                   ),
                                 ),
@@ -335,7 +335,7 @@ class _ImageViewState extends State<ImageView> {
                                backgroundColor: Colors.white,
                                child:IconButton(icon: Icon(
                                  Icons.done,
-                                 color: Colors.purple,
+                                 color: Colors.cyan,
                                  size: 22.0,
                                ), onPressed: () async{
                                  await blogManagement().EditPost(widget.docnum.toString(), _editCaption.text, _editLocation.text,context);
@@ -352,7 +352,7 @@ class _ImageViewState extends State<ImageView> {
                       widget.userId==_auth.currentUser.uid?Center(
                         child: CircleAvatar(
                           radius:25.0,
-                          backgroundColor: Colors.purple,
+                          backgroundColor: Colors.cyan,
                           child:IconButton(icon: Icon(
                             Icons.delete,
                             color: Colors.white,

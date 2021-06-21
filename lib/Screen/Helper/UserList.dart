@@ -44,13 +44,13 @@ class _UserListState extends State<UserList> {
     return userList==null?
     Center(
       child: CircularProgressIndicator(
-        valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+        valueColor: new AlwaysStoppedAnimation<Color>(Colors.cyan),
         backgroundColor: Colors.white,
       ),
     )
         :Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.purple,
+            backgroundColor: Colors.cyan,
             leading:IconButton(icon:Icon(Icons.arrow_back),
               onPressed: () {
                 Navigator.pop(context);
@@ -83,12 +83,12 @@ class _UserListState extends State<UserList> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide:
-                    BorderSide(color: Colors.purple, width: 1.0),
+                    BorderSide(color: Colors.cyan, width: 1.0),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide:
-                    BorderSide(color: Colors.purple, width: 1.0),
+                    BorderSide(color: Colors.cyan, width: 1.0),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                   hintText: 'Search Friends!!!',

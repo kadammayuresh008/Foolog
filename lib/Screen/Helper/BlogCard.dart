@@ -65,7 +65,7 @@ class _BlogCardState extends State<BlogCard> {
                         ),
                       ],
                     ),
-                    color: Colors.purple,
+                    color: Colors.cyan,
                     width: 900,
                     height: 60,
                   ),
@@ -90,8 +90,8 @@ class _BlogCardState extends State<BlogCard> {
                         dotSize: 4.0,
                         indicatorBgPadding: 6.0,
                         dotBgColor: Colors.transparent,
-                        dotColor: Colors.purple,
-                        dotIncreasedColor: Colors.purple,
+                        dotColor: Colors.cyan,
+                        dotIncreasedColor:Colors.cyan,
                       ),),
                   ),
                   Container(
@@ -214,7 +214,7 @@ class _BlogCardState extends State<BlogCard> {
     return BlogList==null?
     Center(
         child:CircularProgressIndicator(
-      valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+      valueColor: new AlwaysStoppedAnimation<Color>(Colors.cyan),
       backgroundColor: Colors.white,
     ))
         : ListView.builder(

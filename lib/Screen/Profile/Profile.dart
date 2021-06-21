@@ -38,7 +38,7 @@ class _ProfileState extends State<Profile> {
       value:UserManagement().UserDetails,
       child:UserManagement().UserDetails==null?Center(
         child:CircularProgressIndicator(
-          valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+          valueColor: new AlwaysStoppedAnimation<Color>(Colors.cyan),
           backgroundColor: Colors.white,
         ),
       ):
@@ -48,7 +48,7 @@ class _ProfileState extends State<Profile> {
               child: Stack(
                 children: [
                   AppBar(
-                    backgroundColor: Colors.purple,
+                    backgroundColor: Colors.cyan,
                     leading:IconButton(icon:Icon(Icons.arrow_back),
                       onPressed: () {
                         print("Back");

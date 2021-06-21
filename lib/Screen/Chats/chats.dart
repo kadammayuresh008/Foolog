@@ -20,7 +20,7 @@ class _ChatState extends State<Chat> {
       value:UserManagement().UserDetails,
       child: Scaffold(
        appBar: AppBar(
-         backgroundColor: Colors.purple,
+         backgroundColor: Colors.cyan,
          leading:IconButton(icon:Icon(Icons.arrow_back),
            onPressed: () {
              Navigator.pop(context);

@@ -35,10 +35,10 @@ class _SignupState extends State<Signup> {
                 end: Alignment
                     .bottomRight, // 10% of the width, so there are ten blinds.
                 colors: [
-                  Colors.purple[800],
-                  Colors.purple[600],
-                  Colors.purple[400],
-                  Colors.purple[200],
+                  Colors.cyan[700],
+                  Colors.cyan[600],
+                  Colors.cyan[500],
+                  Colors.cyan[400],
                   Colors.white,
                 ], // red to yellow
                 tileMode: TileMode.repeated,
@@ -86,24 +86,24 @@ class _SignupState extends State<Signup> {
                         errorStyle: TextStyle(color: Colors.white),
                         prefixIcon: Icon(
                           Icons.person,
-                          color: Colors.purple,
+                          color: Colors.cyan,
                         ),
                         hintText: 'Enter Username',
                         hintStyle: TextStyle(
-                          color: Colors.purple,
+                          color: Colors.cyan,
                         ),
                         contentPadding:
                             EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
                         border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                          borderSide: BorderSide(color: Colors.cyan, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                          borderSide: BorderSide(color:Colors.cyan, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                          borderSide: BorderSide(color: Colors.cyan, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                       ),
@@ -129,24 +129,24 @@ class _SignupState extends State<Signup> {
                         errorStyle: TextStyle(color: Colors.white),
                         prefixIcon: Icon(
                           Icons.email_sharp,
-                          color: Colors.purple,
+                          color: Colors.cyan,
                         ),
                         hintText: 'Enter Email',
                         hintStyle: TextStyle(
-                          color: Colors.purple,
+                          color: Colors.cyan,
                         ),
                         contentPadding:
                             EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
                         border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                          borderSide: BorderSide(color: Colors.cyan, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                          borderSide: BorderSide(color: Colors.cyan, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                          borderSide: BorderSide(color: Colors.cyan, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                       ),
@@ -173,24 +173,24 @@ class _SignupState extends State<Signup> {
                         errorStyle: TextStyle(color: Colors.white),
                         prefixIcon: Icon(
                           Icons.vpn_key,
-                          color: Colors.purple,
+                          color: Colors.cyan,
                         ),
                         hintText: 'Enter Password',
                         hintStyle: TextStyle(
-                          color: Colors.purple,
+                          color: Colors.cyan,
                         ),
                         contentPadding:
                             EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
                         border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                          borderSide: BorderSide(color: Colors.cyan, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                          borderSide: BorderSide(color: Colors.cyan, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                          borderSide: BorderSide(color: Colors.cyan, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                       ),
@@ -217,24 +217,24 @@ class _SignupState extends State<Signup> {
                         errorStyle: TextStyle(color: Colors.white),
                         prefixIcon: Icon(
                           Icons.vpn_key,
-                          color: Colors.purple,
+                          color: Colors.cyan,
                         ),
                         hintText: 'Confirm password',
                         hintStyle: TextStyle(
-                          color: Colors.purple,
+                          color: Colors.cyan,
                         ),
                         contentPadding:
                             EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
                         border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                          borderSide: BorderSide(color: Colors.cyan, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                          borderSide: BorderSide(color: Colors.cyan, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                          borderSide: BorderSide(color: Colors.cyan, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                       ),
@@ -248,7 +248,7 @@ class _SignupState extends State<Signup> {
                           )),
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(10.0)),
-                      color: Colors.purple,
+                      color: Colors.cyan[700],
                       onPressed: () async{
                         if(_formKey.currentState.validate())
                           {
@@ -299,7 +299,7 @@ class _SignupState extends State<Signup> {
                         },
                           child:Text("Login",
                               style: TextStyle(
-                                color: Colors.purple,
+                                color: Colors.cyan[700],
                                 fontSize: 18.0,
                               )),)
                       ],

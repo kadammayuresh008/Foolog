@@ -112,7 +112,7 @@ class _ChatboxState extends State<Chatbox> {
         alignment: Alignment.centerRight,
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.purple,
+            color: Colors.cyan,
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
           child: Padding(
@@ -205,7 +205,7 @@ class _ChatboxState extends State<Chatbox> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.cyan,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -262,7 +262,7 @@ class _ChatboxState extends State<Chatbox> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            color: Colors.purple,
+            color: Colors.cyan,
           ),
           child:Row(
             children: [
@@ -343,7 +343,7 @@ class _ChatboxState extends State<Chatbox> {
       ) :Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          color: Colors.purple,
+          color: Colors.cyan,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
