@@ -60,6 +60,7 @@ class _BlogCardState extends State<BlogCard> {
                               Text(username,
                                 style: TextStyle(fontSize:18.0,
                                   color: Colors.black,
+                                  fontWeight: FontWeight.bold,
                                 ),),
                               location==null?Container():
                               Text(location,

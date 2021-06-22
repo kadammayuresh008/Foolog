@@ -44,7 +44,7 @@ class _AddBlogState extends State<AddBlog> {
       key:_scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.cyan,
-        title: Text("AddBlog"),
+        title: Text("Add Post"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -55,6 +55,8 @@ class _AddBlogState extends State<AddBlog> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               //Take Image
+              Image.asset("assets/Images/AddPost.png"),
+              SizedBox(height:5.0),
               Text(
                 "Images",
                 style: TextStyle(
@@ -112,7 +114,7 @@ class _AddBlogState extends State<AddBlog> {
                   width:double.infinity,
                 ),
                 width: double.infinity,
-                height: 250,
+                height: 500,
               ),
               SizedBox(height:10.0),
               //Take location
