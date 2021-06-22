@@ -55,7 +55,6 @@ class _AddBlogState extends State<AddBlog> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               //Take Image
-              Image.asset("assets/Images/AddPost.png"),
               SizedBox(height:5.0),
               Text(
                 "Images",
@@ -68,6 +67,9 @@ class _AddBlogState extends State<AddBlog> {
                 child:_imageFile==null?Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    Image.asset("assets/Images/AddPost.png",
+                    height:300.0,
+                    width:300.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -114,7 +116,7 @@ class _AddBlogState extends State<AddBlog> {
                   width:double.infinity,
                 ),
                 width: double.infinity,
-                height: 500,
+                height: 450,
               ),
               SizedBox(height:10.0),
               //Take location

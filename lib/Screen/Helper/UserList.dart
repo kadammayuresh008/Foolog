@@ -121,8 +121,10 @@ class _UserListState extends State<UserList> {
             itemBuilder:(BuildContext context,int Index)
             {
               follow=userList.docs[Index]["Followers"].contains(_auth.currentUser.uid)?false:true;
-            if(userList.docs[Index]["username"].toString().toLowerCase()
-                .contains(_query.toLowerCase())
+            if((userList.docs[Index]["username"].toString().toLowerCase()
+                .contains(_query.toLowerCase()) ||
+                userList.docs[Index]["bio"].toString().toLowerCase()
+                    .contains(_query.toLowerCase()))
                 && userList.docs[Index]["uid"]!=_auth.currentUser.uid)
             {
                 return UserSearchTile(Index: Index,
