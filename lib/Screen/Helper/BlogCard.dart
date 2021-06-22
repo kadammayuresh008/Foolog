@@ -1,13 +1,13 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Home/CommentPageProvider.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Home/CommentPage.dart';
 // import 'package:foolog/Screen/SplashScreen.dart';
 import 'file:///C:/Users/kadam/AndroidStudioProjects/foolog/lib/Screen/Chats/chats.dart';
 import 'package:foolog/Services/blogManagement.dart';
-// import 'package:foolog/Services/usermanagement.dart';
 import 'package:provider/provider.dart';
 
 
@@ -27,6 +27,12 @@ class _BlogCardState extends State<BlogCard> {
             child:Column(
                 children:<Widget>[
                   Container(
+                    decoration:BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(width: 0.1, color: Colors.black),
+                      ),
+                      color: Colors.white,
+                    ),
                     child:
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -53,19 +59,18 @@ class _BlogCardState extends State<BlogCard> {
                               username==null?Container():
                               Text(username,
                                 style: TextStyle(fontSize:18.0,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 ),),
                               location==null?Container():
                               Text(location,
                                 style: TextStyle(fontSize:15.0,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 ),),
                             ],
                           ),
                         ),
                       ],
                     ),
-                    color: Colors.cyan,
                     width: 900,
                     height: 60,
                   ),
@@ -110,16 +115,16 @@ class _BlogCardState extends State<BlogCard> {
                                       size: 30.0,
                                       color:Colors.red),
                                       onPressed: null),
-                                  IconButton(icon:Icon(Icons.message,
-                                      size: 30.0,
-                                      color:Colors.black),
-                                      onPressed:(){
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => Chat()),
-                                        );
-                                      }
-                                  ),
+                                  // IconButton(icon:Icon(Icons.message,
+                                  //     size: 30.0,
+                                  //     color:Colors.black),
+                                  //     onPressed:(){
+                                  //       Navigator.push(
+                                  //         context,
+                                  //         MaterialPageRoute(builder: (context) => Chat()),
+                                  //       );
+                                  //     }
+                                  // ),
                                 ],),
                             ],
                           ),
