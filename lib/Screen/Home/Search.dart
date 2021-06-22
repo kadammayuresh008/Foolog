@@ -21,7 +21,7 @@ class _SearchState extends State<Search> {
         children: <Widget>[
           Icon(
             Icons.search,
-            color: Colors.purple,
+            color: Colors.cyan,
           ),
           Text("Mayuresh"),
         ],

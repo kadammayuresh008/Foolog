@@ -19,7 +19,7 @@ class _ChatlistState extends State<Chatlist> {
     return Container(
         child:InkWell(
           splashColor: Colors.black,
-          highlightColor: Colors.purple,
+          highlightColor: Colors.cyan,
           child: GestureDetector(
             onTap:(){
               Navigator.push(
@@ -81,7 +81,7 @@ class _ChatlistState extends State<Chatlist> {
     return list==null?
     Center(
       child: CircularProgressIndicator(
-        valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+        valueColor: new AlwaysStoppedAnimation<Color>(Colors.cyan),
         backgroundColor: Colors.white,
       ),
     ):ListView.builder(

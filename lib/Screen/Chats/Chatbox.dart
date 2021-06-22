@@ -112,7 +112,7 @@ class _ChatboxState extends State<Chatbox> {
         alignment: Alignment.centerRight,
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.purple,
+            color: Colors.cyan,
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
           child: Padding(
@@ -205,7 +205,7 @@ class _ChatboxState extends State<Chatbox> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.cyan,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -262,14 +262,14 @@ class _ChatboxState extends State<Chatbox> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            color: Colors.purple,
+            color: Colors.white,
           ),
           child:Row(
             children: [
               IconButton(
                 icon: Icon(
                   Icons.photo_sharp,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 onPressed: () async {
                   // final gif = await GiphyPicker.pickGif(
@@ -304,13 +304,13 @@ class _ChatboxState extends State<Chatbox> {
                     });
                   },
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                   controller: _msgcontroller,
                   decoration: const InputDecoration(
                     hintText: "Enter Text",
                     hintStyle: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                     enabledBorder:
                         OutlineInputBorder(borderSide: BorderSide.none),
@@ -323,7 +323,7 @@ class _ChatboxState extends State<Chatbox> {
                   ? IconButton(
                       icon: Icon(
                         Icons.send,
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                       onPressed: () async {
                         setState(() {
@@ -343,7 +343,7 @@ class _ChatboxState extends State<Chatbox> {
       ) :Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          color: Colors.purple,
+          color: Colors.white,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -351,7 +351,7 @@ class _ChatboxState extends State<Chatbox> {
             IconButton(
               icon: Icon(
                 Icons.photo_sharp,
-                color: Colors.white,
+                color: Colors.black,
               ),
               onPressed: () async {
                 final gif = await GiphyPicker.pickGif(
@@ -389,7 +389,7 @@ class _ChatboxState extends State<Chatbox> {
             IconButton(
               icon: Icon(
                 Icons.send,
-                color: Colors.white,
+                color: Colors.black,
               ),
               onPressed: () async {
                 setState(() {

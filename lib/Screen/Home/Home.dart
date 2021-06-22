@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(4.0, 4.0, 0.0, 0.0),
       child: CircleAvatar(
-            backgroundColor: Colors.purple,
+            backgroundColor: Colors.cyan,
           child:CircleAvatar(
             backgroundColor: Colors.white,
             child:ClipRRect(
@@ -69,7 +69,7 @@ class _HomeState extends State<Home> {
       value:blogManagement().Blog,
       child: Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.purple,
+              backgroundColor: Colors.cyan,
               title:Text("Foolog"),
               actions: <Widget>[
                 IconButton(icon:Icon(Icons.message,),
@@ -122,7 +122,7 @@ class _HomeState extends State<Home> {
                 MaterialPageRoute(builder: (context) => AddBlog()),
               );
             },
-            backgroundColor: Colors.purple,
+            backgroundColor: Colors.cyan,
           ),
         ),
           ),

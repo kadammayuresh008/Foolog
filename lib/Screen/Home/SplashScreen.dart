@@ -16,13 +16,13 @@ class _SplashScreenState extends State<SplashScreen> {
           Text("Foolog",
             style:TextStyle(
               fontSize: 60.0,
-              color: Colors.purple,
+              color: Colors.cyan,
               fontFamily: 'Pacifico'
               // fontWeight: FontWeight.bold,
             ),),
           SizedBox(height:20.0),
           CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.cyan),
             backgroundColor: Colors.white,
           ),
         ],

@@ -23,7 +23,7 @@ class _CommentPageProviderState extends State<CommentPageProvider> {
       value:blogManagement().Blog,
       child: Scaffold(
         appBar: AppBar(
-            backgroundColor: Colors.purple,
+            backgroundColor: Colors.cyan,
             title: Text(
               'Comments',
               style: TextStyle(

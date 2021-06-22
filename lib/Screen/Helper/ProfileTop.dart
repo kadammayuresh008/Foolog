@@ -202,7 +202,7 @@ class _ProfileTopState extends State<ProfileTop> {
                                child:Text('Unfollow',
                                    style:TextStyle(
                                      fontWeight: FontWeight.bold,
-                                     color:Colors.purple,
+                                     color:Colors.cyan,
                                    )
                                ),
                                color: Colors.white,

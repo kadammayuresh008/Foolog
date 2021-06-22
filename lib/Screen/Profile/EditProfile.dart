@@ -66,7 +66,7 @@ class _EditProfileState extends State<EditProfile> {
             },
           ),
           title: Text("Edit Profile", style: TextStyle(color: Colors.white)),
-          backgroundColor: Colors.purple,
+          backgroundColor: Colors.cyan,
         ),
         body: SingleChildScrollView(
             child: Column(
@@ -78,7 +78,7 @@ class _EditProfileState extends State<EditProfile> {
                 key: _formKey,
                 child: Container(
                   decoration:BoxDecoration(
-                    color:Colors.purple,
+                    color:Colors.cyan,
                   ),
                   child: Column(
                     children: [
@@ -166,21 +166,21 @@ class _EditProfileState extends State<EditProfile> {
                 },
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.person,color: Colors.black,),
-                  fillColor: Colors.purple,
+                  fillColor: Colors.cyan,
                   filled:true,
-                  errorStyle: TextStyle(color: Colors.purple),
+                  errorStyle: TextStyle(color: Colors.cyan),
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
                   border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                    borderSide: BorderSide(color: Colors.cyan, width: 1.0),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                    borderSide: BorderSide(color: Colors.cyan, width: 1.0),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                    borderSide: BorderSide(color: Colors.cyan, width: 1.0),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                 ),
@@ -211,21 +211,21 @@ class _EditProfileState extends State<EditProfile> {
                 },
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.assignment,color: Colors.black,),
-                  fillColor: Colors.purple,
+                  fillColor: Colors.cyan,
                   filled:true,
-                  errorStyle: TextStyle(color: Colors.purple),
+                  errorStyle: TextStyle(color: Colors.cyan),
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
                   border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                    borderSide: BorderSide(color: Colors.cyan, width: 1.0),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                    borderSide: BorderSide(color: Colors.cyan, width: 1.0),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.purple, width: 1.0),
+                    borderSide: BorderSide(color: Colors.cyan, width: 1.0),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                 ),
@@ -235,7 +235,7 @@ class _EditProfileState extends State<EditProfile> {
             Center(
               child:CircleAvatar(
                 radius:30.0,
-                backgroundColor: Colors.purple,
+                backgroundColor: Colors.cyan,
                 child:IconButton(icon: Icon(
                   Icons.done,
                   color: Colors.white,
@@ -282,10 +282,10 @@ class _EditProfileState extends State<EditProfile> {
             //     ),
             //     shape: RoundedRectangleBorder(
             //         borderRadius: new BorderRadius.circular(10.0)),
-            //     hoverColor: Colors.purple,
-            //     highlightColor: Colors.purple,
+            //     hoverColor: Colors.cyan,
+            //     highlightColor: Colors.cyan,
             //     highlightElevation: 0.5,
-            //     color: Colors.purple,
+            //     color: Colors.cyan,
             //     onPressed: () {
             //       if (_formKey.currentState.validate()) {
             //         if (_imageFile == null) {

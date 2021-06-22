@@ -43,7 +43,7 @@ class _AddBlogState extends State<AddBlog> {
     return Scaffold(
       key:_scaffoldKey,
       appBar: AppBar(
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.cyan,
         title: Text("AddBlog"),
       ),
       body: Padding(
@@ -71,7 +71,7 @@ class _AddBlogState extends State<AddBlog> {
                       children: [
                         CircleAvatar(
                           radius:30.0,
-                          backgroundColor: Colors.purple,
+                          backgroundColor: Colors.cyan,
                           child:IconButton(icon: Icon(
                             Icons.photo,
                             color: Colors.white,
@@ -90,7 +90,7 @@ class _AddBlogState extends State<AddBlog> {
                         SizedBox(width:5.0),
                         CircleAvatar(
                           radius:30.0,
-                          backgroundColor: Colors.purple,
+                          backgroundColor: Colors.cyan,
                           child:IconButton(icon: Icon(
                             Icons.camera,
                             color: Colors.white,
@@ -107,51 +107,6 @@ class _AddBlogState extends State<AddBlog> {
                         ),
                       ],
                     ),
-              //       RaisedButton(
-              //         child:Padding(
-              //           padding: const EdgeInsets.all(4.0),
-              //           child: Text('Add from gallery',
-              //               style:TextStyle(
-              //                 color: Colors.white,
-              //               )),
-              //         ),
-              //         shape:RoundedRectangleBorder(
-              //             borderRadius:new BorderRadius.circular(10.0)),
-              //         hoverColor: Colors.purple,
-              //         highlightElevation: 0.5,
-              //         color: Colors.purple,
-              //         onPressed: () async {
-              //           PickedFile galleryFile = await _picker.getImage(
-              //             source:ImageSource.gallery,
-              //           );
-              //           setState(() {
-              //             _imageFile = galleryFile;
-              //           });
-              //           print("Your selected image is located at"+galleryFile.path);
-              //         },
-              // ),
-              //       RaisedButton(
-              //         child:Padding(
-              //           padding: const EdgeInsets.all(4.0),
-              //           child: Text('Add using camera',
-              //               style:TextStyle(
-              //                 color: Colors.white,
-              //               )),
-              //         ),
-              //           shape:RoundedRectangleBorder(
-              //               borderRadius:new BorderRadius.circular(10.0)),
-              //         hoverColor: Colors.purple,
-              //         highlightElevation: 0.5,
-              //         color: Colors.purple,
-              //         onPressed: () async {
-              //                 PickedFile GalleryFile = await _picker.getImage(
-              //                 source:ImageSource.camera,
-              //                 );
-              //                 setState(() {
-              //                 _imageFile = GalleryFile;
-              //                 });
-              //                 print("Your selected image is located at"+GalleryFile.path);}
-              //         ),
                   ]
                 ):Image.file(File(_imageFile.path),
                   width:double.infinity,
@@ -184,9 +139,9 @@ class _AddBlogState extends State<AddBlog> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    fillColor: Colors.purple,
+                    fillColor: Colors.cyan,
                     filled:true,
-                    errorStyle: TextStyle(color:Colors.purple),
+                    errorStyle: TextStyle(color:Colors.cyan),
                     prefixIcon: Icon(
                       Icons.place_sharp,
                       color: Colors.black,
@@ -198,15 +153,15 @@ class _AddBlogState extends State<AddBlog> {
                     contentPadding:
                     EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
                     border: OutlineInputBorder(
-                      borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                      borderSide:BorderSide(color: Colors.cyan, width: 1.0),
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                      borderSide:BorderSide(color: Colors.cyan, width: 1.0),
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                      borderSide:BorderSide(color: Colors.cyan, width: 1.0),
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
                   ),
@@ -236,8 +191,8 @@ class _AddBlogState extends State<AddBlog> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    errorStyle: TextStyle(color:Colors.purple),
-                    fillColor: Colors.purple,
+                    errorStyle: TextStyle(color:Colors.cyan),
+                    fillColor: Colors.cyan,
                     filled:true,
                     prefixIcon: Icon(
                       Icons.closed_caption,
@@ -250,75 +205,25 @@ class _AddBlogState extends State<AddBlog> {
                     contentPadding:
                     EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
                     border: OutlineInputBorder(
-                      borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                      borderSide:BorderSide(color: Colors.cyan, width: 1.0),
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                      borderSide:BorderSide(color: Colors.cyan, width: 1.0),
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide:BorderSide(color: Colors.purple, width: 1.0),
+                      borderSide:BorderSide(color: Colors.cyan, width: 1.0),
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
                   ),
                 ),
               ),
-              // Text(
-              //   "Price",
-              //   style: TextStyle(
-              //     fontWeight: FontWeight.bold,
-              //     fontSize:20,
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-              //   child: TextFormField(
-              //     keyboardType: TextInputType.number,
-              //     onChanged: (value) {
-              //       setState(() {
-              //         _price= value as int;
-              //       });
-              //     },
-              //     validator:(value){
-              //       if(value.isEmpty)
-              //       {
-              //         return "Price field cannot be empty";
-              //       }
-              //       return null;
-              //     },
-              //     decoration: InputDecoration(
-              //       errorStyle: TextStyle(color:Colors.purple),
-              //       prefixIcon: Icon(
-              //         Icons.money,
-              //         color: Colors.purple,
-              //       ),
-              //       hintText: 'Add Price',
-              //       hintStyle:TextStyle(
-              //         color:Colors.purple,
-              //       ),
-              //       contentPadding:
-              //       EdgeInsets.symmetric(vertical: 18.0, horizontal: 20.0),
-              //       border: OutlineInputBorder(
-              //         borderSide:BorderSide(color: Colors.purple, width: 1.0),
-              //         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              //       ),
-              //       enabledBorder: OutlineInputBorder(
-              //         borderSide:BorderSide(color: Colors.purple, width: 1.0),
-              //         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              //       ),
-              //       focusedBorder: OutlineInputBorder(
-              //         borderSide:BorderSide(color: Colors.purple, width: 1.0),
-              //         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              //       ),
-              //     ),
-              //   ),
-              // ),
               SizedBox(height:10.0),
               Center(
                 child:CircleAvatar(
                   radius:30.0,
-                  backgroundColor: Colors.purple,
+                  backgroundColor: Colors.cyan,
                   child:IconButton(icon: Icon(
                     Icons.done,
                     color: Colors.white,
@@ -332,46 +237,6 @@ class _AddBlogState extends State<AddBlog> {
                 ),
               ),
               SizedBox(height:10.0),
-              // Center(
-              //   child: RaisedButton(
-              //     child:Padding(
-              //       padding: const EdgeInsets.all(4.0),
-              //       child: Text('Add Post',
-              //           style:TextStyle(
-              //             color: Colors.white,
-              //           )),
-              //     ),
-              //     shape:RoundedRectangleBorder(
-              //         borderRadius:new BorderRadius.circular(10.0)),
-              //     hoverColor: Colors.purple,
-              //     highlightColor: Colors.purple,
-              //     highlightElevation: 0.5,
-              //     color: Colors.purple,
-              //     onPressed: () {
-              //       if(_formKey.currentState.validate())
-              //         {
-              //           blogManagement().StoreBlog(_imageFile,_location,_caption,context);
-              //           // _scaffoldKey.currentState.showSnackBar(
-              //           //     new SnackBar(
-              //           //       content: new Text('Your Blog has been Added.',
-              //           //           style:TextStyle(
-              //           //             color:Colors.white,
-              //           //           )),
-              //           //       action: SnackBarAction(
-              //           //         label: 'ok',
-              //           //         onPressed: () {
-              //           //           Navigator.push(
-              //           //             context,
-              //           //             MaterialPageRoute(builder: (context) => Home()),
-              //           //           );
-              //           //         },
-              //           //       ),
-              //           //       backgroundColor: Colors.green.withOpacity(0.8),
-              //           //     )
-              //           // );
-              //         }
-              //     },),
-              // ),
             ],
           )
         ),

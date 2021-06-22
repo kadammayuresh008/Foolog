@@ -30,10 +30,10 @@ class _LoginState extends State<Login> {
                     end: Alignment
                         .bottomCenter, // 10% of the width, so there are ten blinds.
                     colors: [
-                      Colors.purple[600],
-                      Colors.purple[500],
-                      Colors.purple[400],
-                      Colors.purple[300],
+                      Colors.cyan[700],
+                      Colors.cyan[600],
+                      Colors.cyan[500],
+                      Colors.cyan[400],
                       Colors.white,
                     ], // red to yellow
                     tileMode: TileMode.repeated,
@@ -73,27 +73,27 @@ class _LoginState extends State<Login> {
                           errorStyle: TextStyle(color: Colors.white),
                           prefixIcon: Icon(
                             Icons.email_sharp,
-                            color: Colors.purple,
+                            color: Colors.cyan,
                           ),
                           hintText: 'Enter Email',
                           hintStyle: TextStyle(
-                            color: Colors.purple,
+                            color: Colors.cyan,
                           ),
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 18.0, horizontal: 20.0),
                           border: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.purple, width: 1.0),
+                                BorderSide(color: Colors.cyan, width: 1.0),
                             borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.purple, width: 1.0),
+                                BorderSide(color: Colors.cyan, width: 1.0),
                             borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.purple, width: 1.0),
+                                BorderSide(color: Colors.cyan, width: 1.0),
                             borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           ),
                         ),
@@ -118,27 +118,27 @@ class _LoginState extends State<Login> {
                           errorStyle: TextStyle(color: Colors.white),
                           prefixIcon: Icon(
                             Icons.vpn_key,
-                            color: Colors.purple,
+                            color: Colors.cyan,
                           ),
                           hintText: 'Enter password',
                           hintStyle: TextStyle(
-                            color: Colors.purple,
+                            color: Colors.cyan,
                           ),
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 18.0, horizontal: 20.0),
                           border: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.purple, width: 1.0),
+                                BorderSide(color: Colors.cyan, width: 1.0),
                             borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.purple, width: 1.0),
+                                BorderSide(color: Colors.cyan, width: 1.0),
                             borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.purple, width: 1.0),
+                                BorderSide(color: Colors.cyan, width: 1.0),
                             borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           ),
                         ),
@@ -158,7 +158,7 @@ class _LoginState extends State<Login> {
                         // borderSide: BorderSide(width:1.0,
                         //     color:Colors.white,
                         //     ),
-                        color: Colors.purple,
+                        color: Colors.cyan[700],
                         onPressed: () async{
                           if(_formKey.currentState.validate())
                             {
@@ -215,7 +215,7 @@ class _LoginState extends State<Login> {
                           },
                             child:Text("Sign up",
                               style: TextStyle(
-                                color: Colors.purple,
+                                color: Colors.cyan[700],
                                 fontSize: 18.0,
                               )),)
                         ],

@@ -25,7 +25,7 @@ class _CommentPageState extends State<CommentPage> {
           return BlogList==null?
           Center(
               child:CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.cyan),
                 backgroundColor: Colors.white,
                 )):Scaffold(
               body: ListView.builder(
@@ -73,7 +73,7 @@ class _CommentPageState extends State<CommentPage> {
                 child: TextFormField(
                   controller: _commController,
                   decoration: InputDecoration(
-                    errorStyle: TextStyle(color: Colors.purple),
+                    errorStyle: TextStyle(color: Colors.cyan),
                     prefixIcon: IconButton(
                       icon: Icon(
                         Icons.comment,
