@@ -7,15 +7,16 @@ Foolog is flutter and firebase based mobile app
 
 ### Features!
   - Social media platform like instagram
-  - User can add/delete post.
+  - User can add/delete/edit post.
   - User can like/dislike other user post.
-  - User can Follow/Unfollow other user.
-  - He can update/delete profile/post.
+  - User can search and Follow/Unfollow other user.
+  - He can update/delete/edit profile.
+  - One to one chat functionality
 
 
 ### Technology Stack
 [![](https://img.shields.io/badge/Made_with-Flutter-blue?style=for-the-badge&logo=flutter)](https://flutter.dev/docs)
-[![](https://img.shields.io/badge/Made_with-Firebase-orange?style=for-the-badge&logo=firebase)](https://firebase.google.com/)
+[![](https://img.shields.io/badge/Made_with-Firebase-orange?style=for-the-badge&logo=firebase)](https://firebase.google.com/)</br>
 [![](https://img.shields.io/badge/Made_with-SocketIo-purple?style=for-the-badge&logo=socketIo)](https://socket.io/)
 [![](https://img.shields.io/badge/IDE-Android_Studio-red?style=for-the-badge&logo=android-studio)](https://developer.android.com/studio "Android studio")
 
