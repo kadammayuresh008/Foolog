@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
     return StreamProvider<Users>.value(
       value:AuthService().user,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: "Foolog",
         home: Wrapper(),
       ),
