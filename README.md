@@ -21,6 +21,15 @@ Foolog is flutter and firebase based mobile app
 
 
 ### Screenshots
+<table>
+<tr>
+    <td><img  src="./Snapshots/Login.png" width="250" title="" width=270 height=480></td>
+    <td><img src="./Snapshots/SignUp.png" width="250" title="" width=270 height=480></td>
+    <td><img src="./Snapshots/home.png" width="250" width=270 height=480></td>
+  </tr>  
+</table>
+
+### Screenshots
 <p float="left">
   <img src="./Snapshots/Login.png" width="250" title="">
   <img src="./Snapshots/SignUp.png" width="250" title="">
